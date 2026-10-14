@@ -2,15 +2,15 @@
 
 // India-based animal photographs and species-matched bird calls from Wikimedia Commons. See credits.html for attribution.
 const animals = [
-  {name:'Cat', noise:'Meow!', emoji:'🐱', color:'#ffe6d2', photo:'Indian cat.jpg', sound:'Meow.ogg'},
-  {name:'Dog', noise:'Woof!', emoji:'🐶', color:'#ece6ff', photo:'Indian Pariah Puppy Dog.jpg', sound:'Barking_of_a_dog.ogg'},
+  {name:'Cat', noise:'Meow!', emoji:'🐱', color:'#ffe6d2', photo:'Sitting Cat 02.jpg', sound:'Meow.ogg'},
+  {name:'Dog', noise:'Woof!', emoji:'🐶', color:'#ece6ff', photo:'Cute Indog Puppy 01.jpg', sound:'Barking_of_a_dog.ogg'},
   {name:'Cow', noise:'Moo!', emoji:'🐮', color:'#f9e5ee', photo:'Indian Cow.jpg', sound:'Single_Cow_Moo.ogg'},
-  {name:'Lion', noise:'Roar!', emoji:'🦁', color:'#fff0c6', photo:'Asiatic Lion at Devaliya Gir.jpg', sound:'Lion_raring-sound1TamilNadu178.ogg'},
+  {name:'Lion', noise:'Roar!', emoji:'🦁', color:'#fff0c6', photo:'Asiatic Lion.jpg', sound:'Lion_raring-sound1TamilNadu178.ogg'},
   {name:'Elephant', noise:'Trumpet!', emoji:'🐘', color:'#ddf1f5', photo:'Indian Elephant.jpeg', sound:'Elephant_voice_-_trumpeting.ogg'},
   {name:'Duck', noise:'Quack!', emoji:'🦆', color:'#e8f1d5', photo:'Indian Spot-billed duck.jpg', sound:'Anas poecilorhyncha - Indian Spot-billed Duck - XC114233.ogg'},
-  {name:'Sheep', noise:'Baa!', emoji:'🐑', color:'#fbe4eb', photo:'PGRIAS sheep.jpg', sound:'Sheep_bleating.ogg'},
+  {name:'Sheep', noise:'Baa!', emoji:'🐑', color:'#fbe4eb', photo:'Cute lambs.jpg', sound:'Sheep_bleating.ogg'},
   {name:'Crow', noise:'Caw!', emoji:'🐦‍⬛', color:'#e6eaf9', photo:'Indian Crow.jpg', sound:'Crow.ogg'},
-  {name:'Pigeon', noise:'Coo!', emoji:'🕊️', color:'#e8eef5', photo:'Common Pigeon.jpg', sound:'Dove_cooing.ogg'},
+  {name:'Pigeon', noise:'Coo!', emoji:'🕊️', color:'#e8eef5', photo:'Male Indian pigeon.jpg', sound:'Dove_cooing.ogg'},
   {name:'Cuckoo', noise:'Cuckoo!', emoji:'🐦', color:'#f7ead3', photo:'Indian Cuckoo.jpg', sound:'IndianCuckoo.ogg'}
 ];
 
