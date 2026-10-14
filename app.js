@@ -3,7 +3,7 @@
 // India-based animal photographs and species-matched bird calls from Wikimedia Commons. See credits.html for attribution.
 const animals = [
   {name:'Cat', noise:'Meow!', emoji:'🐱', color:'#ffe6d2', photo:'Sitting Cat 02.jpg', sound:'Meow.ogg'},
-  {name:'Dog', noise:'Woof!', emoji:'🐶', color:'#ece6ff', photo:'Cute Indog Puppy 01.jpg', sound:'Barking_of_a_dog.ogg'},
+  {name:'Dog', noise:'Woof!', emoji:'🐶', color:'#ece6ff', photo:'Indog Puppy Playing.jpg', sound:'Barking_of_a_dog.ogg'},
   {name:'Cow', noise:'Moo!', emoji:'🐮', color:'#f9e5ee', photo:'Indian Cow.jpg', sound:'Single_Cow_Moo.ogg'},
   {name:'Lion', noise:'Roar!', emoji:'🦁', color:'#fff0c6', photo:'Asiatic Lion.jpg', sound:'Lion_raring-sound1TamilNadu178.ogg'},
   {name:'Elephant', noise:'Trumpet!', emoji:'🐘', color:'#ddf1f5', photo:'Indian Elephant.jpeg', sound:'Elephant_voice_-_trumpeting.ogg'},
