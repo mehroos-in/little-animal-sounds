@@ -43,6 +43,7 @@ const swapNext = lightbox.querySelector('.swap-next');
 function stopEverything() {
   currentSoundId += 1;
   clearTimeout(voiceDoneTimer);
+  try { window.AndroidSpeech?.stop?.(); } catch (_) {}
   try { window.speechSynthesis?.cancel(); } catch (_) {}
   try { audio.pause(); audio.removeAttribute('src'); audio.load(); } catch (_) {}
 }
@@ -54,6 +55,10 @@ function closeLarge() {
   selected = null;
 }
 function sayName(name) {
+  if (window.AndroidSpeech && typeof window.AndroidSpeech.say === 'function') {
+    window.AndroidSpeech.say(name);
+    return;
+  }
   if (!('speechSynthesis' in window)) {
     status.textContent = 'Voice not supported by this browser. Read the name on screen.';
     return;
