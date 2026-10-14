@@ -10,7 +10,7 @@ const animals = [
   {name:'Duck', noise:'Quack!', emoji:'🦆', color:'#e8f1d5', photo:'Indian Spot-billed duck.jpg', sound:'Anas poecilorhyncha - Indian Spot-billed Duck - XC114233.ogg'},
   {name:'Sheep', noise:'Baa!', emoji:'🐑', color:'#fbe4eb', photo:'Cute lambs.jpg', sound:'Sheep_bleating.ogg'},
   {name:'Crow', noise:'Caw!', emoji:'🐦‍⬛', color:'#e6eaf9', photo:'Indian Crow.jpg', sound:'Crow.ogg'},
-  {name:'Pigeon', noise:'Coo!', emoji:'🕊️', color:'#e8eef5', photo:'Male Indian pigeon.jpg', sound:'Dove_cooing.ogg'},
+  {name:'Pigeon', noise:'Coo!', emoji:'🕊️', color:'#e8eef5', photo:'Indian pigeon 1.jpg', sound:'Dove_cooing.ogg'},
   {name:'Cuckoo', noise:'Cuckoo!', emoji:'🐦', color:'#f7ead3', photo:'Indian Cuckoo.jpg', sound:'IndianCuckoo.ogg'}
 ];
 
