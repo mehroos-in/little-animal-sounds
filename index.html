@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FFF7EA">
+  <meta name="description" content="A free, simple animal photo and real animal sound game for little learners.">
+  <title>Little Animal Sounds — Tap & Listen!</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="topline"><span class="eyebrow"><span class="sparkle">✦</span> LITTLE LEARNERS CLUB</span><span class="top-star">✳</span></div>
+      <div class="hero-copy"><div class="headline-wrap"><span aria-hidden="true" class="giraffe">🦒</span><div><h1>Hello, little <em>explorer!</em></h1><p>Tap an animal to hear its sound.</p></div></div></div>
+      <div class="hero-bottom"><div class="chip"><span aria-hidden="true">🔊</span> Turn your sound on</div><span class="sun" aria-hidden="true">☀️</span></div>
+    </header>
+    <main>
+      <div class="section-heading"><h2>Meet the animals <span aria-hidden="true">🐾</span></h2><span class="count">8 friends to discover</span></div>
+      <div class="animal-grid" id="animals" aria-label="Animal sound buttons"></div>
+      <div class="status" id="status" role="status" aria-live="polite" aria-atomic="true">Choose your first animal!</div>
+      <div class="footer-note"><span aria-hidden="true">✨</span> Made for tiny hands and big smiles <span aria-hidden="true">✨</span></div>
+    </main>
+    <footer><a href="credits.html">Photo & sound credits</a><span>•</span><span>Free to play · No ads · No accounts</span></footer>
+  </div>
+  <audio id="sound-player" preload="none" playsinline></audio>
+</body>
+</html>
