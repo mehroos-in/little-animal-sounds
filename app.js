@@ -9,7 +9,7 @@ const animals = [
   {name:'Elephant', noise:'Trumpet!', emoji:'🐘', color:'#ddf1f5', photo:'African_elephant_shakes_its_trunk.jpg', sound:'Elephant_voice_-_trumpeting.ogg'},
   {name:'Duck', noise:'Quack!', emoji:'🦆', color:'#e8f1d5', photo:'Mallard_duck_close-up.jpg', sound:'Anas_platyrhynchos_-_Mallard_-_XC62258.ogg'},
   {name:'Sheep', noise:'Baa!', emoji:'🐑', color:'#fbe4eb', photo:'Sheep_bleating.jpg', sound:'Sheep_bleating.ogg'},
-  {name:'Crow', noise:'Caw!', emoji:'🐦‍⬛', color:'#e6eaf9', photo:'House_Crow_perched,_blue_sky_in_the_background.jpg', sound:'Crow.ogg'},
+  {name:'Crow', noise:'Caw!', emoji:'🐦‍⬛', color:'#e6eaf9', photo:'Adult_and_baby_crow.jpg', sound:'Crow.ogg'},
   {name:'Pigeon', noise:'Coo!', emoji:'🕊️', color:'#e8eef5', photo:'Pigeon_portrait_4861.jpg', sound:'Dove_cooing.ogg'},
   {name:'Cuckoo', noise:'Cuckoo!', emoji:'🐦', color:'#f7ead3', photo:'Common_Cuckoo_-_Cuculus_canorus.jpg', sound:'Common_Cuckoo_(Cuculus_canorus)_(W1CDR0001463_BD1).ogg'}
 ];
