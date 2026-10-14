@@ -2,16 +2,16 @@
 
 // Photos and real animal calls: Wikimedia Commons. Attribution links in credits.html.
 const animals = [
-  {name:'Cat', noise:'Meow!', emoji:'🐱', color:'#ffe6d2', photo:'Cat_closeup.jpg', sound:'Meow.ogg'},
-  {name:'Dog', noise:'Woof!', emoji:'🐶', color:'#ece6ff', photo:'Golden-retriever-dog.jpg', sound:'Barking_of_a_dog.ogg'},
-  {name:'Cow', noise:'Moo!', emoji:'🐮', color:'#f9e5ee', photo:'Cow_head_1.jpg', sound:'Single_Cow_Moo.ogg'},
-  {name:'Lion', noise:'Roar!', emoji:'🦁', color:'#fff0c6', photo:'Male_lion_walking.jpg', sound:'Lion_raring-sound1TamilNadu178.ogg'},
-  {name:'Elephant', noise:'Trumpet!', emoji:'🐘', color:'#ddf1f5', photo:'African_elephant_shakes_its_trunk.jpg', sound:'Elephant_voice_-_trumpeting.ogg'},
-  {name:'Duck', noise:'Quack!', emoji:'🦆', color:'#e8f1d5', photo:'Mallard_duck_close-up.jpg', sound:'Anas_platyrhynchos_-_Mallard_-_XC62258.ogg'},
-  {name:'Sheep', noise:'Baa!', emoji:'🐑', color:'#fbe4eb', photo:'Sheep_bleating.jpg', sound:'Sheep_bleating.ogg'},
-  {name:'Crow', noise:'Caw!', emoji:'🐦‍⬛', color:'#e6eaf9', photo:'Adult_and_baby_crow.jpg', sound:'Crow.ogg'},
+  {name:'Cat', noise:'Meow!', emoji:'🐱', color:'#ffe6d2', photo:'Cat_sitting_with_beautiful_posture.jpg', sound:'Meow.ogg'},
+  {name:'Dog', noise:'Woof!', emoji:'🐶', color:'#ece6ff', photo:'Golden_Retriever_Dog_Sitting.jpg', sound:'Barking_of_a_dog.ogg'},
+  {name:'Cow', noise:'Moo!', emoji:'🐮', color:'#f9e5ee', photo:'Cow_standing_on_a_field.jpg', sound:'Single_Cow_Moo.ogg'},
+  {name:'Lion', noise:'Roar!', emoji:'🦁', color:'#fff0c6', photo:'Male_Lion_Sitting.jpg', sound:'Lion_raring-sound1TamilNadu178.ogg'},
+  {name:'Elephant', noise:'Trumpet!', emoji:'🐘', color:'#ddf1f5', photo:'African_elephant_standing.jpg', sound:'Elephant_voice_-_trumpeting.ogg'},
+  {name:'Duck', noise:'Quack!', emoji:'🦆', color:'#e8f1d5', photo:'Male_mallard_standing.jpg', sound:'Anas_platyrhynchos_-_Mallard_-_XC62258.ogg'},
+  {name:'Sheep', noise:'Baa!', emoji:'🐑', color:'#fbe4eb', photo:'Sheep_in_a_field_in_Alsager_06.jpg', sound:'Sheep_bleating.ogg'},
+  {name:'Crow', noise:'Caw!', emoji:'🐦‍⬛', color:'#e6eaf9', photo:'Common_crow.jpg', sound:'Crow.ogg'},
   {name:'Pigeon', noise:'Coo!', emoji:'🕊️', color:'#e8eef5', photo:'Pigeon_portrait_4861.jpg', sound:'Dove_cooing.ogg'},
-  {name:'Cuckoo', noise:'Cuckoo!', emoji:'🐦', color:'#f7ead3', photo:'Common_Cuckoo_-_Cuculus_canorus.jpg', sound:'Common_Cuckoo_(Cuculus_canorus)_(W1CDR0001463_BD1).ogg'}
+  {name:'Cuckoo', noise:'Cuckoo!', emoji:'🐦', color:'#f7ead3', photo:'Common_cuckoo_(Cuculus_canorus)_bird.jpg', sound:'Common_Cuckoo_(Cuculus_canorus)_(W1CDR0001463_BD1).ogg'}
 ];
 
 const media = (name, width) => 'https://commons.wikimedia.org/wiki/Special:Redirect/file/' + encodeURIComponent(name) + (width ? '?width=' + width : '');
@@ -29,6 +29,7 @@ lightbox.innerHTML = '<div class="lightbox-panel" role="dialog" aria-modal="true
   '<button type="button" class="lightbox-close" aria-label="Close enlarged picture">✕</button>' +
   '<button type="button" class="large-animal" aria-label="Play animal sound"><span class="big-emoji"></span><img class="large-photo" alt=""></button>' +
   '<div class="large-label" id="large-name"></div><p class="lightbox-instruction">Tap the big picture for the real sound! 🔊</p>' +
+  '<div class="swap-navigation"><button class="swap-prev" type="button" aria-label="Previous animal">❮ Previous</button><span class="swap-count" aria-live="off"></span><button class="swap-next" type="button" aria-label="Next animal">Next ❯</button></div>' +
   '</div>';
 document.body.append(lightbox);
 const bigButton = lightbox.querySelector('.large-animal');
@@ -36,6 +37,8 @@ const bigImage = lightbox.querySelector('.large-photo');
 const bigEmoji = lightbox.querySelector('.big-emoji');
 const bigName = lightbox.querySelector('.large-label');
 const closeButton = lightbox.querySelector('.lightbox-close');
+const swapPrev = lightbox.querySelector('.swap-prev');
+const swapNext = lightbox.querySelector('.swap-next');
 
 function stopEverything() {
   currentSoundId += 1;
@@ -69,6 +72,8 @@ function openLarge(animal, button) {
   bigImage.alt = 'Large clear photograph of a ' + animal.name.toLowerCase();
   bigEmoji.textContent = animal.emoji;
   bigName.textContent = animal.name;
+  lightbox.querySelector('.swap-count').textContent = (animals.indexOf(animal) + 1) + ' / ' + animals.length;
+  lightbox.querySelector('.lightbox-instruction').textContent = 'Tap the big picture for the real sound! 🔊';
   lightbox.hidden = false;
   document.body.classList.add('modal-open');
   status.textContent = '🗣️ ' + animal.name + ' — tap enlarged image to hear its sound.';
@@ -122,9 +127,40 @@ for (const animal of animals) {
   });
   grid.append(button);
 }
+function swapAnimal(step) {
+  if (!selected) return;
+  const current = animals.indexOf(selected.animal);
+  const nextIndex = (current + step + animals.length) % animals.length;
+  const next = animals[nextIndex];
+  openLarge(next, grid.children[nextIndex]);
+}
+swapPrev.addEventListener('click', () => swapAnimal(-1));
+swapNext.addEventListener('click', () => swapAnimal(1));
+let startX = null, startY = null;
+const swipeArea = lightbox.querySelector('.large-animal');
+swipeArea.addEventListener('touchstart', e => {
+  if (e.touches.length !== 1) return;
+  startX = e.touches[0].clientX;
+  startY = e.touches[0].clientY;
+}, {passive:true});
+swipeArea.addEventListener('touchend', e => {
+  if (startX === null || !e.changedTouches.length) return;
+  const deltaX = e.changedTouches[0].clientX - startX;
+  const deltaY = e.changedTouches[0].clientY - startY;
+  startX = null;
+  if (Math.abs(deltaX) > 55 && Math.abs(deltaX) > Math.abs(deltaY) * 1.25) {
+    if (e.cancelable) e.preventDefault();
+    swapAnimal(deltaX < 0 ? 1 : -1);
+  }
+}, {passive:false});
 bigButton.addEventListener('click', playRealSound);
 closeButton.addEventListener('click', closeLarge);
 lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLarge(); });
-window.addEventListener('keydown', e => { if (e.key === 'Escape' && !lightbox.hidden) closeLarge(); });
+window.addEventListener('keydown', e => {
+  if (lightbox.hidden) return;
+  if (e.key === 'Escape') closeLarge();
+  else if (e.key === 'ArrowLeft') swapAnimal(-1);
+  else if (e.key === 'ArrowRight') swapAnimal(1);
+});
 audio.addEventListener('error', () => { if (selected && audio.src) status.textContent = 'Recording could not play. Tap again to retry.'; });
 status.textContent = 'Tap a picture to hear the name, then tap the BIG picture to hear the sound!';
