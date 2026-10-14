@@ -1,17 +1,17 @@
 'use strict';
 
-// Photos and real animal calls: Wikimedia Commons. Attribution links in credits.html.
+// India-based animal photographs and species-matched bird calls from Wikimedia Commons. See credits.html for attribution.
 const animals = [
-  {name:'Cat', noise:'Meow!', emoji:'🐱', color:'#ffe6d2', photo:'Cat_sitting_with_beautiful_posture.jpg', sound:'Meow.ogg'},
-  {name:'Dog', noise:'Woof!', emoji:'🐶', color:'#ece6ff', photo:'Golden_Retriever_Dog_Sitting.jpg', sound:'Barking_of_a_dog.ogg'},
-  {name:'Cow', noise:'Moo!', emoji:'🐮', color:'#f9e5ee', photo:'Cow_standing_on_a_field.jpg', sound:'Single_Cow_Moo.ogg'},
-  {name:'Lion', noise:'Roar!', emoji:'🦁', color:'#fff0c6', photo:'Male_Lion_Sitting.jpg', sound:'Lion_raring-sound1TamilNadu178.ogg'},
-  {name:'Elephant', noise:'Trumpet!', emoji:'🐘', color:'#ddf1f5', photo:'African_elephant_standing.jpg', sound:'Elephant_voice_-_trumpeting.ogg'},
-  {name:'Duck', noise:'Quack!', emoji:'🦆', color:'#e8f1d5', photo:'Male_mallard_standing.jpg', sound:'Anas_platyrhynchos_-_Mallard_-_XC62258.ogg'},
-  {name:'Sheep', noise:'Baa!', emoji:'🐑', color:'#fbe4eb', photo:'Sheep_in_a_field_in_Alsager_06.jpg', sound:'Sheep_bleating.ogg'},
-  {name:'Crow', noise:'Caw!', emoji:'🐦‍⬛', color:'#e6eaf9', photo:'Common_crow.jpg', sound:'Crow.ogg'},
-  {name:'Pigeon', noise:'Coo!', emoji:'🕊️', color:'#e8eef5', photo:'Pigeon_portrait_4861.jpg', sound:'Dove_cooing.ogg'},
-  {name:'Cuckoo', noise:'Cuckoo!', emoji:'🐦', color:'#f7ead3', photo:'Common_cuckoo_(Cuculus_canorus)_bird.jpg', sound:'Common_Cuckoo_(Cuculus_canorus)_(W1CDR0001463_BD1).ogg'}
+  {name:'Cat', noise:'Meow!', emoji:'🐱', color:'#ffe6d2', photo:'Indian cat.jpg', sound:'Meow.ogg'},
+  {name:'Dog', noise:'Woof!', emoji:'🐶', color:'#ece6ff', photo:'Indian Pariah Puppy Dog.jpg', sound:'Barking_of_a_dog.ogg'},
+  {name:'Cow', noise:'Moo!', emoji:'🐮', color:'#f9e5ee', photo:'Indian Cow.jpg', sound:'Single_Cow_Moo.ogg'},
+  {name:'Lion', noise:'Roar!', emoji:'🦁', color:'#fff0c6', photo:'Asiatic Lion at Devaliya Gir.jpg', sound:'Lion_raring-sound1TamilNadu178.ogg'},
+  {name:'Elephant', noise:'Trumpet!', emoji:'🐘', color:'#ddf1f5', photo:'Indian Elephant.jpeg', sound:'Elephant_voice_-_trumpeting.ogg'},
+  {name:'Duck', noise:'Quack!', emoji:'🦆', color:'#e8f1d5', photo:'Indian Spot-billed duck.jpg', sound:'Anas poecilorhyncha - Indian Spot-billed Duck - XC114233.ogg'},
+  {name:'Sheep', noise:'Baa!', emoji:'🐑', color:'#fbe4eb', photo:'PGRIAS sheep.jpg', sound:'Sheep_bleating.ogg'},
+  {name:'Crow', noise:'Caw!', emoji:'🐦‍⬛', color:'#e6eaf9', photo:'Indian Crow.jpg', sound:'Crow.ogg'},
+  {name:'Pigeon', noise:'Coo!', emoji:'🕊️', color:'#e8eef5', photo:'Common Pigeon.jpg', sound:'Dove_cooing.ogg'},
+  {name:'Cuckoo', noise:'Cuckoo!', emoji:'🐦', color:'#f7ead3', photo:'Indian Cuckoo.jpg', sound:'IndianCuckoo.ogg'}
 ];
 
 const media = (name, width) => 'https://commons.wikimedia.org/wiki/Special:Redirect/file/' + encodeURIComponent(name) + (width ? '?width=' + width : '');
