@@ -13,7 +13,7 @@ const animals = [
   {name:'Pigeon', noise:'Coo!', emoji:'🕊️', color:'#e8eef5', photo:'Indian pigeon 1.jpg', sound:'Dove_cooing.ogg'},
   {name:'Cuckoo', noise:'Cuckoo!', emoji:'🐦', color:'#f7ead3', photo:'Indian Cuckoo.jpg', sound:'IndianCuckoo.ogg'},
   {name:'Rooster', noise:'Cock-a-doodle-doo!', emoji:'🐓', color:'#ffecd4', photo:'Rooster (walking).jpg', sound:'Rooster crowing.ogg', category:'Birds'},
-  {name:'Tiger', noise:'Roar!', emoji:'🐅', color:'#ffe5bf', photo:'Bengal tiger.jpg', sound:'Tiger roar.ogg', category:'Wild Animals'}
+  {name:'Tiger', noise:'Roar!', emoji:'🐅', color:'#ffe5bf', photo:'BengalTiger.jpg', sound:'SibirischerTigerHagenbeck.ogg', category:'Wild Animals'}
 ];
 
 const categoryFor = animal => animal.category || (['Cat','Dog','Cow','Sheep'].includes(animal.name) ? 'Domestic Animals' : ['Lion','Elephant'].includes(animal.name) ? 'Wild Animals' : 'Birds');
