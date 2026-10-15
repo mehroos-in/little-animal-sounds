@@ -12,9 +12,24 @@ const animals = [
   {name:'Crow', noise:'Caw!', emoji:'🐦‍⬛', color:'#e6eaf9', photo:'Indian Crow.jpg', sound:'Crow.ogg'},
   {name:'Pigeon', noise:'Coo!', emoji:'🕊️', color:'#e8eef5', photo:'Indian pigeon 1.jpg', sound:'Dove_cooing.ogg'},
   {name:'Cuckoo', noise:'Cuckoo!', emoji:'🐦', color:'#f7ead3', photo:'Indian Cuckoo.jpg', sound:'IndianCuckoo.ogg'},
-  {name:'Rooster', noise:'Cock-a-doodle-doo!', emoji:'🐓', color:'#ffecd4', photo:'Rooster (walking).jpg', sound:'Rooster crowing.ogg'}
+  {name:'Rooster', noise:'Cock-a-doodle-doo!', emoji:'🐓', color:'#ffecd4', photo:'Rooster (walking).jpg', sound:'Rooster crowing.ogg', category:'Birds'},
+  {name:'Tiger', noise:'Roar!', emoji:'🐅', color:'#ffe5bf', photo:'Bengal tiger.jpg', sound:'Tiger roar.ogg', category:'Wild Animals'}
 ];
 
+const categoryFor = animal => animal.category || (['Cat','Dog','Cow','Sheep'].includes(animal.name) ? 'Domestic Animals' : ['Lion','Elephant'].includes(animal.name) ? 'Wild Animals' : 'Birds');
+const categoryTabs = document.getElementById('category-tabs');
+let activeCategory = 'All';
+const categories = ['All','Domestic Animals','Wild Animals','Birds'];
+function applyCategory(category) {
+ activeCategory = category;
+ for (const button of grid.children) button.hidden = category !== 'All' && button.dataset.category !== category;
+ for (const tab of categoryTabs.children) { const on = tab.dataset.category === category; tab.setAttribute('aria-pressed', String(on)); tab.classList.toggle('active', on); }
+ document.querySelector('.count').textContent = (category === 'All' ? animals.length : animals.filter(a=>categoryFor(a)===category).length) + ' friends to discover';
+}
+for (const category of categories) {
+ const tab = document.createElement('button'); tab.type='button'; tab.className='category-tab'; tab.dataset.category=category;tab.textContent=category === 'All'?'🌈 All':category==='Domestic Animals'?'🐶 Domestic Animals':category==='Wild Animals'?'🐅 Wild Animals':'🐦 Birds';
+ tab.addEventListener('click',()=>applyCategory(category)); categoryTabs.append(tab);
+}
 const media = (name, width) => 'https://commons.wikimedia.org/wiki/Special:Redirect/file/' + encodeURIComponent(name) + (width ? '?width=' + width : '');
 const grid = document.getElementById('animals');
 const audio = document.getElementById('sound-player');
@@ -108,6 +123,7 @@ async function playRealSound() {
 for (const animal of animals) {
   const button = document.createElement('button');
   button.className = 'animal';
+  button.dataset.category = categoryFor(animal);
   button.type = 'button';
   button.style.setProperty('--card', animal.color);
   button.setAttribute('aria-label', animal.name + '. Tap to hear the name and enlarge the picture.');
@@ -133,6 +149,7 @@ for (const animal of animals) {
   });
   grid.append(button);
 }
+applyCategory('All');
 function swapAnimal(step) {
   if (!selected) return;
   const current = animals.indexOf(selected.animal);
