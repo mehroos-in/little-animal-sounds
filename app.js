@@ -12,7 +12,7 @@ const animals = [
   {name:'Crow', noise:'Caw!', emoji:'🐦‍⬛', color:'#e6eaf9', photo:'Indian Crow.jpg', sound:'Crow.ogg'},
   {name:'Pigeon', noise:'Coo!', emoji:'🕊️', color:'#e8eef5', photo:'Indian pigeon 1.jpg', sound:'Dove_cooing.ogg'},
   {name:'Cuckoo', noise:'Cuckoo!', emoji:'🐦', color:'#f7ead3', photo:'Indian Cuckoo.jpg', sound:'IndianCuckoo.ogg'},
-  {name:'Rooster', noise:'Cock-a-doodle-doo!', emoji:'🐓', color:'#ffecd4', photo:'White Rooster.jpg', sound:'Rooster crowing.ogg'}
+  {name:'Rooster', noise:'Cock-a-doodle-doo!', emoji:'🐓', color:'#ffecd4', photo:'Rooster (walking).jpg', sound:'Rooster crowing.ogg'}
 ];
 
 const media = (name, width) => 'https://commons.wikimedia.org/wiki/Special:Redirect/file/' + encodeURIComponent(name) + (width ? '?width=' + width : '');
