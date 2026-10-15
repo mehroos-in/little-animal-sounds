@@ -59,3 +59,11 @@
 .photo img[hidden], .large-photo[hidden] {
   display: none;
 }
+
+/* Large toddler-friendly category filters */
+.category-tabs{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 20px}
+.category-tab{border:2px solid #d9e8d7;border-radius:999px;background:#fff;color:#255944;padding:12px 18px;font-size:15px;font-weight:800;cursor:pointer;min-height:48px}
+.category-tab.active{background:#255944;color:#fff;border-color:#255944}
+.category-tab:focus-visible{outline:3px solid #f29b62;outline-offset:3px}
+.animal[hidden]{display:none!important}
+@media(max-width:570px){.category-tabs{gap:8px}.category-tab{font-size:13px;padding:10px 12px;flex:1 1 auto}}
