@@ -2,18 +2,21 @@
 
 // India-based animal photographs and species-matched bird calls from Wikimedia Commons. See credits.html for attribution.
 const animals = [
-  {name:'Cat', noise:'Meow!', emoji:'🐱', color:'#ffe6d2', photo:'Sitting Cat 02.jpg', sound:'Meow.ogg'},
-  {name:'Dog', noise:'Woof!', emoji:'🐶', color:'#ece6ff', photo:'Indog Puppy Playing.jpg', sound:'Barking_of_a_dog.ogg'},
-  {name:'Cow', noise:'Moo!', emoji:'🐮', color:'#f9e5ee', photo:'Indian Cow.jpg', sound:'Single_Cow_Moo.ogg'},
-  {name:'Lion', noise:'Roar!', emoji:'🦁', color:'#fff0c6', photo:'Asiatic Lion.jpg', sound:'Lion_raring-sound1TamilNadu178.ogg'},
-  {name:'Elephant', noise:'Trumpet!', emoji:'🐘', color:'#ddf1f5', photo:'Indian Elephant.jpeg', sound:'Elephant_voice_-_trumpeting.ogg'},
-  {name:'Duck', noise:'Quack!', emoji:'🦆', color:'#e8f1d5', photo:'Indian Spot-billed duck.jpg', sound:'Anas poecilorhyncha - Indian Spot-billed Duck - XC114233.ogg'},
-  {name:'Sheep', noise:'Baa!', emoji:'🐑', color:'#fbe4eb', photo:'Cute lambs.jpg', sound:'Sheep_bleating.ogg'},
-  {name:'Crow', noise:'Caw!', emoji:'🐦‍⬛', color:'#e6eaf9', photo:'Indian Crow.jpg', sound:'Crow.ogg'},
-  {name:'Pigeon', noise:'Coo!', emoji:'🕊️', color:'#e8eef5', photo:'Indian pigeon 1.jpg', sound:'Dove_cooing.ogg'},
-  {name:'Cuckoo', noise:'Cuckoo!', emoji:'🐦', color:'#f7ead3', photo:'Indian Cuckoo.jpg', sound:'IndianCuckoo.ogg'},
-  {name:'Rooster', noise:'Cock-a-doodle-doo!', emoji:'🐓', color:'#ffecd4', photo:'Rooster (walking).jpg', sound:'Rooster crowing.ogg', category:'Birds'},
-  {name:'Tiger', noise:'Roar!', emoji:'🐅', color:'#ffe5bf', photo:'BengalTiger.jpg', sound:'SibirischerTigerHagenbeck.ogg', category:'Wild Animals'}
+  {name:'Cat', noise:'Meow!', emoji:'🐱', color:'#ffe6d2', photo:'assets/photos/cat.jpg', sound:'Meow.ogg'},
+  {name:'Dog', noise:'Woof!', emoji:'🐶', color:'#ece6ff', photo:'assets/photos/dog.jpg', sound:'Barking_of_a_dog.ogg'},
+  {name:'Cow', noise:'Moo!', emoji:'🐮', color:'#f9e5ee', photo:'assets/photos/cow.jpg', sound:'Single_Cow_Moo.ogg'},
+  {name:'Lion', noise:'Roar!', emoji:'🦁', color:'#fff0c6', photo:'assets/photos/lion.jpg', sound:'Lion_raring-sound1TamilNadu178.ogg'},
+  {name:'Elephant', noise:'Trumpet!', emoji:'🐘', color:'#ddf1f5', photo:'assets/photos/elephant.jpg', sound:'Elephant_voice_-_trumpeting.ogg'},
+  {name:'Duck', noise:'Quack!', emoji:'🦆', color:'#e8f1d5', photo:'assets/photos/duck.jpg', sound:'Anas poecilorhyncha - Indian Spot-billed Duck - XC114233.ogg'},
+  {name:'Sheep', noise:'Baa!', emoji:'🐑', color:'#fbe4eb', photo:'assets/photos/sheep.jpg', sound:'Sheep_bleating.ogg'},
+  {name:'Crow', noise:'Caw!', emoji:'🐦‍⬛', color:'#e6eaf9', photo:'assets/photos/crow.jpg', sound:'Crow.ogg'},
+  {name:'Pigeon', noise:'Coo!', emoji:'🕊️', color:'#e8eef5', photo:'assets/photos/pigeon.jpg', sound:'Dove_cooing.ogg'},
+  {name:'Cuckoo', noise:'Cuckoo!', emoji:'🐦', color:'#f7ead3', photo:'assets/photos/cuckoo.jpg', sound:'IndianCuckoo.ogg'},
+  {name:'Rooster', noise:'Cock-a-doodle-doo!', emoji:'🐓', color:'#ffecd4', photo:'assets/photos/rooster.jpg', sound:'Rooster crowing.ogg', category:'Birds'},
+  {name:'Tiger', noise:'Roar!', emoji:'🐅', color:'#ffe5bf', photo:'assets/photos/tiger.jpg', sound:'SibirischerTigerHagenbeck.ogg', category:'Wild Animals'},
+  {name:'Peacock', noise:'Kee-ow!', emoji:'🦚', color:'#d8f2ea', category:'Birds', photo:'assets/photos/peacock.jpg', sound:'assets/audio/peacock.ogg'},
+  {name:'Owl', noise:'Chirr!', emoji:'🦉', color:'#f4eadb', category:'Birds', photo:'assets/photos/owl.jpg', sound:'assets/audio/owl.ogg'},
+  {name:'Goat', noise:'Maa!', emoji:'🐐', color:'#e6f0da', category:'Domestic Animals', photo:'assets/photos/goat.jpg', sound:'assets/audio/goat.ogg'}
 ];
 
 const categoryFor = animal => animal.category || (['Cat','Dog','Cow','Sheep'].includes(animal.name) ? 'Domestic Animals' : ['Lion','Elephant'].includes(animal.name) ? 'Wild Animals' : 'Birds');
@@ -30,7 +33,7 @@ for (const category of categories) {
  const tab = document.createElement('button'); tab.type='button'; tab.className='category-tab'; tab.dataset.category=category;tab.textContent=category === 'All'?'🌈 All':category==='Domestic Animals'?'🐶 Domestic Animals':category==='Wild Animals'?'🐅 Wild Animals':'🐦 Birds';
  tab.addEventListener('click',()=>applyCategory(category)); categoryTabs.append(tab);
 }
-const media = (name, width) => 'https://commons.wikimedia.org/wiki/Special:Redirect/file/' + encodeURIComponent(name) + (width ? '?width=' + width : '');
+const media = (name, width) => name.startsWith('assets/') ? name : 'https://commons.wikimedia.org/wiki/Special:Redirect/file/' + encodeURIComponent(name) + (width ? '?width=' + width : '');
 const grid = document.getElementById('animals');
 const audio = document.getElementById('sound-player');
 const status = document.getElementById('status');
@@ -152,10 +155,10 @@ for (const animal of animals) {
 applyCategory('All');
 function swapAnimal(step) {
   if (!selected) return;
-  const current = animals.indexOf(selected.animal);
-  const nextIndex = (current + step + animals.length) % animals.length;
-  const next = animals[nextIndex];
-  openLarge(next, grid.children[nextIndex]);
+  const visibleAnimals = animals.filter(a => activeCategory === 'All' || categoryFor(a) === activeCategory);
+  const current = visibleAnimals.indexOf(selected.animal);
+  const next = visibleAnimals[(current + step + visibleAnimals.length) % visibleAnimals.length];
+  openLarge(next, grid.children[animals.indexOf(next)]);
 }
 swapPrev.addEventListener('click', () => swapAnimal(-1));
 swapNext.addEventListener('click', () => swapAnimal(1));
@@ -181,6 +184,12 @@ closeButton.addEventListener('click', closeLarge);
 lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLarge(); });
 window.addEventListener('keydown', e => {
   if (lightbox.hidden) return;
+  if (e.key === 'Tab') {
+    const controls = [closeButton, bigButton, swapPrev, swapNext];
+    const index = controls.indexOf(document.activeElement);
+    e.preventDefault();
+    controls[(index + (e.shiftKey ? -1 : 1) + controls.length) % controls.length].focus();
+  }
   if (e.key === 'Escape') closeLarge();
   else if (e.key === 'ArrowLeft') swapAnimal(-1);
   else if (e.key === 'ArrowRight') swapAnimal(1);
