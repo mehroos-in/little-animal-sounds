@@ -37,4 +37,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           cp android/app/build/outputs/apk/debug/app-debug.apk Little-Animal-Sounds-Tab-A11-Plus.apk
-          gh release create android-v1.1.0 Little-Animal-Sounds-Tab-A11-Plus.apk --title "Little Animal Sounds 1.1 — Indian Animal Friends" --notes "Adds peacock, owl and goat, with refreshed high-resolution real photographs. Android tablets require internet for the learning site and recordings."
+          gh release create android-v1.2.0 Little-Animal-Sounds-Tab-A11-Plus.apk --title "Little Animal Sounds 1.2 — Kerala Picture Pairs" --notes "16 animals including cheetah, 32 real photographs with picture selection, and genuine animal calls with background noise reduced and balanced volume. Kerala animal types and clearly labelled guests. Android tablets require internet for the learning site and recordings."

@@ -1,23 +1,191 @@
 'use strict';
 
-// India-based animal photographs and species-matched bird calls from Wikimedia Commons. See credits.html for attribution.
+// Real animal photographs with source and location details in credits.html.
 const animals = [
-  {name:'Cat', noise:'Meow!', emoji:'🐱', color:'#ffe6d2', photo:'assets/photos/cat.jpg', sound:'Meow.ogg'},
-  {name:'Dog', noise:'Woof!', emoji:'🐶', color:'#ece6ff', photo:'assets/photos/dog.jpg', sound:'Barking_of_a_dog.ogg'},
-  {name:'Cow', noise:'Moo!', emoji:'🐮', color:'#f9e5ee', photo:'assets/photos/cow.jpg', sound:'Single_Cow_Moo.ogg'},
-  {name:'Lion', noise:'Roar!', emoji:'🦁', color:'#fff0c6', photo:'assets/photos/lion.jpg', sound:'Lion_raring-sound1TamilNadu178.ogg'},
-  {name:'Elephant', noise:'Trumpet!', emoji:'🐘', color:'#ddf1f5', photo:'assets/photos/elephant.jpg', sound:'Elephant_voice_-_trumpeting.ogg'},
-  {name:'Duck', noise:'Quack!', emoji:'🦆', color:'#e8f1d5', photo:'assets/photos/duck.jpg', sound:'Anas poecilorhyncha - Indian Spot-billed Duck - XC114233.ogg'},
-  {name:'Sheep', noise:'Baa!', emoji:'🐑', color:'#fbe4eb', photo:'assets/photos/sheep.jpg', sound:'Sheep_bleating.ogg'},
-  {name:'Crow', noise:'Caw!', emoji:'🐦‍⬛', color:'#e6eaf9', photo:'assets/photos/crow.jpg', sound:'Crow.ogg'},
-  {name:'Pigeon', noise:'Coo!', emoji:'🕊️', color:'#e8eef5', photo:'assets/photos/pigeon.jpg', sound:'Dove_cooing.ogg'},
-  {name:'Cuckoo', noise:'Cuckoo!', emoji:'🐦', color:'#f7ead3', photo:'assets/photos/cuckoo.jpg', sound:'IndianCuckoo.ogg'},
-  {name:'Rooster', noise:'Cock-a-doodle-doo!', emoji:'🐓', color:'#ffecd4', photo:'assets/photos/rooster.jpg', sound:'Rooster crowing.ogg', category:'Birds'},
-  {name:'Tiger', noise:'Roar!', emoji:'🐅', color:'#ffe5bf', photo:'assets/photos/tiger.jpg', sound:'SibirischerTigerHagenbeck.ogg', category:'Wild Animals'},
-  {name:'Peacock', noise:'Kee-ow!', emoji:'🦚', color:'#d8f2ea', category:'Birds', photo:'assets/photos/peacock.jpg', sound:'assets/audio/peacock.ogg'},
-  {name:'Owl', noise:'Chirr!', emoji:'🦉', color:'#f4eadb', category:'Birds', photo:'assets/photos/owl.jpg', sound:'assets/audio/owl.ogg'},
-  {name:'Goat', noise:'Maa!', emoji:'🐐', color:'#e6f0da', category:'Domestic Animals', photo:'assets/photos/goat.jpg', sound:'assets/audio/goat.ogg'}
+  {name:'Cat', noise:'Meow!', emoji:'🐱', color:'#ffe6d2', sound:'assets/clean-audio/cat.ogg'},
+  {name:'Dog', noise:'Woof!', emoji:'🐶', color:'#ece6ff', sound:'assets/clean-audio/dog.ogg'},
+  {name:'Cow', noise:'Moo!', emoji:'🐮', color:'#f9e5ee', sound:'assets/clean-audio/cow.ogg'},
+  {name:'Lion', noise:'Roar!', emoji:'🦁', color:'#fff0c6', sound:'assets/clean-audio/lion.ogg'},
+  {name:'Elephant', noise:'Trumpet!', emoji:'🐘', color:'#ddf1f5', sound:'assets/clean-audio/elephant.ogg'},
+  {name:'Duck', noise:'Quack!', emoji:'🦆', color:'#e8f1d5', sound:'assets/clean-audio/duck.ogg'},
+  {name:'Sheep', noise:'Baa!', emoji:'🐑', color:'#fbe4eb', sound:'assets/clean-audio/sheep.ogg'},
+  {name:'Crow', noise:'Caw!', emoji:'🐦‍⬛', color:'#e6eaf9', sound:'assets/clean-audio/crow.ogg'},
+  {name:'Pigeon', noise:'Coo!', emoji:'🕊️', color:'#e8eef5', sound:'assets/clean-audio/pigeon.ogg'},
+  {name:'Cuckoo', noise:'Koo-oo!', emoji:'🐦', color:'#f7ead3', sound:'assets/clean-audio/cuckoo.ogg'},
+  {name:'Rooster', noise:'Cock-a-doodle-doo!', emoji:'🐓', color:'#ffecd4', sound:'assets/clean-audio/rooster.ogg', category:'Birds'},
+  {name:'Tiger', noise:'Roar!', emoji:'🐅', color:'#ffe5bf', sound:'assets/clean-audio/tiger.ogg', category:'Wild Animals'},
+  {name:'Peacock', noise:'Kee-ow!', emoji:'🦚', color:'#d8f2ea', category:'Birds', sound:'assets/clean-audio/peacock.ogg'},
+  {name:'Owl', noise:'Chirr!', emoji:'🦉', color:'#f4eadb', category:'Birds', sound:'assets/clean-audio/owl.ogg'},
+  {name:'Goat', noise:'Maa!', emoji:'🐐', color:'#e6f0da', category:'Domestic Animals', sound:'assets/clean-audio/goat.ogg'},
+  {name:'Cheetah', noise:'Chirp!', emoji:'🐆', color:'#fff0cf', category:'Wild Animals', sound:'assets/clean-audio/cheetah.ogg'}
 ];
+const keralaPictures = {
+  "Cat": [
+    {
+      "path": "assets/kerala/cat-1.jpg",
+      "note": "Domestic cat · India"
+    },
+    {
+      "path": "assets/kerala/cat-2.jpg",
+      "note": "Domestic cat · Kerala"
+    }
+  ],
+  "Dog": [
+    {
+      "path": "assets/kerala/dog-1.jpg",
+      "note": "Kattampally, Kerala"
+    },
+    {
+      "path": "assets/kerala/dog-2.jpg",
+      "note": "Indian pariah dog · Punjab"
+    }
+  ],
+  "Cow": [
+    {
+      "path": "assets/kerala/cow-1.jpg",
+      "note": "Thekkady, Kerala"
+    },
+    {
+      "path": "assets/kerala/cow-2.jpg",
+      "note": "Vechur cattle · Kerala"
+    }
+  ],
+  "Lion": [
+    {
+      "path": "assets/kerala/lion-1.jpg",
+      "note": "Thiruvananthapuram Zoo, Kerala"
+    },
+    {
+      "path": "assets/kerala/lion-2.jpg",
+      "note": "Gir National Park, Gujarat"
+    }
+  ],
+  "Elephant": [
+    {
+      "path": "assets/kerala/elephant-1.jpg",
+      "note": "Marayoor forest, Kerala"
+    },
+    {
+      "path": "assets/kerala/elephant-2.jpg",
+      "note": "Marayoor forest, Kerala"
+    }
+  ],
+  "Duck": [
+    {
+      "path": "assets/kerala/duck-1.jpg",
+      "note": "Keoladeo National Park, Rajasthan"
+    },
+    {
+      "path": "assets/kerala/duck-2.jpg",
+      "note": "Patiala, Punjab"
+    }
+  ],
+  "Sheep": [
+    {
+      "path": "assets/kerala/sheep-1.jpg",
+      "note": "Palakkad, Kerala"
+    },
+    {
+      "path": "assets/kerala/sheep-2.jpg",
+      "note": "Gangabal, Kashmir"
+    }
+  ],
+  "Crow": [
+    {
+      "path": "assets/kerala/crow-1.jpg",
+      "note": "House crow · Batticaloa, Sri Lanka"
+    },
+    {
+      "path": "assets/kerala/crow-2.jpg",
+      "note": "Kerala"
+    }
+  ],
+  "Pigeon": [
+    {
+      "path": "assets/kerala/pigeon-1.jpg",
+      "note": "Kerala"
+    },
+    {
+      "path": "assets/kerala/pigeon-2.jpg",
+      "note": "Rock pigeon · London, United Kingdom"
+    }
+  ],
+  "Cuckoo": [
+    {
+      "path": "assets/kerala/cuckoo-1.jpg",
+      "note": "Asian koel · Nallankara, Thrissur, Kerala"
+    },
+    {
+      "path": "assets/kerala/cuckoo-2.jpg",
+      "note": "Asian koel · Nallankara, Thrissur, Kerala"
+    }
+  ],
+  "Rooster": [
+    {
+      "path": "assets/kerala/rooster-1.jpg",
+      "note": "Kozhikode, Kerala"
+    },
+    {
+      "path": "assets/kerala/rooster-2.jpg",
+      "note": "Rooster · Tamil Nadu, India"
+    }
+  ],
+  "Tiger": [
+    {
+      "path": "assets/kerala/tiger-1.jpg",
+      "note": "Thiruvananthapuram Zoo, Kerala"
+    },
+    {
+      "path": "assets/kerala/tiger-2.jpg",
+      "note": "Kanha National Park, Madhya Pradesh"
+    }
+  ],
+  "Peacock": [
+    {
+      "path": "assets/kerala/peacock-1.jpg",
+      "note": "Thrissur Zoo, Kerala"
+    },
+    {
+      "path": "assets/kerala/peacock-2.jpg",
+      "note": "Fort Kochi, Kerala"
+    }
+  ],
+  "Owl": [
+    {
+      "path": "assets/kerala/owl-1.jpg",
+      "note": "Spotted owlet · Patiala, Punjab, India"
+    },
+    {
+      "path": "assets/kerala/owl-2.jpg",
+      "note": "Nallepilly, Kerala"
+    }
+  ],
+  "Goat": [
+    {
+      "path": "assets/kerala/goat-1.jpg",
+      "note": "Kerala"
+    },
+    {
+      "path": "assets/kerala/goat-2.jpg",
+      "note": "Domestic goat · India"
+    }
+  ],
+  "Cheetah": [
+    {
+      "path": "assets/kerala/cheetah-1.jpg",
+      "note": "Whipsnade Zoo, England · guest animal"
+    },
+    {
+      "path": "assets/kerala/cheetah-2.jpg",
+      "note": "Etosha National Park, Namibia · guest animal"
+    }
+  ]
+};
+for (const animal of animals) {
+  animal.photos = keralaPictures[animal.name].map(p => p.path);
+  animal.photoNotes = keralaPictures[animal.name].map(p => p.note);
+  animal.photo = animal.photos[0];
+}
 
 const categoryFor = animal => animal.category || (['Cat','Dog','Cow','Sheep'].includes(animal.name) ? 'Domestic Animals' : ['Lion','Elephant'].includes(animal.name) ? 'Wild Animals' : 'Birds');
 const categoryTabs = document.getElementById('category-tabs');
@@ -38,7 +206,7 @@ const grid = document.getElementById('animals');
 const audio = document.getElementById('sound-player');
 const status = document.getElementById('status');
 document.querySelector('.count').textContent = animals.length + ' friends to discover';
-document.querySelector('.hero-copy p').textContent = 'First tap: name. Second tap: real sound.';
+document.querySelector('.hero-copy p').textContent = 'Two real pictures of every friend. Tap to learn and listen!';
 
 let selected = null, currentSoundId = 0, voiceDoneTimer;
 const lightbox = document.createElement('div');
@@ -47,7 +215,9 @@ lightbox.hidden = true;
 lightbox.innerHTML = '<div class="lightbox-panel" role="dialog" aria-modal="true" aria-labelledby="large-name">' +
   '<button type="button" class="lightbox-close" aria-label="Close enlarged picture">✕</button>' +
   '<button type="button" class="large-animal" aria-label="Play animal sound"><span class="big-emoji"></span><img class="large-photo" alt=""></button>' +
+  '<div class="picture-choices" role="group" aria-label="Choose a picture"><button type="button" class="picture-one" aria-label="Picture 1" aria-pressed="true"><img alt="" aria-hidden="true"><span>Picture 1</span></button><button type="button" class="picture-two" aria-label="Picture 2" aria-pressed="false"><img alt="" aria-hidden="true"><span>Picture 2</span></button></div>' +
   '<div class="large-label" id="large-name"></div><p class="lightbox-instruction">Tap the big picture for the real sound! 🔊</p>' +
+  '<p class="picture-note"></p>' +
   '<div class="swap-navigation"><button class="swap-prev" type="button" aria-label="Previous animal">❮ Previous</button><span class="swap-count" aria-live="off"></span><button class="swap-next" type="button" aria-label="Next animal">Next ❯</button></div>' +
   '</div>';
 document.body.append(lightbox);
@@ -58,6 +228,21 @@ const bigName = lightbox.querySelector('.large-label');
 const closeButton = lightbox.querySelector('.lightbox-close');
 const swapPrev = lightbox.querySelector('.swap-prev');
 const swapNext = lightbox.querySelector('.swap-next');
+const pictureOne = lightbox.querySelector('.picture-one');
+const pictureTwo = lightbox.querySelector('.picture-two');
+
+function choosePicture(index) {
+  if (!selected || index < 0 || index >= selected.animal.photos.length) return;
+  selected.photoIndex = index;
+  bigImage.hidden = false;
+  bigImage.src = media(selected.animal.photos[index]);
+  bigImage.alt = selected.animal.name + ', clear photograph ' + (index + 1) + ' of 2';
+  pictureOne.setAttribute('aria-pressed', String(index === 0));
+  pictureTwo.setAttribute('aria-pressed', String(index === 1));
+  lightbox.querySelector('.picture-note').textContent = selected.animal.photoNotes?.[index] || '';
+}
+pictureOne.addEventListener('click', () => choosePicture(0));
+pictureTwo.addEventListener('click', () => choosePicture(1));
 
 function stopEverything() {
   currentSoundId += 1;
@@ -90,13 +275,14 @@ function sayName(name) {
 }
 function openLarge(animal, button) {
   stopEverything();
-  selected = { animal, button };
-  bigImage.hidden = false;
-  bigImage.src = media(animal.photo, 980);
-  bigImage.alt = 'Large clear photograph of a ' + animal.name.toLowerCase();
+  selected = { animal, button, photoIndex: 0 };
+  choosePicture(0);
+  pictureOne.querySelector('img').src = media(animal.photos[0]);
+  pictureTwo.querySelector('img').src = media(animal.photos[1]);
   bigEmoji.textContent = animal.emoji;
   bigName.textContent = animal.name;
-  lightbox.querySelector('.swap-count').textContent = (animals.indexOf(animal) + 1) + ' / ' + animals.length;
+  const visibleAnimals = animals.filter(a => activeCategory === 'All' || categoryFor(a) === activeCategory);
+  lightbox.querySelector('.swap-count').textContent = (visibleAnimals.indexOf(animal) + 1) + ' / ' + visibleAnimals.length;
   lightbox.querySelector('.lightbox-instruction').textContent = 'Tap the big picture for the real sound! 🔊';
   lightbox.hidden = false;
   document.body.classList.add('modal-open');
@@ -141,7 +327,7 @@ for (const animal of animals) {
   const info = document.createElement('span'); info.className = 'animal-info';
   const labelGroup = document.createElement('span');
   const name = document.createElement('strong'); name.className = 'animal-name'; name.textContent = animal.name;
-  const noise = document.createElement('small'); noise.className = 'animal-noise'; noise.textContent = 'Tap to learn';
+  const noise = document.createElement('small'); noise.className = 'animal-noise'; noise.textContent = '2 real pictures · Tap to learn';
   labelGroup.append(name, noise);
   const play = document.createElement('span'); play.className = 'play'; play.textContent = '🗣️';
   info.append(labelGroup, play);
@@ -185,7 +371,7 @@ lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLarge(
 window.addEventListener('keydown', e => {
   if (lightbox.hidden) return;
   if (e.key === 'Tab') {
-    const controls = [closeButton, bigButton, swapPrev, swapNext];
+    const controls = [closeButton, bigButton, pictureOne, pictureTwo, swapPrev, swapNext];
     const index = controls.indexOf(document.activeElement);
     e.preventDefault();
     controls[(index + (e.shiftKey ? -1 : 1) + controls.length) % controls.length].focus();

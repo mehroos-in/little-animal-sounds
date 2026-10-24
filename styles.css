@@ -66,4 +66,12 @@
 .category-tab.active{background:#255944;color:#fff;border-color:#255944}
 .category-tab:focus-visible{outline:3px solid #f29b62;outline-offset:3px}
 .animal[hidden]{display:none!important}
+.picture-choices{display:flex;justify-content:center;gap:12px;margin:14px 0 6px}
+.picture-choices button{display:flex;align-items:center;gap:9px;min-height:58px;padding:6px 12px 6px 6px;border:3px solid #d9e8d7;border-radius:16px;background:#fff;color:#255944;font:800 15px system-ui;cursor:pointer}
+.picture-choices button[aria-pressed="true"]{border-color:#255944;background:#e5f1da}
+.picture-choices button:focus-visible{outline:4px solid #ef8e69;outline-offset:3px}
+.picture-choices img{width:50px;height:46px;object-fit:contain;border-radius:9px;background:#fff}
+.picture-note{font-size:14px;color:#587165;margin:8px 0;min-height:1em}
+.swap-navigation button{min-width:0;flex:1}
+@media(max-height:700px){.large-animal{width:min(100%,37dvh,470px)}.lightbox-panel{padding:18px}.large-label{font-size:30px;margin-top:6px}.picture-choices{margin:9px 0 4px}.lightbox-instruction{font-size:16px}}
 @media(max-width:570px){.category-tabs{gap:8px}.category-tab{font-size:13px;padding:10px 12px;flex:1 1 auto}}
