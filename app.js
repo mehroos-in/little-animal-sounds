@@ -4,20 +4,20 @@
 const animals = [
   {name:'Cat', noise:'Meow!', emoji:'🐱', color:'#ffe6d2', sound:'assets/clean-audio/cat.ogg'},
   {name:'Dog', noise:'Woof!', emoji:'🐶', color:'#ece6ff', sound:'assets/clean-audio/dog.ogg'},
-  {name:'Cow', noise:'Moo!', emoji:'🐮', color:'#f9e5ee', sound:'assets/clean-audio/cow.ogg'},
+  {name:'Cow', noise:'Moo!', emoji:'🐮', color:'#f9e5ee', sound:null},
   {name:'Lion', noise:'Roar!', emoji:'🦁', color:'#fff0c6', sound:'assets/clean-audio/lion.ogg'},
   {name:'Elephant', noise:'Trumpet!', emoji:'🐘', color:'#ddf1f5', sound:'assets/clean-audio/elephant.ogg'},
   {name:'Duck', noise:'Quack!', emoji:'🦆', color:'#e8f1d5', sound:'assets/clean-audio/duck.ogg'},
   {name:'Sheep', noise:'Baa!', emoji:'🐑', color:'#fbe4eb', sound:'assets/clean-audio/sheep.ogg'},
   {name:'Crow', noise:'Caw!', emoji:'🐦‍⬛', color:'#e6eaf9', sound:'assets/clean-audio/crow.ogg'},
-  {name:'Pigeon', noise:'Coo!', emoji:'🕊️', color:'#e8eef5', sound:'assets/clean-audio/pigeon.ogg'},
+  {name:'Pigeon', noise:'Coo!', emoji:'🕊️', color:'#e8eef5', sound:null},
   {name:'Cuckoo', noise:'Koo-oo!', emoji:'🐦', color:'#f7ead3', sound:'assets/clean-audio/cuckoo.ogg'},
   {name:'Rooster', noise:'Cock-a-doodle-doo!', emoji:'🐓', color:'#ffecd4', sound:'assets/clean-audio/rooster.ogg', category:'Birds'},
   {name:'Tiger', noise:'Roar!', emoji:'🐅', color:'#ffe5bf', sound:'assets/clean-audio/tiger.ogg', category:'Wild Animals'},
   {name:'Peacock', noise:'Kee-ow!', emoji:'🦚', color:'#d8f2ea', category:'Birds', sound:'assets/clean-audio/peacock.ogg'},
   {name:'Owl', noise:'Chirr!', emoji:'🦉', color:'#f4eadb', category:'Birds', sound:'assets/clean-audio/owl.ogg'},
   {name:'Goat', noise:'Maa!', emoji:'🐐', color:'#e6f0da', category:'Domestic Animals', sound:'assets/clean-audio/goat.ogg'},
-  {name:'Cheetah', noise:'Chirp!', emoji:'🐆', color:'#fff0cf', category:'Wild Animals', sound:'assets/clean-audio/cheetah.ogg'}
+  {name:'Cheetah', noise:'Chirp!', emoji:'🐆', color:'#fff0cf', category:'Wild Animals', sound:'assets/clean-audio/cheetah.ogg'},
 
   {name:'Rabbit', noise:'Squeak!', emoji:'🐰', color:'#f7e5ed', category:'Wild Animals', photos:['Indian Hare at Pench National Park, India.jpg'], photoNotes:['Indian hare · Pench National Park, Madhya Pradesh, India','Indian hare · India'], sound:null},
   {name:'Horse', noise:'Neigh!', emoji:'🐴', color:'#f4e5d4', category:'Domestic Animals', photos:['HorseIndia.jpg','Indian horse.jpg'], photoNotes:['Horse · India','Indian horse · India'], sound:null},
