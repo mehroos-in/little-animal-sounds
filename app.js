@@ -19,18 +19,18 @@ const animals = [
   {name:'Goat', noise:'Maa!', emoji:'🐐', color:'#e6f0da', category:'Domestic Animals', sound:'assets/clean-audio/goat.ogg'},
   {name:'Cheetah', noise:'Chirp!', emoji:'🐆', color:'#fff0cf', category:'Wild Animals', sound:'assets/clean-audio/cheetah.ogg'}
 
-  {name:'Rabbit', noise:'Squeak!', emoji:'🐰', color:'#f7e5ed', category:'Wild Animals', photos:['Indian Hare at Pench National Park, India.jpg','Indian hare by N A Nazeer.jpg'], photoNotes:['Indian hare · Pench National Park, Madhya Pradesh, India','Indian hare · India'], sound:null},
+  {name:'Rabbit', noise:'Squeak!', emoji:'🐰', color:'#f7e5ed', category:'Wild Animals', photos:['Indian Hare at Pench National Park, India.jpg'], photoNotes:['Indian hare · Pench National Park, Madhya Pradesh, India','Indian hare · India'], sound:null},
   {name:'Horse', noise:'Neigh!', emoji:'🐴', color:'#f4e5d4', category:'Domestic Animals', photos:['HorseIndia.jpg','Indian horse.jpg'], photoNotes:['Horse · India','Indian horse · India'], sound:null},
-  {name:'Monkey', noise:'Chatter!', emoji:'🐒', color:'#f5e9d6', category:'Wild Animals', photos:['Gray langur at ranthambore national park india.jpg','Langur monkeys in Pushkar India 03.jpg'], photoNotes:['Gray langur · Ranthambore National Park, India','Gray langurs · Pushkar, Rajasthan, India'], sound:null},
-  {name:'Deer', noise:'Call!', emoji:'🦌', color:'#e9efd9', category:'Wild Animals', photos:['Spotted deer, chital.jpg','The Spotted Deer (Axis Axis or Chital).jpg'], photoNotes:['Spotted deer · Parambikulam Tiger Reserve, Kerala, India','Spotted deer · Patna, Bihar, India'], sound:null},
-  {name:'Squirrel', noise:'Chirp!', emoji:'🐿️', color:'#f8e8d5', category:'Wild Animals', photos:['Indian Palm Squirrel.jpg','016 Indian palm squirrel in Keoladeo National Park Photo by Giles Laurent.jpg'], photoNotes:['Indian palm squirrel · Mehrangarh Fort, Jodhpur, India','Indian palm squirrel · Keoladeo National Park, Rajasthan, India'], sound:null},
+  {name:'Monkey', noise:'Chatter!', emoji:'🐒', color:'#f5e9d6', category:'Wild Animals', photos:['Langur Monkey Photo.jpg','Langur Monkey.JPG'], photoNotes:['Gray langur · Ranthambore National Park, India','Gray langurs · Pushkar, Rajasthan, India'], sound:null},
+  {name:'Deer', noise:'Call!', emoji:'🦌', color:'#e9efd9', category:'Wild Animals', photos:['Spotted deer, chital.jpg','Chital(spotted deer).jpg'], photoNotes:['Spotted deer · Parambikulam Tiger Reserve, Kerala, India','Spotted deer · Patna, Bihar, India'], sound:null},
+  {name:'Squirrel', noise:'Chirp!', emoji:'🐿️', color:'#f8e8d5', category:'Wild Animals', photos:['Indian Palm Squirrel.jpg'], photoNotes:['Indian palm squirrel · Mehrangarh Fort, Jodhpur, India','Indian palm squirrel · Keoladeo National Park, Rajasthan, India'], sound:null},
   {name:'Bear', noise:'Growl!', emoji:'🐻', color:'#eee4d8', category:'Wild Animals', photos:['Sloth Bear or Indian Bear Melursus ursinus DSCN2124 02.jpg','SlothBear1.jpg'], photoNotes:['Sloth bear · Tadoba Andhari Tiger Reserve, Maharashtra, India','Sloth bear · Daroji, Karnataka, India'], sound:null},
-  {name:'Parrot', noise:'Squawk!', emoji:'🦜', color:'#dff0dc', category:'Birds', photos:['Parrot from India.jpg','Indian Parrot.jpg'], photoNotes:['Rose-ringed parakeet · India','Indian parrot · Bengaluru, India'], sound:null},
-  {name:'Sparrow', noise:'Chirp!', emoji:'🐦', color:'#f3eadb', category:'Birds', photos:['Common Indian Sparrow.jpg','House sparrow in Kasauli in February 2023.jpg'], photoNotes:['House sparrow · India','House sparrow · Kasauli, Himachal Pradesh, India'], sound:null},
-  {name:'Myna', noise:'Chatter!', emoji:'🐦', color:'#f6e8d2', category:'Birds', photos:['Myna-indian.jpg','Common myna bird (India, 2014).jpg'], photoNotes:['Common myna · New Delhi, India','Common myna · India'], sound:null},
-  {name:'Kingfisher', noise:'Chatter!', emoji:'🐦', color:'#dceef3', category:'Birds', photos:['Common Indian Kingfisher.jpg','Common Kingfisher from India.jpg'], photoNotes:['White-throated kingfisher · India','Common kingfisher · India'], sound:null},
-  {name:'Eagle', noise:'Screech!', emoji:'🦅', color:'#e8e8e2', category:'Birds', photos:['Eagle (india).jpg','Grey Headed Fish Eagle.jpg'], photoNotes:['Eagle · Guindy National Park, Chennai, India','Grey-headed fish eagle · India'], sound:null},
-  {name:'Woodpecker', noise:'Tap-tap!', emoji:'🐦', color:'#f4e5d8', category:'Birds', photos:['Male Greater Flameback Woodpecker.jpg','Yellow crowned woodpecker looking for food.jpg'], photoNotes:['Greater flameback woodpecker · India','Yellow-crowned woodpecker · India'], sound:null}
+  {name:'Parrot', noise:'Squawk!', emoji:'🦜', color:'#dff0dc', category:'Birds', photos:['Parrot from India.jpg'], photoNotes:['Rose-ringed parakeet · India','Indian parrot · Bengaluru, India'], sound:null},
+  {name:'Sparrow', noise:'Chirp!', emoji:'🐦', color:'#f3eadb', category:'Birds', photos:['Common House Sparrow India.jpg','House Sparrow India.jpg'], photoNotes:['House sparrow · India','House sparrow · Kasauli, Himachal Pradesh, India'], sound:null},
+  {name:'Myna', noise:'Chatter!', emoji:'🐦', color:'#f6e8d2', category:'Birds', photos:['Myna-indian.jpg'], photoNotes:['Common myna · New Delhi, India','Common myna · India'], sound:null},
+  {name:'Kingfisher', noise:'Chatter!', emoji:'🐦', color:'#dceef3', category:'Birds', photos:['Common Indian Kingfisher.jpg','The Common Kingfisher.jpg'], photoNotes:['White-throated kingfisher · India','Common kingfisher · India'], sound:null},
+  {name:'Eagle', noise:'Screech!', emoji:'🦅', color:'#e8e8e2', category:'Birds', photos:['Eagle (india).jpg','Indian Eagle.jpg'], photoNotes:['Eagle · Guindy National Park, Chennai, India','Grey-headed fish eagle · India'], sound:null},
+  {name:'Woodpecker', noise:'Tap-tap!', emoji:'🐦', color:'#f4e5d8', category:'Birds', photos:['Greater flameback woodpecker male.jpg','Greater Flameback Woodpecker (male).jpg'], photoNotes:['Greater flameback woodpecker · India','Yellow-crowned woodpecker · India'], sound:null}
 ];
 const keralaPictures = {
   "Cat": [
@@ -254,6 +254,8 @@ function choosePicture(index) {
   bigImage.src = media(selected.animal.photos[index]);
   bigImage.alt = selected.animal.name + ', clear photograph ' + (index + 1) + ' of 2';
   pictureOne.setAttribute('aria-pressed', String(index === 0));
+  pictureTwo.hidden = selected.animal.photos.length < 2;
+  lightbox.querySelector('.picture-choices').hidden = selected.animal.photos.length < 2;
   pictureTwo.setAttribute('aria-pressed', String(index === 1));
   lightbox.querySelector('.picture-note').textContent = selected.animal.photoNotes?.[index] || '';
 }
@@ -294,7 +296,9 @@ function openLarge(animal, button) {
   selected = { animal, button, photoIndex: 0 };
   choosePicture(0);
   pictureOne.querySelector('img').src = media(animal.photos[0]);
-  pictureTwo.querySelector('img').src = media(animal.photos[1]);
+  pictureTwo.querySelector('img').src = animal.photos[1] ? media(animal.photos[1]) : '';
+  pictureTwo.hidden = animal.photos.length < 2;
+  lightbox.querySelector('.picture-choices').hidden = animal.photos.length < 2;
   bigEmoji.textContent = animal.emoji;
   bigName.textContent = animal.name;
   const visibleAnimals = animals.filter(a => activeCategory === 'All' || categoryFor(a) === activeCategory);
@@ -348,7 +352,7 @@ for (const animal of animals) {
   const info = document.createElement('span'); info.className = 'animal-info';
   const labelGroup = document.createElement('span');
   const name = document.createElement('strong'); name.className = 'animal-name'; name.textContent = animal.name;
-  const noise = document.createElement('small'); noise.className = 'animal-noise'; noise.textContent = animal.sound ? '2 India photos · Tap to learn' : '2 India photos · Sound soon';
+  const noise = document.createElement('small'); noise.className = 'animal-noise'; noise.textContent = animal.photos.length + ' India photo' + (animal.photos.length === 1 ? '' : 's') + (animal.sound ? ' · Tap to learn' : ' · Sound soon');
   labelGroup.append(name, noise);
   const play = document.createElement('span'); play.className = 'play'; play.textContent = '🗣️';
   info.append(labelGroup, play);
