@@ -19,7 +19,7 @@ const animals = [
   {name:'Goat', noise:'Maa!', emoji:'🐐', color:'#e6f0da', category:'Domestic Animals', sound:'assets/clean-audio/goat.ogg'},
   {name:'Cheetah', noise:'Chirp!', emoji:'🐆', color:'#fff0cf', category:'Wild Animals', sound:'assets/clean-audio/cheetah.ogg'},
 
-  {name:'Rabbit', noise:'Squeak!', emoji:'🐰', color:'#f7e5ed', category:'Wild Animals', photos:['Indian Hare at Pench National Park, India.jpg'], photoNotes:['Indian hare · Pench National Park, Madhya Pradesh, India','Indian hare · India'], sound:null},
+  {name:'Rabbit', noise:'Squeak!', emoji:'🐰', color:'#f7e5ed', category:'Wild Animals', photos:['Indian Hare at Pench National Park, India.jpg','Rabbit Portrait (8890234862).jpg'], photoNotes:['Indian hare · Pench National Park, Madhya Pradesh, India','Rabbit portrait · location not specified · foreign photo'], sound:null},
   {name:'Horse', noise:'Neigh!', emoji:'🐴', color:'#f4e5d4', category:'Domestic Animals', photos:['HorseIndia.jpg','Indian horse.jpg'], photoNotes:['Horse · India','Indian horse · India'], sound:null},
   {name:'Monkey', noise:'Chatter!', emoji:'🐒', color:'#f5e9d6', category:'Wild Animals', photos:['Langur Monkey Photo.jpg','Langur Monkey.JPG'], photoNotes:['Gray langur · Lonar Crater, Maharashtra, India','Gray langur · Lonar Crater, Maharashtra, India'], sound:null},
   {name:'Deer', noise:'Call!', emoji:'🦌', color:'#e9efd9', category:'Wild Animals', photos:['Spotted deer, chital.jpg','Chital(spotted deer).jpg'], photoNotes:['Spotted deer · Parambikulam Tiger Reserve, Kerala, India','Spotted deer · Bannerghatta National Park, Karnataka, India'], sound:null},
