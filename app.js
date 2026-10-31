@@ -13,7 +13,7 @@ const animals = [
   {name:'Pigeon', noise:'Coo!', emoji:'🕊️', color:'#e8eef5', sound:null},
   {name:'Cuckoo', noise:'Koo-oo!', emoji:'🐦', color:'#f7ead3', sound:'assets/clean-audio/cuckoo.ogg'},
   {name:'Rooster', noise:'Cock-a-doodle-doo!', emoji:'🐓', color:'#ffecd4', sound:'assets/clean-audio/rooster.ogg', category:'Birds'},
-  {name:'Tiger', noise:'Roar!', emoji:'🐅', color:'#ffe5bf', sound:'assets/clean-audio/tiger.ogg', category:'Wild Animals'},
+  {name:'Tiger', noise:'Roar!', emoji:'🐅', color:'#ffe5bf', sound:null, category:'Wild Animals'},
   {name:'Peacock', noise:'Kee-ow!', emoji:'🦚', color:'#d8f2ea', category:'Birds', sound:'assets/clean-audio/peacock.ogg'},
   {name:'Owl', noise:'Chirr!', emoji:'🦉', color:'#f4eadb', category:'Birds', sound:'assets/clean-audio/owl.ogg'},
   {name:'Goat', noise:'Maa!', emoji:'🐐', color:'#e6f0da', category:'Domestic Animals', sound:'assets/clean-audio/goat.ogg'},
