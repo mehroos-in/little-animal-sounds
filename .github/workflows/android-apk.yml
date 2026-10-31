@@ -4,6 +4,10 @@ on:
     branches: [main]
     paths:
       - 'android/**'
+      - 'app.js'
+      - 'index.html'
+      - 'credits.html'
+      - 'assets/**'
       - '.github/workflows/android-apk.yml'
   workflow_dispatch:
 permissions:
@@ -37,4 +41,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           cp android/app/build/outputs/apk/debug/app-debug.apk Little-Animal-Sounds-Tab-A11-Plus.apk
-          gh release create android-v1.2.0 Little-Animal-Sounds-Tab-A11-Plus.apk --title "Little Animal Sounds 1.2 — Kerala Picture Pairs" --notes "16 animals including cheetah, 32 real photographs with picture selection, and genuine animal calls with background noise reduced and balanced volume. Kerala animal types and clearly labelled guests. Android tablets require internet for the learning site and recordings."
+          gh release create android-v1.3.0 Little-Animal-Sounds-Tab-A11-Plus.apk --title "Little Animal Sounds 1.3 — 28 Animal & Bird Friends" --notes "28 animal and bird entries with two photograph choices each (56 photographs total), photo and sound credits, and existing sound/pronunciation behaviour. Android tablets require internet for the learning site and recordings."
