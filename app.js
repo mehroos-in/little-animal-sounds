@@ -18,6 +18,19 @@ const animals = [
   {name:'Owl', noise:'Chirr!', emoji:'🦉', color:'#f4eadb', category:'Birds', sound:'assets/clean-audio/owl.ogg'},
   {name:'Goat', noise:'Maa!', emoji:'🐐', color:'#e6f0da', category:'Domestic Animals', sound:'assets/clean-audio/goat.ogg'},
   {name:'Cheetah', noise:'Chirp!', emoji:'🐆', color:'#fff0cf', category:'Wild Animals', sound:'assets/clean-audio/cheetah.ogg'}
+
+  {name:'Rabbit', noise:'Squeak!', emoji:'🐰', color:'#f7e5ed', category:'Wild Animals', photos:['Indian Hare at Pench National Park, India.jpg','Indian hare by N A Nazeer.jpg'], photoNotes:['Indian hare · Pench National Park, Madhya Pradesh, India','Indian hare · India'], sound:null},
+  {name:'Horse', noise:'Neigh!', emoji:'🐴', color:'#f4e5d4', category:'Domestic Animals', photos:['HorseIndia.jpg','Indian horse.jpg'], photoNotes:['Horse · India','Indian horse · India'], sound:null},
+  {name:'Monkey', noise:'Chatter!', emoji:'🐒', color:'#f5e9d6', category:'Wild Animals', photos:['Gray langur at ranthambore national park india.jpg','Langur monkeys in Pushkar India 03.jpg'], photoNotes:['Gray langur · Ranthambore National Park, India','Gray langurs · Pushkar, Rajasthan, India'], sound:null},
+  {name:'Deer', noise:'Call!', emoji:'🦌', color:'#e9efd9', category:'Wild Animals', photos:['Spotted deer, chital.jpg','The Spotted Deer (Axis Axis or Chital).jpg'], photoNotes:['Spotted deer · Parambikulam Tiger Reserve, Kerala, India','Spotted deer · Patna, Bihar, India'], sound:null},
+  {name:'Squirrel', noise:'Chirp!', emoji:'🐿️', color:'#f8e8d5', category:'Wild Animals', photos:['Indian Palm Squirrel.jpg','016 Indian palm squirrel in Keoladeo National Park Photo by Giles Laurent.jpg'], photoNotes:['Indian palm squirrel · Mehrangarh Fort, Jodhpur, India','Indian palm squirrel · Keoladeo National Park, Rajasthan, India'], sound:null},
+  {name:'Bear', noise:'Growl!', emoji:'🐻', color:'#eee4d8', category:'Wild Animals', photos:['Sloth Bear or Indian Bear Melursus ursinus DSCN2124 02.jpg','SlothBear1.jpg'], photoNotes:['Sloth bear · Tadoba Andhari Tiger Reserve, Maharashtra, India','Sloth bear · Daroji, Karnataka, India'], sound:null},
+  {name:'Parrot', noise:'Squawk!', emoji:'🦜', color:'#dff0dc', category:'Birds', photos:['Parrot from India.jpg','Indian Parrot.jpg'], photoNotes:['Rose-ringed parakeet · India','Indian parrot · Bengaluru, India'], sound:null},
+  {name:'Sparrow', noise:'Chirp!', emoji:'🐦', color:'#f3eadb', category:'Birds', photos:['Common Indian Sparrow.jpg','House sparrow in Kasauli in February 2023.jpg'], photoNotes:['House sparrow · India','House sparrow · Kasauli, Himachal Pradesh, India'], sound:null},
+  {name:'Myna', noise:'Chatter!', emoji:'🐦', color:'#f6e8d2', category:'Birds', photos:['Myna-indian.jpg','Common myna bird (India, 2014).jpg'], photoNotes:['Common myna · New Delhi, India','Common myna · India'], sound:null},
+  {name:'Kingfisher', noise:'Chatter!', emoji:'🐦', color:'#dceef3', category:'Birds', photos:['Common Indian Kingfisher.jpg','Common Kingfisher from India.jpg'], photoNotes:['White-throated kingfisher · India','Common kingfisher · India'], sound:null},
+  {name:'Eagle', noise:'Screech!', emoji:'🦅', color:'#e8e8e2', category:'Birds', photos:['Eagle (india).jpg','Grey Headed Fish Eagle.jpg'], photoNotes:['Eagle · Guindy National Park, Chennai, India','Grey-headed fish eagle · India'], sound:null},
+  {name:'Woodpecker', noise:'Tap-tap!', emoji:'🐦', color:'#f4e5d8', category:'Birds', photos:['Male Greater Flameback Woodpecker.jpg','Yellow crowned woodpecker looking for food.jpg'], photoNotes:['Greater flameback woodpecker · India','Yellow-crowned woodpecker · India'], sound:null}
 ];
 const keralaPictures = {
   "Cat": [
@@ -182,8 +195,11 @@ const keralaPictures = {
   ]
 };
 for (const animal of animals) {
-  animal.photos = keralaPictures[animal.name].map(p => p.path);
-  animal.photoNotes = keralaPictures[animal.name].map(p => p.note);
+  if (!animal.photos) {
+    const pictures = keralaPictures[animal.name];
+    animal.photos = pictures.map(p => p.path);
+    animal.photoNotes = pictures.map(p => p.note);
+  }
   animal.photo = animal.photos[0];
 }
 
@@ -206,7 +222,7 @@ const grid = document.getElementById('animals');
 const audio = document.getElementById('sound-player');
 const status = document.getElementById('status');
 document.querySelector('.count').textContent = animals.length + ' friends to discover';
-document.querySelector('.hero-copy p').textContent = 'Two real pictures of every friend. Tap to learn and listen!';
+document.querySelector('.hero-copy p').textContent = 'Real photographs taken in India. Tap to learn and listen!';
 
 let selected = null, currentSoundId = 0, voiceDoneTimer;
 const lightbox = document.createElement('div');
@@ -283,7 +299,7 @@ function openLarge(animal, button) {
   bigName.textContent = animal.name;
   const visibleAnimals = animals.filter(a => activeCategory === 'All' || categoryFor(a) === activeCategory);
   lightbox.querySelector('.swap-count').textContent = (visibleAnimals.indexOf(animal) + 1) + ' / ' + visibleAnimals.length;
-  lightbox.querySelector('.lightbox-instruction').textContent = 'Tap the big picture for the real sound! 🔊';
+  lightbox.querySelector('.lightbox-instruction').textContent = animal.sound ? 'Tap the big picture for the real sound! 🔊' : 'Real sound recording coming soon';
   lightbox.hidden = false;
   document.body.classList.add('modal-open');
   status.textContent = '🗣️ ' + animal.name + ' — tap enlarged image to hear its sound.';
@@ -299,6 +315,11 @@ async function playRealSound() {
   const id = ++currentSoundId;
   status.textContent = '🔊 ' + animal.name + ': ' + animal.noise;
   lightbox.querySelector('.lightbox-instruction').textContent = '🔊 ' + animal.noise + ' — tap again to replay';
+  if (!animal.sound) {
+    status.textContent = animal.name + ' recording is not added yet. The name is spoken aloud; a real call recording will be added later.';
+    lightbox.querySelector('.lightbox-instruction').textContent = 'Real sound recording coming soon';
+    return;
+  }
   try {
     audio.src = media(animal.sound);
     audio.load();
@@ -327,13 +348,13 @@ for (const animal of animals) {
   const info = document.createElement('span'); info.className = 'animal-info';
   const labelGroup = document.createElement('span');
   const name = document.createElement('strong'); name.className = 'animal-name'; name.textContent = animal.name;
-  const noise = document.createElement('small'); noise.className = 'animal-noise'; noise.textContent = '2 real pictures · Tap to learn';
+  const noise = document.createElement('small'); noise.className = 'animal-noise'; noise.textContent = animal.sound ? '2 India photos · Tap to learn' : '2 India photos · Sound soon';
   labelGroup.append(name, noise);
   const play = document.createElement('span'); play.className = 'play'; play.textContent = '🗣️';
   info.append(labelGroup, play);
   button.append(photo, info);
   button.addEventListener('click', () => {
-    lightbox.querySelector('.lightbox-instruction').textContent = 'Tap the big picture for the real sound! 🔊';
+    lightbox.querySelector('.lightbox-instruction').textContent = animal.sound ? 'Tap the big picture for the real sound! 🔊' : 'Real sound recording coming soon';
     openLarge(animal, button);
   });
   grid.append(button);
