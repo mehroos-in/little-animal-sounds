@@ -10,16 +10,16 @@ const animals = [
   {name:'Duck', noise:'Quack!', emoji:'🦆', color:'#e8f1d5', sound:'assets/clean-audio/duck.ogg'},
   {name:'Sheep', noise:'Baa!', emoji:'🐑', color:'#fbe4eb', sound:'assets/clean-audio/sheep.ogg'},
   {name:'Crow', noise:'Caw!', emoji:'🐦‍⬛', color:'#e6eaf9', sound:'assets/clean-audio/crow.ogg'},
-  {name:'Pigeon', noise:'Coo!', emoji:'🕊️', color:'#e8eef5', sound:null},
+  {name:'Pigeon', noise:'Coo!', emoji:'🕊️', color:'#e8eef5', sound:null, photos:['Pigeon Close up 5058.JPG','Rock Pigeon bird.JPG'], photoNotes:['Rock pigeon · head/face close-up · Kolkata, India','Rock pigeon · full-body view · New Delhi, India']},
   {name:'Cuckoo', noise:'Koo-oo!', emoji:'🐦', color:'#f7ead3', sound:'assets/clean-audio/cuckoo.ogg'},
   {name:'Rooster', noise:'Cock-a-doodle-doo!', emoji:'🐓', color:'#ffecd4', sound:'assets/clean-audio/rooster.ogg', category:'Birds'},
   {name:'Tiger', noise:'Roar!', emoji:'🐅', color:'#ffe5bf', sound:null, category:'Wild Animals'},
   {name:'Peacock', noise:'Kee-ow!', emoji:'🦚', color:'#d8f2ea', category:'Birds', sound:'assets/clean-audio/peacock.ogg'},
   {name:'Owl', noise:'Chirr!', emoji:'🦉', color:'#f4eadb', category:'Birds', sound:'assets/clean-audio/owl.ogg'},
   {name:'Goat', noise:'Maa!', emoji:'🐐', color:'#e6f0da', category:'Domestic Animals', sound:'assets/clean-audio/goat.ogg'},
-  {name:'Cheetah', noise:'Chirp!', emoji:'🐆', color:'#fff0cf', category:'Wild Animals', sound:'assets/clean-audio/cheetah.ogg'},
+  {name:'Cheetah', noise:'Chirp!', emoji:'🐆', color:'#fff0cf', category:'Wild Animals', sound:'assets/clean-audio/cheetah.ogg', photos:['Kushki face.jpg','Kooshki (Iranian Cheetah) 02.jpg'], photoNotes:['Asiatic cheetah · face portrait · Iran','Asiatic cheetah · full-body view · Iran']},
 
-  {name:'Rabbit', noise:'Squeak!', emoji:'🐰', color:'#f7e5ed', category:'Wild Animals', photos:['Indian Hare at Pench National Park, India.jpg','Rabbit Portrait (8890234862).jpg'], photoNotes:['Indian hare · Pench National Park, Madhya Pradesh, India','Rabbit portrait · location not specified · foreign photo'], sound:null},
+  {name:'Rabbit', noise:'Squeak!', emoji:'🐰', color:'#f7e5ed', category:'Wild Animals', photos:['Indian hare by N A Nazeer.jpg','Indian Hare at Pench National Park, India.jpg'], photoNotes:['Indian hare · head/profile view · India','Indian hare · full-body view · Pench National Park, Madhya Pradesh, India'], sound:null},
   {name:'Horse', noise:'Neigh!', emoji:'🐴', color:'#f4e5d4', category:'Domestic Animals', photos:['HorseIndia.jpg','Indian horse.jpg'], photoNotes:['Horse · India','Indian horse · India'], sound:null},
   {name:'Monkey', noise:'Chatter!', emoji:'🐒', color:'#f5e9d6', category:'Wild Animals', photos:['Langur Monkey Photo.jpg','Langur Monkey.JPG'], photoNotes:['Gray langur · Lonar Crater, Maharashtra, India','Gray langur · Lonar Crater, Maharashtra, India'], sound:null},
   {name:'Deer', noise:'Call!', emoji:'🦌', color:'#e9efd9', category:'Wild Animals', photos:['Spotted deer, chital.jpg','Chital(spotted deer).jpg'], photoNotes:['Spotted deer · Parambikulam Tiger Reserve, Kerala, India','Spotted deer · Bannerghatta National Park, Karnataka, India'], sound:null},
@@ -222,7 +222,7 @@ const grid = document.getElementById('animals');
 const audio = document.getElementById('sound-player');
 const status = document.getElementById('status');
 document.querySelector('.count').textContent = animals.length + ' friends to discover';
-document.querySelector('.hero-copy p').textContent = 'Explore real animal photographs from India and beyond. Tap to learn and listen!';
+document.querySelector('.hero-copy p').textContent = 'Explore real animal photographs from across Asia and beyond. Tap to learn and listen!';
 
 let selected = null, currentSoundId = 0, voiceDoneTimer;
 const lightbox = document.createElement('div');
@@ -286,7 +286,7 @@ function sayName(name) {
     return;
   }
   const phrase = new SpeechSynthesisUtterance(name);
-  phrase.lang = 'en-US';
+  phrase.lang = 'en-IN';
   phrase.rate = 0.78;
   phrase.pitch = 1.04;
   window.speechSynthesis.speak(phrase);
@@ -352,7 +352,7 @@ for (const animal of animals) {
   const info = document.createElement('span'); info.className = 'animal-info';
   const labelGroup = document.createElement('span');
   const name = document.createElement('strong'); name.className = 'animal-name'; name.textContent = animal.name;
-  const noise = document.createElement('small'); noise.className = 'animal-noise'; noise.textContent = animal.photos.length + ' India photo' + (animal.photos.length === 1 ? '' : 's') + (animal.sound ? ' · Tap to learn' : ' · Sound soon');
+  const noise = document.createElement('small'); noise.className = 'animal-noise'; noise.textContent = animal.photos.length + ' photos' + (animal.sound ? ' · Tap to learn' : ' · Recording pending');
   labelGroup.append(name, noise);
   const play = document.createElement('span'); play.className = 'play'; play.textContent = '🗣️';
   info.append(labelGroup, play);
