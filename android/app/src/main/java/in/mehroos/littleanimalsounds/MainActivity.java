@@ -68,7 +68,9 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
 
     @Override public void onInit(int status) {
         if (status == TextToSpeech.SUCCESS && speech != null) {
-            speech.setLanguage(Locale.US);
+            Locale indianEnglish = Locale.forLanguageTag("en-IN");
+            int indianEnglishSupport = speech.isLanguageAvailable(indianEnglish);
+            speech.setLanguage(indianEnglishSupport >= TextToSpeech.LANG_AVAILABLE ? indianEnglish : Locale.US);
             speech.setSpeechRate(0.82f);
             ready = true;
         }
