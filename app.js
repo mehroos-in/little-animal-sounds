@@ -20,17 +20,17 @@ const animals = [
   {name:'Cheetah', noise:'Chirp!', emoji:'🐆', color:'#fff0cf', category:'Wild Animals', sound:'assets/clean-audio/cheetah.ogg', photos:['Kushki face.jpg','Kooshki (Iranian Cheetah) 02.jpg'], photoNotes:['Asiatic cheetah · face portrait · Iran','Asiatic cheetah · full-body view · Iran']},
 
   {name:'Rabbit', noise:'Squeak!', emoji:'🐰', color:'#f7e5ed', category:'Wild Animals', photos:['Indian hare by N A Nazeer.jpg','Indian Hare at Pench National Park, India.jpg'], photoNotes:['Indian hare · head/profile view · India','Indian hare · full-body view · Pench National Park, Madhya Pradesh, India'], sound:null},
-  {name:'Horse', noise:'Neigh!', emoji:'🐴', color:'#f4e5d4', category:'Domestic Animals', photos:['HorseIndia.jpg','Indian horse.jpg'], photoNotes:['Horse · India','Indian horse · India'], sound:null},
+  {name:'Horse', noise:'Neigh!', emoji:'🐴', color:'#f4e5d4', category:'Domestic Animals', photos:['HorseIndia.jpg','Indian horse.jpg'], photoNotes:['Horse · India','Indian horse · India'], sound:'Wiehern.ogg'},
   {name:'Monkey', noise:'Chatter!', emoji:'🐒', color:'#f5e9d6', category:'Wild Animals', photos:['Langur Monkey Photo.jpg','Langur Monkey.JPG'], photoNotes:['Gray langur · Lonar Crater, Maharashtra, India','Gray langur · Lonar Crater, Maharashtra, India'], sound:null},
   {name:'Deer', noise:'Call!', emoji:'🦌', color:'#e9efd9', category:'Wild Animals', photos:['Spotted deer, chital.jpg','Chital(spotted deer).jpg'], photoNotes:['Spotted deer · Parambikulam Tiger Reserve, Kerala, India','Spotted deer · Bannerghatta National Park, Karnataka, India'], sound:null},
-  {name:'Squirrel', noise:'Chirp!', emoji:'🐿️', color:'#f8e8d5', category:'Wild Animals', photos:['Indian Palm Squirrel Portrait.jpg','Indian Palm Squirrel.jpg'], photoNotes:['Indian palm squirrel · Bangalore, India · close portrait','Indian palm squirrel · Mehrangarh Fort, Jodhpur, India'], sound:null},
+  {name:'Squirrel', noise:'Chirp!', emoji:'🐿️', color:'#f8e8d5', category:'Wild Animals', photos:['Indian Palm Squirrel Portrait.jpg','Indian Palm Squirrel.jpg'], photoNotes:['Indian palm squirrel · Bangalore, India · close portrait','Indian palm squirrel · Mehrangarh Fort, Jodhpur, India'], sound:'Indian Palm Squirrel - chip chip chip sound.ogg'},
   {name:'Bear', noise:'Growl!', emoji:'🐻', color:'#eee4d8', category:'Wild Animals', photos:['Sloth Bear or Indian Bear Melursus ursinus DSCN2124 02.jpg','SlothBear1.jpg'], photoNotes:['Sloth bear · Tadoba Andhari Tiger Reserve, Maharashtra, India','Sloth bear · Daroji, Karnataka, India'], sound:null},
-  {name:'Parrot', noise:'Squawk!', emoji:'🦜', color:'#dff0dc', category:'Birds', photos:['Parrot from India.jpg','Rose ringed Parakeet . Parrot.jpg'], photoNotes:['Parrot · India · existing CC0 photograph','Rose-ringed parakeet · Raisar, Punjab, India'], sound:null},
-  {name:'Sparrow', noise:'Chirp!', emoji:'🐦', color:'#f3eadb', category:'Birds', photos:['Common House Sparrow India.jpg','House Sparrow India.jpg'], photoNotes:['House sparrow · India','House sparrow · Kasauli, Himachal Pradesh, India'], sound:null},
-  {name:'Myna', noise:'Chatter!', emoji:'🐦', color:'#f6e8d2', category:'Birds', photos:['Myna-indian.jpg','Common myna (India, 2017).jpg'], photoNotes:['Common myna · New Delhi, India','Common myna · India · 2017'], sound:null},
+  {name:'Parrot', noise:'Squawk!', emoji:'🦜', color:'#dff0dc', category:'Birds', photos:['Parrot from India.jpg','Rose ringed Parakeet . Parrot.jpg'], photoNotes:['Parrot · India · existing CC0 photograph','Rose-ringed parakeet · Raisar, Punjab, India'], sound:'Halsbandsittich.ogg'},
+  {name:'Sparrow', noise:'Chirp!', emoji:'🐦', color:'#f3eadb', category:'Birds', photos:['Common House Sparrow India.jpg','House Sparrow India.jpg'], photoNotes:['House sparrow · India','House sparrow · Kasauli, Himachal Pradesh, India'], sound:'House_Sparrow.ogg'},
+  {name:'Myna', noise:'Chatter!', emoji:'🐦', color:'#f6e8d2', category:'Birds', photos:['Myna-indian.jpg','Common myna (India, 2017).jpg'], photoNotes:['Common myna · New Delhi, India','Common myna · India · 2017'], sound:'CommonMynaCalls.ogg'},
   {name:'Kingfisher', noise:'Chatter!', emoji:'🐦', color:'#dceef3', category:'Birds', photos:['Common Indian Kingfisher.jpg','The Common Kingfisher.jpg'], photoNotes:['White-throated kingfisher · India','Common kingfisher · India'], sound:null},
-  {name:'Eagle', noise:'Screech!', emoji:'🦅', color:'#e8e8e2', category:'Birds', photos:['Eagle (india).jpg','Indian Eagle.jpg'], photoNotes:['Eagle · Guindy National Park, Chennai, India','Grey-headed fish eagle · India'], sound:null},
-  {name:'Woodpecker', noise:'Tap-tap!', emoji:'🐦', color:'#f4e5d8', category:'Birds', photos:['Greater flameback woodpecker male.jpg','Greater Flameback Woodpecker (male).jpg'], photoNotes:['Greater flameback woodpecker · India','Yellow-crowned woodpecker · India'], sound:null}
+  {name:'Eagle', noise:'Screech!', emoji:'🦅', color:'#e8e8e2', category:'Birds', photos:['Eagle (india).jpg','Indian Eagle.jpg'], photoNotes:['Eagle · Guindy National Park, Chennai, India','Grey-headed fish eagle · India'], sound:'Black eagle call recorded in March 2013 at Mudumalai National Park, Tamil Nadu.wav'},
+  {name:'Woodpecker', noise:'Tap-tap!', emoji:'🐦', color:'#f4e5d8', category:'Birds', photos:['Greater flameback woodpecker male.jpg','Greater Flameback Woodpecker (male).jpg'], photoNotes:['Greater flameback woodpecker · India','Yellow-crowned woodpecker · India'], sound:'Greater_flameback_calls.ogg'}
 ];
 const keralaPictures = {
   "Cat": [
@@ -224,7 +224,7 @@ const status = document.getElementById('status');
 document.querySelector('.count').textContent = animals.length + ' friends to discover';
 document.querySelector('.hero-copy p').textContent = 'Explore real animal photographs from across Asia and beyond. Tap to learn and listen!';
 
-let selected = null, currentSoundId = 0, voiceDoneTimer;
+let selected = null, currentSoundId = 0, voiceDoneTimer, audioStopTimer;
 const lightbox = document.createElement('div');
 lightbox.className = 'animal-lightbox';
 lightbox.hidden = true;
@@ -265,6 +265,7 @@ pictureTwo.addEventListener('click', () => choosePicture(1));
 function stopEverything() {
   currentSoundId += 1;
   clearTimeout(voiceDoneTimer);
+  clearTimeout(audioStopTimer);
   try { window.AndroidSpeech?.stop?.(); } catch (_) {}
   try { window.speechSynthesis?.cancel(); } catch (_) {}
   try { audio.pause(); audio.removeAttribute('src'); audio.load(); } catch (_) {}
@@ -328,6 +329,15 @@ async function playRealSound() {
     audio.src = media(animal.sound);
     audio.load();
     await audio.play();
+    if (!animal.sound.startsWith('assets/')) {
+      audioStopTimer = setTimeout(() => {
+        if (currentSoundId === id) {
+          audio.pause();
+          audio.currentTime = 0;
+          status.textContent = animal.name + ' sound preview finished. Tap again to replay.';
+        }
+      }, 8000);
+    }
   } catch (_) {
     if (currentSoundId !== id) return;
     status.textContent = 'Recording unavailable. Check internet and try again.';
