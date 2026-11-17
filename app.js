@@ -194,15 +194,24 @@ const keralaPictures = {
     }
   ]
 };
+const indiaRelatedPattern = /\b(India|Indian|Kerala|Punjab|Kashmir|Rajasthan|Tamil Nadu|Gujarat|Madhya Pradesh|Karnataka|Maharashtra|Himachal Pradesh|Kolkata|New Delhi|Bangalore|Jodhpur|Chennai|Thrissur|Palakkad|Thekkady|Marayoor|Kozhikode|Thiruvananthapuram|Kochi|Nallepilly|Lonar|Parambikulam|Bannerghatta|Tadoba|Daroji|Pench|Kuno|Gir|Keoladeo|Patiala|Kasauli|Raisar|Guindy|Mudumalai|Gangabal|Mehrangarh|Fort Kochi)\b/i;
 for (const animal of animals) {
   if (!animal.photos) {
-    const pictures = keralaPictures[animal.name];
+    const pictures = keralaPictures[animal.name] || [];
     animal.photos = pictures.map(p => p.path);
     animal.photoNotes = pictures.map(p => p.note);
   }
-  animal.photo = animal.photos[0];
+  const indianPhotoIndex = animal.photos.findIndex((photo, index) => indiaRelatedPattern.test(animal.photoNotes?.[index] || ''));
+  if (indianPhotoIndex >= 0) {
+    animal.photos = [animal.photos[indianPhotoIndex]];
+    animal.photoNotes = [animal.photoNotes[indianPhotoIndex]];
+    animal.photo = animal.photos[0];
+  } else {
+    animal.photos = [];
+    animal.photoNotes = [];
+    animal.photo = '';
+  }
 }
-
 
 // Refresh the gallery from Wikimedia Commons. Search terms favour Indian/Asian
 // species and locations; the existing curated pair remains as a fallback.
@@ -223,51 +232,52 @@ const commonsSearchTerms = {
   Woodpecker:'greater flameback woodpecker India'
 };
 const commonsLicenseAllowed = value => /^(CC BY(?:-SA)?(?:\s|$)|CC0|Public domain)/i.test(value || '') && !/-NC\b/i.test(value || '');
+const indiaEvidencePattern = /\b(India|Indian|Kerala|Punjab|Kashmir|Rajasthan|Tamil Nadu|Gujarat|Madhya Pradesh|Karnataka|Maharashtra|Himachal Pradesh|Kolkata|New Delhi|Bangalore|Jodhpur|Chennai|Thrissur|Palakkad|Thekkady|Marayoor|Kozhikode|Thiruvananthapuram|Kochi|Nallepilly|Lonar|Parambikulam|Bannerghatta|Tadoba|Daroji|Pench|Kuno|Gir|Keoladeo|Patiala|Kasauli|Raisar|Guindy|Mudumalai|Gangabal|Mehrangarh|Fort Kochi)\b/i;
 async function refreshCommonsPhotos(animal) {
   const term = commonsSearchTerms[animal.name];
   if (!term) return;
   const params = new URLSearchParams({
     action:'query', format:'json', origin:'*', generator:'search',
-    gsrsearch:'filetype:bitmap ' + term, gsrnamespace:'6', gsrlimit:'12',
-    prop:'imageinfo', iiprop:'url|extmetadata', iiurlwidth:'960'
+    gsrsearch:'filetype:bitmap ' + term + ' India', gsrnamespace:'6', gsrlimit:'30',
+    prop:'imageinfo|categories', cllimit:'max',
+    iiprop:'url|extmetadata', iiurlwidth:'960'
   });
   try {
     const response = await fetch('https://commons.wikimedia.org/w/api.php?' + params.toString());
     if (!response.ok) throw new Error('Commons request failed');
     const data = await response.json();
     const pages = Object.values(data.query?.pages || {});
-    const chosen = pages
+    const candidates = pages
       .filter(page => page.imageinfo?.[0]?.thumburl && page.imageinfo?.[0]?.descriptionurl)
       .map(page => {
         const info = page.imageinfo[0], meta = info.extmetadata || {};
-        const license = meta.LicenseShortName?.value || 'See file page';
+        const license = meta.LicenseShortName?.value || '';
         const artist = (meta.Artist?.value || 'Photographer not listed').replace(/<[^>]*>/g, '').trim();
-        const title = page.title.replace(/^File:/, '');
-        return {url:info.thumburl, page:info.descriptionurl, title, artist, license};
+        const description = (meta.ImageDescription?.value || '').replace(/<[^>]*>/g, ' ').trim();
+        const categories = (page.categories || []).map(item => item.title.replace(/^Category:/, '')).join(' ');
+        const evidence = [page.title, description, categories].join(' ');
+        return {url:info.thumburl, page:info.descriptionurl, title:page.title.replace(/^File:/, ''), artist, license, evidence};
       })
-      .filter(item => commonsLicenseAllowed(item.license))
-      .filter((item, index, all) => all.findIndex(other => other.page === item.page) === index)
-      .slice(0, 2);
-    if (chosen.length !== 2) return;
-    animal.photos = chosen.map(item => item.url);
-    animal.photoNotes = chosen.map((item, i) => 'Picture ' + (i + 1) + ' · ' + item.artist + ' · ' + item.license);
-    animal.photoCredits = chosen;
-    animal.photo = animal.photos[0];
+      .filter(item => commonsLicenseAllowed(item.license) && indiaEvidencePattern.test(item.evidence))
+      .filter(item => !/Sri Lanka|Iran|Namibia|England|United Kingdom|London/i.test(item.evidence))
+      .sort((a,b) => Number(/India|Indian/i.test(b.evidence)) - Number(/India|Indian/i.test(a.evidence)));
+    const chosen = candidates[0];
+    if (!chosen) return;
+    animal.photos = [chosen.url];
+    animal.photoNotes = [chosen.artist + ' · ' + chosen.license];
+    animal.photoCredits = [chosen];
+    animal.photo = chosen.url;
     const card = grid.children[animals.indexOf(animal)];
     if (card) {
       const img = card.querySelector('img');
       img.src = media(animal.photo, 480);
       img.hidden = false;
       img.onerror = () => { img.hidden = true; };
-      card.querySelector('.animal-noise').textContent = animal.photos.length + ' photos' + (animal.sound ? ' · Tap to learn' : ' · Recording pending');
+      card.querySelector('.animal-noise').textContent = animal.sound ? 'Indian photo · Tap to learn' : 'Indian photo · Recording pending';
     }
-    if (selected?.animal === animal) {
-      pictureOne.querySelector('img').src = media(animal.photos[0]);
-      pictureTwo.querySelector('img').src = media(animal.photos[1]);
-      choosePicture(selected.photoIndex || 0);
-    }
+    if (selected?.animal === animal) choosePicture();
   } catch (error) {
-    // Keep the last known-good curated pair when Commons is unavailable.
+    // Keep an India-related curated fallback, or the emoji if none exists.
   }
 }
 
@@ -290,7 +300,7 @@ const grid = document.getElementById('animals');
 const audio = document.getElementById('sound-player');
 const status = document.getElementById('status');
 document.querySelector('.count').textContent = animals.length + ' friends to discover';
-document.querySelector('.hero-copy p').textContent = 'Explore real animal photographs from across Asia and beyond. Tap to learn and listen!';
+document.querySelector('.hero-copy p').textContent = 'Explore real photographs of animals found in India. Tap to learn and listen!';
 
 let selected = null, currentSoundId = 0, voiceDoneTimer, audioStopTimer;
 const lightbox = document.createElement('div');
@@ -299,11 +309,10 @@ lightbox.hidden = true;
 lightbox.innerHTML = '<div class="lightbox-panel" role="dialog" aria-modal="true" aria-labelledby="large-name">' +
   '<button type="button" class="lightbox-close" aria-label="Close enlarged picture">✕</button>' +
   '<button type="button" class="large-animal" aria-label="Play animal sound"><span class="big-emoji"></span><img class="large-photo" alt=""></button>' +
-  '<div class="picture-choices" role="group" aria-label="Choose a picture"><button type="button" class="picture-one" aria-label="Picture 1" aria-pressed="true"><img alt="" aria-hidden="true"><span>Picture 1</span></button><button type="button" class="picture-two" aria-label="Picture 2" aria-pressed="false"><img alt="" aria-hidden="true"><span>Picture 2</span></button></div>' +
   '<div class="large-label" id="large-name"></div><p class="lightbox-instruction">Tap the big picture for the real sound! 🔊</p>' +
-  '<p class="picture-note"></p>' +
+  '<div class="photo-source"><button type="button" class="source-toggle" aria-expanded="false">ⓘ Photo source</button><div class="source-details" hidden></div></div>' +
   '<div class="swap-navigation"><button class="swap-prev" type="button" aria-label="Previous animal">❮ Previous</button><span class="swap-count" aria-live="off"></span><button class="swap-next" type="button" aria-label="Next animal">Next ❯</button></div>' +
-  '</div>';
+  '</div>'
 document.body.append(lightbox);
 const bigButton = lightbox.querySelector('.large-animal');
 const bigImage = lightbox.querySelector('.large-photo');
@@ -312,31 +321,43 @@ const bigName = lightbox.querySelector('.large-label');
 const closeButton = lightbox.querySelector('.lightbox-close');
 const swapPrev = lightbox.querySelector('.swap-prev');
 const swapNext = lightbox.querySelector('.swap-next');
-const pictureOne = lightbox.querySelector('.picture-one');
-const pictureTwo = lightbox.querySelector('.picture-two');
+const sourceToggle = lightbox.querySelector('.source-toggle');
+const sourceDetails = lightbox.querySelector('.source-details');
 
-function choosePicture(index) {
-  if (!selected || index < 0 || index >= selected.animal.photos.length) return;
-  selected.photoIndex = index;
-  bigImage.hidden = false;
-  bigImage.src = media(selected.animal.photos[index]);
-  bigImage.alt = selected.animal.name + ', clear photograph ' + (index + 1) + ' of 2';
-  pictureOne.setAttribute('aria-pressed', String(index === 0));
-  pictureTwo.hidden = selected.animal.photos.length < 2;
-  lightbox.querySelector('.picture-choices').hidden = selected.animal.photos.length < 2;
-  pictureTwo.setAttribute('aria-pressed', String(index === 1));
-  const note = lightbox.querySelector('.picture-note');
-  note.textContent = selected.animal.photoNotes?.[index] || '';
-  const credit = selected.animal.photoCredits?.[index];
+function choosePicture() {
+  if (!selected) return;
+  const animal = selected.animal;
+  bigImage.hidden = !animal.photo;
+  bigImage.src = media(animal.photo);
+  bigImage.alt = animal.photo ? 'Photograph of ' + animal.name + ' found in India' : '';
+  sourceDetails.replaceChildren();
+  sourceDetails.hidden = true;
+  sourceToggle.hidden = !animal.photoCredits?.[0];
+  sourceToggle.setAttribute('aria-expanded', 'false');
+  sourceToggle.textContent = 'ⓘ Photo source';
+  const credit = animal.photoCredits?.[0];
   if (credit) {
+    for (const [label, value] of [['Photo', credit.title], ['Photographer', credit.artist], ['Licence', credit.license]]) {
+      const row = document.createElement('p');
+      const strong = document.createElement('strong');
+      strong.textContent = label + ': ';
+      row.append(strong, document.createTextNode(value || 'Not listed'));
+      sourceDetails.append(row);
+    }
     const link = document.createElement('a');
-    link.href = credit.page; link.target = '_blank'; link.rel = 'noopener noreferrer';
-    link.textContent = ' View photo source and full licence';
-    note.append(link);
+    link.href = credit.page;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = 'Open original photo and full licence ↗';
+    sourceDetails.append(link);
   }
 }
-pictureOne.addEventListener('click', () => choosePicture(0));
-pictureTwo.addEventListener('click', () => choosePicture(1));
+sourceToggle.addEventListener('click', () => {
+  const expanded = sourceToggle.getAttribute('aria-expanded') === 'true';
+  sourceToggle.setAttribute('aria-expanded', String(!expanded));
+  sourceDetails.hidden = expanded;
+  sourceToggle.textContent = expanded ? 'ⓘ Photo source' : 'ⓘ Hide source details';
+});
 
 function stopEverything() {
   currentSoundId += 1;
@@ -371,11 +392,7 @@ function sayName(name) {
 function openLarge(animal, button) {
   stopEverything();
   selected = { animal, button, photoIndex: 0 };
-  choosePicture(0);
-  pictureOne.querySelector('img').src = media(animal.photos[0]);
-  pictureTwo.querySelector('img').src = animal.photos[1] ? media(animal.photos[1]) : '';
-  pictureTwo.hidden = animal.photos.length < 2;
-  lightbox.querySelector('.picture-choices').hidden = animal.photos.length < 2;
+  choosePicture();
   bigEmoji.textContent = animal.emoji;
   bigName.textContent = animal.name;
   const visibleAnimals = animals.filter(a => activeCategory === 'All' || categoryFor(a) === activeCategory);
@@ -430,6 +447,7 @@ for (const animal of animals) {
   const photo = document.createElement('span'); photo.className = 'photo';
   const emoji = document.createElement('span'); emoji.className = 'fallback'; emoji.textContent = animal.emoji;
   const image = document.createElement('img');
+  image.hidden = !animal.photo;
   image.src = media(animal.photo, 480);
   image.loading = 'lazy';
   image.alt = 'Photograph of ' + animal.name;
@@ -438,7 +456,7 @@ for (const animal of animals) {
   const info = document.createElement('span'); info.className = 'animal-info';
   const labelGroup = document.createElement('span');
   const name = document.createElement('strong'); name.className = 'animal-name'; name.textContent = animal.name;
-  const noise = document.createElement('small'); noise.className = 'animal-noise'; noise.textContent = animal.photos.length + ' photos' + (animal.sound ? ' · Tap to learn' : ' · Recording pending');
+  const noise = document.createElement('small'); noise.className = 'animal-noise'; noise.textContent = animal.photo ? 'Indian photo · Tap to learn' : (animal.sound ? 'Photo loading · Tap to learn' : 'Photo loading · Recording pending');
   labelGroup.append(name, noise);
   const play = document.createElement('span'); play.className = 'play'; play.textContent = '🗣️';
   info.append(labelGroup, play);
@@ -484,7 +502,7 @@ lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLarge(
 window.addEventListener('keydown', e => {
   if (lightbox.hidden) return;
   if (e.key === 'Tab') {
-    const controls = [closeButton, bigButton, pictureOne, pictureTwo, swapPrev, swapNext];
+    const controls = [closeButton, bigButton, sourceToggle, swapPrev, swapNext].filter(control => !control.hidden);
     const index = controls.indexOf(document.activeElement);
     e.preventDefault();
     controls[(index + (e.shiftKey ? -1 : 1) + controls.length) % controls.length].focus();
