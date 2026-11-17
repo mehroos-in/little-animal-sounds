@@ -391,7 +391,7 @@ function sayName(name) {
 }
 function openLarge(animal, button) {
   stopEverything();
-  selected = { animal, button, photoIndex: 0 };
+  selected = { animal, button };
   choosePicture();
   bigEmoji.textContent = animal.emoji;
   bigName.textContent = animal.name;
