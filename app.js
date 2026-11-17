@@ -222,7 +222,7 @@ const commonsSearchTerms = {
   Kingfisher:'white throated kingfisher India', Eagle:'Indian eagle India',
   Woodpecker:'greater flameback woodpecker India'
 };
-const commonsLicenseAllowed = value => /CC BY|CC0|Public domain|Public Domain/i.test(value || '');
+const commonsLicenseAllowed = value => /^(CC BY(?:-SA)?(?:\\s|$)|CC0|Public domain)/i.test(value || '') && !/-NC\\b/i.test(value || '');
 async function refreshCommonsPhotos(animal) {
   const term = commonsSearchTerms[animal.name];
   if (!term) return;
@@ -261,7 +261,7 @@ async function refreshCommonsPhotos(animal) {
       img.onerror = () => { img.hidden = true; };
       card.querySelector('.animal-noise').textContent = animal.photos.length + ' photos' + (animal.sound ? ' · Tap to learn' : ' · Recording pending');
     }
-    if (selected?.animal === animal) choosePicture(selected.photoIndex || 0);
+    if (selected?.animal === animal) {\n      pictureOne.querySelector('img').src = media(animal.photos[0]);\n      pictureTwo.querySelector('img').src = media(animal.photos[1]);\n      choosePicture(selected.photoIndex || 0);\n    }
   } catch (error) {
     // Keep the last known-good curated pair when Commons is unavailable.
   }
