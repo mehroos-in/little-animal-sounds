@@ -2,286 +2,142 @@
 
 // Real animal photographs with source and location details in credits.html.
 const animals = [
-  {name:'Cat', noise:'Meow!', emoji:'🐱', color:'#ffe6d2', sound:'assets/clean-audio/cat.ogg'},
-  {name:'Dog', noise:'Woof!', emoji:'🐶', color:'#ece6ff', sound:'assets/clean-audio/dog.ogg'},
-  {name:'Cow', noise:'Moo!', emoji:'🐮', color:'#f9e5ee', sound:null},
-  {name:'Lion', noise:'Roar!', emoji:'🦁', color:'#fff0c6', sound:'assets/clean-audio/lion.ogg'},
-  {name:'Elephant', noise:'Trumpet!', emoji:'🐘', color:'#ddf1f5', sound:'assets/clean-audio/elephant.ogg'},
-  {name:'Duck', noise:'Quack!', emoji:'🦆', color:'#e8f1d5', sound:'assets/clean-audio/duck.ogg'},
-  {name:'Sheep', noise:'Baa!', emoji:'🐑', color:'#fbe4eb', sound:'assets/clean-audio/sheep.ogg'},
-  {name:'Crow', noise:'Caw!', emoji:'🐦‍⬛', color:'#e6eaf9', sound:'assets/clean-audio/crow.ogg'},
-  {name:'Pigeon', noise:'Coo!', emoji:'🕊️', color:'#e8eef5', sound:null, photos:['Pigeon Close up 5058.JPG','Rock Pigeon bird.JPG'], photoNotes:['Rock pigeon · head/face close-up · Kolkata, India','Rock pigeon · full-body view · New Delhi, India']},
-  {name:'Cuckoo', noise:'Koo-oo!', emoji:'🐦', color:'#f7ead3', sound:'assets/clean-audio/cuckoo.ogg'},
+  {name:'Cat', noise:'Meow!', emoji:'🐱', color:'#ffe6d2', sound:'assets/clean-audio/cat.ogg', category:'Domestic Animals'},
+  {name:'Dog', noise:'Woof!', emoji:'🐶', color:'#ece6ff', sound:'assets/clean-audio/dog.ogg', category:'Domestic Animals'},
+  {name:'Cow', noise:'Moo!', emoji:'🐮', color:'#f9e5ee', sound:null, category:'Domestic Animals'},
+  {name:'Lion', noise:'Roar!', emoji:'🦁', color:'#fff0c6', sound:'assets/clean-audio/lion.ogg', category:'Wild Animals'},
+  {name:'Elephant', noise:'Trumpet!', emoji:'🐘', color:'#ddf1f5', sound:'assets/clean-audio/elephant.ogg', category:'Wild Animals'},
+  {name:'Duck', noise:'Quack!', emoji:'🦆', color:'#e8f1d5', sound:'assets/clean-audio/duck.ogg', category:'Birds'},
+  {name:'Sheep', noise:'Baa!', emoji:'🐑', color:'#fbe4eb', sound:'assets/clean-audio/sheep.ogg', category:'Domestic Animals'},
+  {name:'Crow', noise:'Caw!', emoji:'🐦‍⬛', color:'#e6eaf9', sound:'assets/clean-audio/crow.ogg', category:'Birds'},
+  {name:'Pigeon', noise:'Coo!', emoji:'🕊️', color:'#e8eef5', sound:null, category:'Birds'},
+  {name:'Cuckoo', noise:'Koo-oo!', emoji:'🐦', color:'#f7ead3', sound:'assets/clean-audio/cuckoo.ogg', category:'Birds'},
   {name:'Rooster', noise:'Cock-a-doodle-doo!', emoji:'🐓', color:'#ffecd4', sound:'assets/clean-audio/rooster.ogg', category:'Birds'},
   {name:'Tiger', noise:'Roar!', emoji:'🐅', color:'#ffe5bf', sound:null, category:'Wild Animals'},
-  {name:'Peacock', noise:'Kee-ow!', emoji:'🦚', color:'#d8f2ea', category:'Birds', sound:'assets/clean-audio/peacock.ogg'},
-  {name:'Owl', noise:'Chirr!', emoji:'🦉', color:'#f4eadb', category:'Birds', sound:'assets/clean-audio/owl.ogg'},
-  {name:'Goat', noise:'Maa!', emoji:'🐐', color:'#e6f0da', category:'Domestic Animals', sound:'assets/clean-audio/goat.ogg'},
-  {name:'Cheetah', noise:'Chirp!', emoji:'🐆', color:'#fff0cf', category:'Wild Animals', sound:'assets/clean-audio/cheetah.ogg', photos:['Kushki face.jpg','Kooshki (Iranian Cheetah) 02.jpg'], photoNotes:['Asiatic cheetah · face portrait · Iran','Asiatic cheetah · full-body view · Iran']},
-
-  {name:'Rabbit', noise:'Squeak!', emoji:'🐰', color:'#f7e5ed', category:'Wild Animals', photos:['Indian hare by N A Nazeer.jpg','Indian Hare at Pench National Park, India.jpg'], photoNotes:['Indian hare · head/profile view · India','Indian hare · full-body view · Pench National Park, Madhya Pradesh, India'], sound:null},
-  {name:'Horse', noise:'Neigh!', emoji:'🐴', color:'#f4e5d4', category:'Domestic Animals', photos:['HorseIndia.jpg','Indian horse.jpg'], photoNotes:['Horse · India','Indian horse · India'], sound:'Wiehern.ogg'},
-  {name:'Monkey', noise:'Chatter!', emoji:'🐒', color:'#f5e9d6', category:'Wild Animals', photos:['Langur Monkey Photo.jpg','Langur Monkey.JPG'], photoNotes:['Gray langur · Lonar Crater, Maharashtra, India','Gray langur · Lonar Crater, Maharashtra, India'], sound:null},
-  {name:'Deer', noise:'Call!', emoji:'🦌', color:'#e9efd9', category:'Wild Animals', photos:['Spotted deer, chital.jpg','Chital(spotted deer).jpg'], photoNotes:['Spotted deer · Parambikulam Tiger Reserve, Kerala, India','Spotted deer · Bannerghatta National Park, Karnataka, India'], sound:null},
-  {name:'Squirrel', noise:'Chirp!', emoji:'🐿️', color:'#f8e8d5', category:'Wild Animals', photos:['Indian Palm Squirrel Portrait.jpg','Indian Palm Squirrel.jpg'], photoNotes:['Indian palm squirrel · Bangalore, India · close portrait','Indian palm squirrel · Mehrangarh Fort, Jodhpur, India'], sound:'Indian Palm Squirrel - chip chip chip sound.ogg'},
-  {name:'Bear', noise:'Growl!', emoji:'🐻', color:'#eee4d8', category:'Wild Animals', photos:['Sloth Bear or Indian Bear Melursus ursinus DSCN2124 02.jpg','SlothBear1.jpg'], photoNotes:['Sloth bear · Tadoba Andhari Tiger Reserve, Maharashtra, India','Sloth bear · Daroji, Karnataka, India'], sound:null},
-  {name:'Parrot', noise:'Squawk!', emoji:'🦜', color:'#dff0dc', category:'Birds', photos:['Parrot from India.jpg','Rose ringed Parakeet . Parrot.jpg'], photoNotes:['Parrot · India · existing CC0 photograph','Rose-ringed parakeet · Raisar, Punjab, India'], sound:'Halsbandsittich.ogg'},
-  {name:'Sparrow', noise:'Chirp!', emoji:'🐦', color:'#f3eadb', category:'Birds', photos:['Common House Sparrow India.jpg','House Sparrow India.jpg'], photoNotes:['House sparrow · India','House sparrow · Kasauli, Himachal Pradesh, India'], sound:'House_Sparrow.ogg'},
-  {name:'Myna', noise:'Chatter!', emoji:'🐦', color:'#f6e8d2', category:'Birds', photos:['Myna-indian.jpg','Common myna (India, 2017).jpg'], photoNotes:['Common myna · New Delhi, India','Common myna · India · 2017'], sound:'CommonMynaCalls.ogg'},
-  {name:'Kingfisher', noise:'Chatter!', emoji:'🐦', color:'#dceef3', category:'Birds', photos:['Common Indian Kingfisher.jpg','The Common Kingfisher.jpg'], photoNotes:['White-throated kingfisher · India','Common kingfisher · India'], sound:null},
-  {name:'Eagle', noise:'Screech!', emoji:'🦅', color:'#e8e8e2', category:'Birds', photos:['Eagle (india).jpg','Indian Eagle.jpg'], photoNotes:['Eagle · Guindy National Park, Chennai, India','Grey-headed fish eagle · India'], sound:'Black eagle call recorded in March 2013 at Mudumalai National Park, Tamil Nadu.wav'},
-  {name:'Woodpecker', noise:'Tap-tap!', emoji:'🐦', color:'#f4e5d8', category:'Birds', photos:['Greater flameback woodpecker male.jpg','Greater Flameback Woodpecker (male).jpg'], photoNotes:['Greater flameback woodpecker · India','Yellow-crowned woodpecker · India'], sound:'Greater_flameback_calls.ogg'}
+  {name:'Peacock', noise:'Kee-ow!', emoji:'🦚', color:'#d8f2ea', sound:'assets/clean-audio/peacock.ogg', category:'Birds'},
+  {name:'Owl', noise:'Chirr!', emoji:'🦉', color:'#f4eadb', sound:'assets/clean-audio/owl.ogg', category:'Birds'},
+  {name:'Goat', noise:'Maa!', emoji:'🐐', color:'#e6f0da', sound:'assets/clean-audio/goat.ogg', category:'Domestic Animals'},
+  {name:'Cheetah', noise:'Chirp!', emoji:'🐆', color:'#fff0cf', sound:'assets/clean-audio/cheetah.ogg', category:'Wild Animals'},
+  {name:'Rabbit', noise:'Squeak!', emoji:'🐰', color:'#f7e5ed', sound:null, category:'Wild Animals'},
+  {name:'Horse', noise:'Neigh!', emoji:'🐴', color:'#f4e5d4', sound:'Wiehern.ogg', category:'Domestic Animals'},
+  {name:'Monkey', noise:'Chatter!', emoji:'🐒', color:'#f5e9d6', sound:null, category:'Wild Animals'},
+  {name:'Deer', noise:'Call!', emoji:'🦌', color:'#e9efd9', sound:null, category:'Wild Animals'},
+  {name:'Squirrel', noise:'Chirp!', emoji:'🐿️', color:'#f8e8d5', sound:'Indian Palm Squirrel - chip chip chip sound.ogg', category:'Wild Animals'},
+  {name:'Bear', noise:'Growl!', emoji:'🐻', color:'#eee4d8', sound:null, category:'Wild Animals'},
+  {name:'Parrot', noise:'Squawk!', emoji:'🦜', color:'#dff0dc', sound:'Halsbandsittich.ogg', category:'Birds'},
+  {name:'Sparrow', noise:'Chirp!', emoji:'🐦', color:'#f3eadb', sound:'House_Sparrow.ogg', category:'Birds'},
+  {name:'Myna', noise:'Chatter!', emoji:'🐦', color:'#f6e8d2', sound:'CommonMynaCalls.ogg', category:'Birds'},
+  {name:'Kingfisher', noise:'Chatter!', emoji:'🐦', color:'#dceef3', sound:null, category:'Birds'},
+  {name:'Eagle', noise:'Screech!', emoji:'🦅', color:'#e8e8e2', sound:'Black eagle call recorded in March 2013 at Mudumalai National Park, Tamil Nadu.wav', category:'Birds'},
+  {name:'Woodpecker', noise:'Tap-tap!', emoji:'🐦', color:'#f4e5d8', sound:'Greater_flameback_calls.ogg', category:'Birds'},
+  {name:'Frog', noise:'Ribbit!', emoji:'🐸', color:'#dff1dc', sound:null, category:'Wild Animals'},
+  {name:'Pig', noise:'Oink!', emoji:'🐷', color:'#f8e1e5', sound:null, category:'Domestic Animals'},
+  {name:'Yak', noise:'Grunt!', emoji:'🐂', color:'#e9e2d9', sound:null, category:'Domestic Animals'},
+  {name:'Buffalo', noise:'Moo!', emoji:'🐃', color:'#e5e8ef', sound:null, category:'Domestic Animals'}
 ];
-const keralaPictures = {
-  "Cat": [
-    {
-      "path": "assets/kerala/cat-1.jpg",
-      "note": "Domestic cat · India"
-    },
-    {
-      "path": "assets/kerala/cat-2.jpg",
-      "note": "Domestic cat · Kerala"
-    }
-  ],
-  "Dog": [
-    {
-      "path": "assets/kerala/dog-1.jpg",
-      "note": "Kattampally, Kerala"
-    },
-    {
-      "path": "assets/kerala/dog-2.jpg",
-      "note": "Indian pariah dog · Punjab"
-    }
-  ],
-  "Cow": [
-    {
-      "path": "assets/kerala/cow-1.jpg",
-      "note": "Thekkady, Kerala"
-    },
-    {
-      "path": "assets/kerala/cow-2.jpg",
-      "note": "Vechur cattle · Kerala"
-    }
-  ],
-  "Lion": [
-    {
-      "path": "assets/kerala/lion-1.jpg",
-      "note": "Thiruvananthapuram Zoo, Kerala"
-    },
-    {
-      "path": "assets/kerala/lion-2.jpg",
-      "note": "Gir National Park, Gujarat"
-    }
-  ],
-  "Elephant": [
-    {
-      "path": "assets/kerala/elephant-1.jpg",
-      "note": "Marayoor forest, Kerala"
-    },
-    {
-      "path": "assets/kerala/elephant-2.jpg",
-      "note": "Marayoor forest, Kerala"
-    }
-  ],
-  "Duck": [
-    {
-      "path": "assets/kerala/duck-1.jpg",
-      "note": "Keoladeo National Park, Rajasthan"
-    },
-    {
-      "path": "assets/kerala/duck-2.jpg",
-      "note": "Patiala, Punjab"
-    }
-  ],
-  "Sheep": [
-    {
-      "path": "assets/kerala/sheep-1.jpg",
-      "note": "Palakkad, Kerala"
-    },
-    {
-      "path": "assets/kerala/sheep-2.jpg",
-      "note": "Gangabal, Kashmir"
-    }
-  ],
-  "Crow": [
-    {
-      "path": "assets/kerala/crow-1.jpg",
-      "note": "House crow · Batticaloa, Sri Lanka"
-    },
-    {
-      "path": "assets/kerala/crow-2.jpg",
-      "note": "Kerala"
-    }
-  ],
-  "Pigeon": [
-    {
-      "path": "assets/kerala/pigeon-1.jpg",
-      "note": "Kerala"
-    },
-    {
-      "path": "assets/kerala/pigeon-2.jpg",
-      "note": "Rock pigeon · London, United Kingdom"
-    }
-  ],
-  "Cuckoo": [
-    {
-      "path": "assets/kerala/cuckoo-1.jpg",
-      "note": "Asian koel · Nallankara, Thrissur, Kerala"
-    },
-    {
-      "path": "assets/kerala/cuckoo-2.jpg",
-      "note": "Asian koel · Nallankara, Thrissur, Kerala"
-    }
-  ],
-  "Rooster": [
-    {
-      "path": "assets/kerala/rooster-1.jpg",
-      "note": "Kozhikode, Kerala"
-    },
-    {
-      "path": "assets/kerala/rooster-2.jpg",
-      "note": "Rooster · Tamil Nadu, India"
-    }
-  ],
-  "Tiger": [
-    {
-      "path": "assets/kerala/tiger-1.jpg",
-      "note": "Thiruvananthapuram Zoo, Kerala"
-    },
-    {
-      "path": "assets/kerala/tiger-2.jpg",
-      "note": "Kanha National Park, Madhya Pradesh"
-    }
-  ],
-  "Peacock": [
-    {
-      "path": "assets/kerala/peacock-1.jpg",
-      "note": "Thrissur Zoo, Kerala"
-    },
-    {
-      "path": "assets/kerala/peacock-2.jpg",
-      "note": "Fort Kochi, Kerala"
-    }
-  ],
-  "Owl": [
-    {
-      "path": "assets/kerala/owl-1.jpg",
-      "note": "Spotted owlet · Patiala, Punjab, India"
-    },
-    {
-      "path": "assets/kerala/owl-2.jpg",
-      "note": "Nallepilly, Kerala"
-    }
-  ],
-  "Goat": [
-    {
-      "path": "assets/kerala/goat-1.jpg",
-      "note": "Kerala"
-    },
-    {
-      "path": "assets/kerala/goat-2.jpg",
-      "note": "Domestic goat · India"
-    }
-  ],
-  "Cheetah": [
-    {
-      "path": "assets/kerala/cheetah-1.jpg",
-      "note": "Whipsnade Zoo, England · guest animal"
-    },
-    {
-      "path": "assets/kerala/cheetah-2.jpg",
-      "note": "Etosha National Park, Namibia · guest animal"
-    }
-  ]
+
+// Each animal gets one clear, globally sourced photograph from Wikimedia Commons.
+// Photos are fetched online; the app starts with a friendly emoji while loading.
+const commonsSearchTerms = {
+  Cat:'domestic cat face portrait clear animal',
+  Dog:'domestic dog face portrait clear animal',
+  Cow:'cow face portrait cattle',
+  Lion:'African lion face portrait',
+  Elephant:'African elephant full body wildlife',
+  Duck:'mallard duck full body',
+  Sheep:'sheep face portrait',
+  Crow:'carrion crow bird',
+  Pigeon:'rock pigeon bird portrait',
+  Cuckoo:'common cuckoo bird',
+  Rooster:'rooster chicken full body',
+  Tiger:'Bengal tiger face portrait',
+  Peacock:'Indian peafowl peacock full body',
+  Owl:'owl face portrait bird',
+  Goat:'goat face portrait',
+  Cheetah:'cheetah full body wildlife',
+  Rabbit:'European rabbit full body',
+  Horse:'horse face portrait',
+  Monkey:'rhesus macaque monkey',
+  Deer:'red deer stag full body',
+  Squirrel:'squirrel face portrait',
+  Bear:'brown bear full body wildlife',
+  Parrot:'macaw parrot full body',
+  Sparrow:'house sparrow bird',
+  Myna:'common myna bird',
+  Kingfisher:'common kingfisher bird',
+  Eagle:'bald eagle full body bird',
+  Woodpecker:'great spotted woodpecker bird',
+  Frog:'green frog full body amphibian',
+  Pig:'domestic pig face portrait',
+  Yak:'domestic yak full body',
+  Buffalo:'water buffalo full body'
 };
-const indiaRelatedPattern = /\b(India|Indian|Kerala|Punjab|Kashmir|Rajasthan|Tamil Nadu|Gujarat|Madhya Pradesh|Karnataka|Maharashtra|Himachal Pradesh|Kolkata|New Delhi|Bangalore|Jodhpur|Chennai|Thrissur|Palakkad|Thekkady|Marayoor|Kozhikode|Thiruvananthapuram|Kochi|Nallepilly|Lonar|Parambikulam|Bannerghatta|Tadoba|Daroji|Pench|Kuno|Gir|Keoladeo|Patiala|Kasauli|Raisar|Guindy|Mudumalai|Gangabal|Mehrangarh|Fort Kochi)\b/i;
-for (const animal of animals) {
-  if (!animal.photos) {
-    const pictures = keralaPictures[animal.name] || [];
-    animal.photos = pictures.map(p => p.path);
-    animal.photoNotes = pictures.map(p => p.note);
-  }
-  const indianPhotoIndex = animal.photos.findIndex((photo, index) => indiaRelatedPattern.test(animal.photoNotes?.[index] || ''));
-  if (indianPhotoIndex >= 0) {
-    animal.photos = [animal.photos[indianPhotoIndex]];
-    animal.photoNotes = [animal.photoNotes[indianPhotoIndex]];
-    animal.photo = animal.photos[0];
-  } else {
-    animal.photos = [];
-    animal.photoNotes = [];
-    animal.photo = '';
-  }
+const commonsLicenseAllowed = value =>
+  /^(CC BY(?:-SA)?(?:\s|$)|CC0|Public domain)/i.test(value || '') &&
+  !/-NC\b/i.test(value || '');
+
+function cleanCommonsText(value) {
+  return String(value || '').replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
-// Refresh the gallery from Wikimedia Commons. Search terms favour Indian/Asian
-// species and locations; the existing curated pair remains as a fallback.
-const commonsSearchTerms = {
-  Cat:'Indian domestic cat India', Dog:'Indian pariah dog India',
-  Cow:'Indian zebu cow Vechur cattle India', Lion:'Asiatic lion Gir India',
-  Elephant:'Asian elephant India wild', Duck:'Indian spot billed duck India',
-  Sheep:'Indian sheep India', Crow:'house crow India', Pigeon:'rock pigeon India',
-  Cuckoo:'Asian koel India', Rooster:'Indian rooster India',
-  Tiger:'Bengal tiger India national park', Peacock:'Indian peafowl India',
-  Owl:'spotted owlet India', Goat:'Indian domestic goat India',
-  Cheetah:'cheetah Kuno National Park India', Rabbit:'Indian hare India',
-  Horse:'Indian horse India', Monkey:'gray langur India',
-  Deer:'chital spotted deer India', Squirrel:'Indian palm squirrel India',
-  Bear:'sloth bear India', Parrot:'rose ringed parakeet India',
-  Sparrow:'house sparrow India', Myna:'common myna India',
-  Kingfisher:'white throated kingfisher India', Eagle:'Indian eagle India',
-  Woodpecker:'greater flameback woodpecker India'
-};
-const commonsLicenseAllowed = value => /^(CC BY(?:-SA)?(?:\s|$)|CC0|Public domain)/i.test(value || '') && !/-NC\b/i.test(value || '');
-const indiaEvidencePattern = /\b(India|Indian|Kerala|Punjab|Kashmir|Rajasthan|Tamil Nadu|Gujarat|Madhya Pradesh|Karnataka|Maharashtra|Himachal Pradesh|Kolkata|New Delhi|Bangalore|Jodhpur|Chennai|Thrissur|Palakkad|Thekkady|Marayoor|Kozhikode|Thiruvananthapuram|Kochi|Nallepilly|Lonar|Parambikulam|Bannerghatta|Tadoba|Daroji|Pench|Kuno|Gir|Keoladeo|Patiala|Kasauli|Raisar|Guindy|Mudumalai|Gangabal|Mehrangarh|Fort Kochi)\b/i;
 async function refreshCommonsPhotos(animal) {
   const term = commonsSearchTerms[animal.name];
-  if (!term) return;
+  if (!term) return false;
   const params = new URLSearchParams({
     action:'query', format:'json', origin:'*', generator:'search',
-    gsrsearch:'filetype:bitmap ' + term + ' India', gsrnamespace:'6', gsrlimit:'30',
-    prop:'imageinfo|categories', cllimit:'max',
-    iiprop:'url|extmetadata', iiurlwidth:'960'
+    gsrsearch:'filetype:bitmap ' + term, gsrnamespace:'6', gsrlimit:'40',
+    gsrsort:'relevance', prop:'imageinfo', iiprop:'url|extmetadata|size',
+    iiurlwidth:'1000'
   });
   try {
     const response = await fetch('https://commons.wikimedia.org/w/api.php?' + params.toString());
-    if (!response.ok) throw new Error('Commons request failed');
+    if (!response.ok) throw new Error('Photo service returned ' + response.status);
     const data = await response.json();
-    const pages = Object.values(data.query?.pages || {});
-    const candidates = pages
-      .filter(page => page.imageinfo?.[0]?.thumburl && page.imageinfo?.[0]?.descriptionurl)
-      .map(page => {
-        const info = page.imageinfo[0], meta = info.extmetadata || {};
-        const license = meta.LicenseShortName?.value || '';
-        const artist = (meta.Artist?.value || 'Photographer not listed').replace(/<[^>]*>/g, '').trim();
-        const description = (meta.ImageDescription?.value || '').replace(/<[^>]*>/g, ' ').trim();
-        const categories = (page.categories || []).map(item => item.title.replace(/^Category:/, '')).join(' ');
-        const evidence = [page.title, description, categories].join(' ');
-        return {url:info.thumburl, page:info.descriptionurl, title:page.title.replace(/^File:/, ''), artist, license, evidence};
-      })
-      .filter(item => commonsLicenseAllowed(item.license) && indiaEvidencePattern.test(item.evidence))
-      .filter(item => !/Sri Lanka|Iran|Namibia|England|United Kingdom|London/i.test(item.evidence))
-      .sort((a,b) => Number(/India|Indian/i.test(b.evidence)) - Number(/India|Indian/i.test(a.evidence)));
+    const candidates = Object.values(data.query?.pages || {}).map(page => {
+      const info = page.imageinfo?.[0], meta = info?.extmetadata || {};
+      if (!info?.thumburl || !info?.descriptionurl) return null;
+      const license = cleanCommonsText(meta.LicenseShortName?.value);
+      const title = cleanCommonsText(page.title.replace(/^File:/, ''));
+      const description = cleanCommonsText(meta.ImageDescription?.value);
+      const artist = cleanCommonsText(meta.Artist?.value) || 'Photographer not listed';
+      const evidence = (title + ' ' + description).toLowerCase();
+      const tokens = term.toLowerCase().split(/\s+/).filter(word => word.length > 3 && !['full','body','face','portrait','clear','animal','wildlife'].includes(word));
+      const relevance = tokens.reduce((score, token) => score + (evidence.includes(token) ? 2 : 0), 0);
+      const width = Number(info.width || 0), height = Number(info.height || 0);
+      return {url:info.thumburl, page:info.descriptionurl, title, artist, license, width, height, relevance};
+    }).filter(item =>
+      item &&
+      commonsLicenseAllowed(item.license) &&
+      item.width >= 500 && item.height >= 350 &&
+      item.relevance >= 2
+    );
+    candidates.sort((a,b) =>
+      b.relevance - a.relevance ||
+      (b.width * b.height) - (a.width * a.height)
+    );
     const chosen = candidates[0];
-    if (!chosen) return;
-    animal.photos = [chosen.url];
-    animal.photoNotes = [chosen.artist + ' · ' + chosen.license];
-    animal.photoCredits = [chosen];
+    if (!chosen) throw new Error('No suitable openly licensed image found');
     animal.photo = chosen.url;
+    animal.photoCredits = [chosen];
     const card = grid.children[animals.indexOf(animal)];
     if (card) {
       const img = card.querySelector('img');
-      img.src = media(animal.photo, 480);
+      img.src = chosen.url;
       img.hidden = false;
+      img.alt = 'Clear photograph of a ' + animal.name;
       img.onerror = () => { img.hidden = true; };
-      card.querySelector('.animal-noise').textContent = animal.sound ? 'Indian photo · Tap to learn' : 'Indian photo · Recording pending';
+      card.querySelector('.animal-noise').textContent = animal.sound ? 'Photo ready · Tap to learn' : 'Photo ready · Sound coming soon';
     }
     if (selected?.animal === animal) choosePicture();
+    return true;
   } catch (error) {
-    // Keep an India-related curated fallback, or the emoji if none exists.
+    const card = grid.children[animals.indexOf(animal)];
+    if (card) card.querySelector('.animal-noise').textContent = 'Photo unavailable · Emoji shown';
+    return false;
   }
 }
 
-const categoryFor = animal => animal.category || (['Cat','Dog','Cow','Sheep'].includes(animal.name) ? 'Domestic Animals' : ['Lion','Elephant'].includes(animal.name) ? 'Wild Animals' : 'Birds');
+const categoryFor = animal => animal.category || 'Wild Animals';
 const categoryTabs = document.getElementById('category-tabs');
 let activeCategory = 'All';
 const categories = ['All','Domestic Animals','Wild Animals','Birds'];
@@ -300,7 +156,7 @@ const grid = document.getElementById('animals');
 const audio = document.getElementById('sound-player');
 const status = document.getElementById('status');
 document.querySelector('.count').textContent = animals.length + ' friends to discover';
-document.querySelector('.hero-copy p').textContent = 'Explore real photographs of animals found in India. Tap to learn and listen!';
+document.querySelector('.hero-copy p').textContent = 'Meet animals from around the world. Clear pictures, fun names and sounds!';
 
 let selected = null, currentSoundId = 0, voiceDoneTimer, audioStopTimer;
 const lightbox = document.createElement('div');
@@ -329,7 +185,7 @@ function choosePicture() {
   const animal = selected.animal;
   bigImage.hidden = !animal.photo;
   bigImage.src = media(animal.photo);
-  bigImage.alt = animal.photo ? 'Photograph of ' + animal.name + ' found in India' : '';
+  bigImage.alt = animal.photo ? 'Clear photograph of a ' + animal.name : '';
   sourceDetails.replaceChildren();
   sourceDetails.hidden = true;
   sourceToggle.hidden = !animal.photoCredits?.[0];
@@ -456,7 +312,7 @@ for (const animal of animals) {
   const info = document.createElement('span'); info.className = 'animal-info';
   const labelGroup = document.createElement('span');
   const name = document.createElement('strong'); name.className = 'animal-name'; name.textContent = animal.name;
-  const noise = document.createElement('small'); noise.className = 'animal-noise'; noise.textContent = animal.photo ? 'Indian photo · Tap to learn' : (animal.sound ? 'Photo loading · Tap to learn' : 'Photo loading · Recording pending');
+  const noise = document.createElement('small'); noise.className = 'animal-noise'; noise.textContent = animal.sound ? 'Loading photo · Tap to learn' : 'Loading photo · Sound coming soon';
   labelGroup.append(name, noise);
   const play = document.createElement('span'); play.className = 'play'; play.textContent = '🗣️';
   info.append(labelGroup, play);
@@ -468,8 +324,15 @@ for (const animal of animals) {
   grid.append(button);
 }
 applyCategory('All');
-// Refresh one India-related photo for each animal in small batches to avoid overloading Commons.
-(async () => { for (let i = 0; i < animals.length; i += 4) await Promise.all(animals.slice(i, i + 4).map(refreshCommonsPhotos)); })();
+// Fetch globally sourced photos in small batches. Keep the emoji visible if a photo cannot be loaded.
+(async () => {
+  let loaded = 0;
+  for (let i = 0; i < animals.length; i += 4) {
+    const results = await Promise.all(animals.slice(i, i + 4).map(refreshCommonsPhotos));
+    loaded += results.filter(Boolean).length;
+  }
+  status.textContent = loaded + ' of ' + animals.length + ' animal photos loaded. Tap any animal to explore!';
+})();
 function swapAnimal(step) {
   if (!selected) return;
   const visibleAnimals = animals.filter(a => activeCategory === 'All' || categoryFor(a) === activeCategory);
