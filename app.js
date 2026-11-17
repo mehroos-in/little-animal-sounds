@@ -295,7 +295,7 @@ for (const category of categories) {
  const tab = document.createElement('button'); tab.type='button'; tab.className='category-tab'; tab.dataset.category=category;tab.textContent=category === 'All'?'🌈 All':category==='Domestic Animals'?'🐶 Domestic Animals':category==='Wild Animals'?'🐅 Wild Animals':'🐦 Birds';
  tab.addEventListener('click',()=>applyCategory(category)); categoryTabs.append(tab);
 }
-const media = (name, width) => name.startsWith('assets/') || /^https?:\/\//.test(name) ? name : 'https://commons.wikimedia.org/wiki/Special:Redirect/file/' + encodeURIComponent(name) + (width ? '?width=' + width : '');
+const media = (name, width) => !name ? '' : name.startsWith('assets/') || /^https?:\/\//.test(name) ? name : 'https://commons.wikimedia.org/wiki/Special:Redirect/file/' + encodeURIComponent(name) + (width ? '?width=' + width : '');
 const grid = document.getElementById('animals');
 const audio = document.getElementById('sound-player');
 const status = document.getElementById('status');
@@ -468,7 +468,7 @@ for (const animal of animals) {
   grid.append(button);
 }
 applyCategory('All');
-// Refresh the 28 animal pairs in small batches to avoid overloading Commons.
+// Refresh one India-related photo for each animal in small batches to avoid overloading Commons.
 (async () => { for (let i = 0; i < animals.length; i += 4) await Promise.all(animals.slice(i, i + 4).map(refreshCommonsPhotos)); })();
 function swapAnimal(step) {
   if (!selected) return;
