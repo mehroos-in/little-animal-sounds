@@ -203,6 +203,70 @@ for (const animal of animals) {
   animal.photo = animal.photos[0];
 }
 
+
+// Refresh the gallery from Wikimedia Commons. Search terms favour Indian/Asian
+// species and locations; the existing curated pair remains as a fallback.
+const commonsSearchTerms = {
+  Cat:'Indian domestic cat India', Dog:'Indian pariah dog India',
+  Cow:'Indian zebu cow Vechur cattle India', Lion:'Asiatic lion Gir India',
+  Elephant:'Asian elephant India wild', Duck:'Indian spot billed duck India',
+  Sheep:'Indian sheep India', Crow:'house crow India', Pigeon:'rock pigeon India',
+  Cuckoo:'Asian koel India', Rooster:'Indian rooster India',
+  Tiger:'Bengal tiger India national park', Peacock:'Indian peafowl India',
+  Owl:'spotted owlet India', Goat:'Indian domestic goat India',
+  Cheetah:'cheetah Kuno National Park India', Rabbit:'Indian hare India',
+  Horse:'Indian horse India', Monkey:'gray langur India',
+  Deer:'chital spotted deer India', Squirrel:'Indian palm squirrel India',
+  Bear:'sloth bear India', Parrot:'rose ringed parakeet India',
+  Sparrow:'house sparrow India', Myna:'common myna India',
+  Kingfisher:'white throated kingfisher India', Eagle:'Indian eagle India',
+  Woodpecker:'greater flameback woodpecker India'
+};
+const commonsLicenseAllowed = value => /CC BY|CC0|Public domain|Public Domain/i.test(value || '');
+async function refreshCommonsPhotos(animal) {
+  const term = commonsSearchTerms[animal.name];
+  if (!term) return;
+  const params = new URLSearchParams({
+    action:'query', format:'json', origin:'*', generator:'search',
+    gsrsearch:'filetype:bitmap ' + term, gsrnamespace:'6', gsrlimit:'12',
+    prop:'imageinfo', iiprop:'url|extmetadata', iiurlwidth:'960'
+  });
+  try {
+    const response = await fetch('https://commons.wikimedia.org/w/api.php?' + params.toString());
+    if (!response.ok) throw new Error('Commons request failed');
+    const data = await response.json();
+    const pages = Object.values(data.query?.pages || {});
+    const chosen = pages
+      .filter(page => page.imageinfo?.[0]?.thumburl && page.imageinfo?.[0]?.descriptionurl)
+      .map(page => {
+        const info = page.imageinfo[0], meta = info.extmetadata || {};
+        const license = meta.LicenseShortName?.value || 'See file page';
+        const artist = (meta.Artist?.value || 'Photographer not listed').replace(/<[^>]*>/g, '').trim();
+        const title = page.title.replace(/^File:/, '');
+        return {url:info.thumburl, page:info.descriptionurl, title, artist, license};
+      })
+      .filter(item => commonsLicenseAllowed(item.license))
+      .filter((item, index, all) => all.findIndex(other => other.page === item.page) === index)
+      .slice(0, 2);
+    if (chosen.length !== 2) return;
+    animal.photos = chosen.map(item => item.url);
+    animal.photoNotes = chosen.map((item, i) => 'Picture ' + (i + 1) + ' · ' + item.artist + ' · ' + item.license);
+    animal.photoCredits = chosen;
+    animal.photo = animal.photos[0];
+    const card = grid.children[animals.indexOf(animal)];
+    if (card) {
+      const img = card.querySelector('img');
+      img.src = media(animal.photo, 480);
+      img.hidden = false;
+      img.onerror = () => { img.hidden = true; };
+      card.querySelector('.animal-noise').textContent = animal.photos.length + ' photos' + (animal.sound ? ' · Tap to learn' : ' · Recording pending');
+    }
+    if (selected?.animal === animal) choosePicture(selected.photoIndex || 0);
+  } catch (error) {
+    // Keep the last known-good curated pair when Commons is unavailable.
+  }
+}
+
 const categoryFor = animal => animal.category || (['Cat','Dog','Cow','Sheep'].includes(animal.name) ? 'Domestic Animals' : ['Lion','Elephant'].includes(animal.name) ? 'Wild Animals' : 'Birds');
 const categoryTabs = document.getElementById('category-tabs');
 let activeCategory = 'All';
@@ -217,7 +281,7 @@ for (const category of categories) {
  const tab = document.createElement('button'); tab.type='button'; tab.className='category-tab'; tab.dataset.category=category;tab.textContent=category === 'All'?'🌈 All':category==='Domestic Animals'?'🐶 Domestic Animals':category==='Wild Animals'?'🐅 Wild Animals':'🐦 Birds';
  tab.addEventListener('click',()=>applyCategory(category)); categoryTabs.append(tab);
 }
-const media = (name, width) => name.startsWith('assets/') ? name : 'https://commons.wikimedia.org/wiki/Special:Redirect/file/' + encodeURIComponent(name) + (width ? '?width=' + width : '');
+const media = (name, width) => name.startsWith('assets/') || /^https?:\\/\\//.test(name) ? name : 'https://commons.wikimedia.org/wiki/Special:Redirect/file/' + encodeURIComponent(name) + (width ? '?width=' + width : '');
 const grid = document.getElementById('animals');
 const audio = document.getElementById('sound-player');
 const status = document.getElementById('status');
@@ -257,7 +321,15 @@ function choosePicture(index) {
   pictureTwo.hidden = selected.animal.photos.length < 2;
   lightbox.querySelector('.picture-choices').hidden = selected.animal.photos.length < 2;
   pictureTwo.setAttribute('aria-pressed', String(index === 1));
-  lightbox.querySelector('.picture-note').textContent = selected.animal.photoNotes?.[index] || '';
+  const note = lightbox.querySelector('.picture-note');
+  note.textContent = selected.animal.photoNotes?.[index] || '';
+  const credit = selected.animal.photoCredits?.[index];
+  if (credit) {
+    const link = document.createElement('a');
+    link.href = credit.page; link.target = '_blank'; link.rel = 'noopener noreferrer';
+    link.textContent = ' View photo source and full licence';
+    note.append(link);
+  }
 }
 pictureOne.addEventListener('click', () => choosePicture(0));
 pictureTwo.addEventListener('click', () => choosePicture(1));
@@ -374,6 +446,8 @@ for (const animal of animals) {
   grid.append(button);
 }
 applyCategory('All');
+// Refresh the 28 animal pairs in small batches to avoid overloading Commons.
+(async () => { for (let i = 0; i < animals.length; i += 4) await Promise.all(animals.slice(i, i + 4).map(refreshCommonsPhotos)); })();
 function swapAnimal(step) {
   if (!selected) return;
   const visibleAnimals = animals.filter(a => activeCategory === 'All' || categoryFor(a) === activeCategory);
