@@ -222,7 +222,7 @@ const commonsSearchTerms = {
   Kingfisher:'white throated kingfisher India', Eagle:'Indian eagle India',
   Woodpecker:'greater flameback woodpecker India'
 };
-const commonsLicenseAllowed = value => /^(CC BY(?:-SA)?(?:\\s|$)|CC0|Public domain)/i.test(value || '') && !/-NC\\b/i.test(value || '');
+const commonsLicenseAllowed = value => /^(CC BY(?:-SA)?(?:\s|$)|CC0|Public domain)/i.test(value || '') && !/-NC\b/i.test(value || '');
 async function refreshCommonsPhotos(animal) {
   const term = commonsSearchTerms[animal.name];
   if (!term) return;
@@ -261,7 +261,11 @@ async function refreshCommonsPhotos(animal) {
       img.onerror = () => { img.hidden = true; };
       card.querySelector('.animal-noise').textContent = animal.photos.length + ' photos' + (animal.sound ? ' · Tap to learn' : ' · Recording pending');
     }
-    if (selected?.animal === animal) {\n      pictureOne.querySelector('img').src = media(animal.photos[0]);\n      pictureTwo.querySelector('img').src = media(animal.photos[1]);\n      choosePicture(selected.photoIndex || 0);\n    }
+    if (selected?.animal === animal) {
+      pictureOne.querySelector('img').src = media(animal.photos[0]);
+      pictureTwo.querySelector('img').src = media(animal.photos[1]);
+      choosePicture(selected.photoIndex || 0);
+    }
   } catch (error) {
     // Keep the last known-good curated pair when Commons is unavailable.
   }
@@ -281,7 +285,7 @@ for (const category of categories) {
  const tab = document.createElement('button'); tab.type='button'; tab.className='category-tab'; tab.dataset.category=category;tab.textContent=category === 'All'?'🌈 All':category==='Domestic Animals'?'🐶 Domestic Animals':category==='Wild Animals'?'🐅 Wild Animals':'🐦 Birds';
  tab.addEventListener('click',()=>applyCategory(category)); categoryTabs.append(tab);
 }
-const media = (name, width) => name.startsWith('assets/') || /^https?:\\/\\//.test(name) ? name : 'https://commons.wikimedia.org/wiki/Special:Redirect/file/' + encodeURIComponent(name) + (width ? '?width=' + width : '');
+const media = (name, width) => name.startsWith('assets/') || /^https?:\/\//.test(name) ? name : 'https://commons.wikimedia.org/wiki/Special:Redirect/file/' + encodeURIComponent(name) + (width ? '?width=' + width : '');
 const grid = document.getElementById('animals');
 const audio = document.getElementById('sound-player');
 const status = document.getElementById('status');
