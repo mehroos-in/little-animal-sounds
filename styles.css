@@ -75,3 +75,14 @@
 .swap-navigation button{min-width:0;flex:1}
 @media(max-height:700px){.large-animal{width:min(100%,37dvh,470px)}.lightbox-panel{padding:18px}.large-label{font-size:30px;margin-top:6px}.picture-choices{margin:9px 0 4px}.lightbox-instruction{font-size:16px}}
 @media(max-width:570px){.category-tabs{gap:8px}.category-tab{font-size:13px;padding:10px 12px;flex:1 1 auto}}
+
+
+/* Compact expandable photo-source disclosure */
+.photo-source{margin:8px auto 4px;max-width:420px;text-align:left}
+.source-toggle{appearance:none;border:1px solid #d8e5d6;border-radius:999px;background:#fff;color:#426b55;padding:6px 11px;font:700 12px system-ui;cursor:pointer;min-height:30px}
+.source-toggle[hidden]{display:none!important}
+.source-toggle:focus-visible{outline:3px solid #ef8e69;outline-offset:2px}
+.source-details{margin:7px 0 0;padding:9px 12px;border:1px solid #e0e9dc;border-radius:12px;background:#f5f8ef;color:#536b5a;font-size:12px;line-height:1.5}
+.source-details[hidden]{display:none!important}
+.source-details p{margin:2px 0}
+.source-details a{display:inline-block;margin-top:4px;font-weight:800}
