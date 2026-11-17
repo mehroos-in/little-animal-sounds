@@ -38,39 +38,24 @@ const animals = [
 
 // Each animal gets one clear, globally sourced photograph from Wikimedia Commons.
 // Photos are fetched online; the app starts with a friendly emoji while loading.
+// Exact animal-name terms: uncertain matches are rejected and shown as emoji.
 const commonsSearchTerms = {
-  Cat:'domestic cat face portrait clear animal',
-  Dog:'domestic dog face portrait clear animal',
-  Cow:'cow face portrait cattle',
-  Lion:'African lion face portrait',
-  Elephant:'African elephant full body wildlife',
-  Duck:'mallard duck full body',
-  Sheep:'sheep face portrait',
-  Crow:'carrion crow bird',
-  Pigeon:'rock pigeon bird portrait',
-  Cuckoo:'common cuckoo bird',
-  Rooster:'rooster chicken full body',
-  Tiger:'Bengal tiger face portrait',
-  Peacock:'Indian peafowl peacock full body',
-  Owl:'owl face portrait bird',
-  Goat:'goat face portrait',
-  Cheetah:'cheetah full body wildlife',
-  Rabbit:'European rabbit full body',
-  Horse:'horse face portrait',
-  Monkey:'rhesus macaque monkey',
-  Deer:'red deer stag full body',
-  Squirrel:'squirrel face portrait',
-  Bear:'brown bear full body wildlife',
-  Parrot:'macaw parrot full body',
-  Sparrow:'house sparrow bird',
-  Myna:'common myna bird',
-  Kingfisher:'common kingfisher bird',
-  Eagle:'bald eagle full body bird',
-  Woodpecker:'great spotted woodpecker bird',
-  Frog:'green frog full body amphibian',
-  Pig:'domestic pig face portrait',
-  Yak:'domestic yak full body',
-  Buffalo:'water buffalo full body'
+Cat:{query:'domestic cat',match:['domestic cat','cat','felis catus']},Dog:{query:'domestic dog',match:['domestic dog','dog','canis lupus familiaris']},
+Cow:{query:'cow cattle',match:['cow','cattle','bos taurus']},Lion:{query:'african lion',match:['african lion','lion','panthera leo']},
+Elephant:{query:'elephant',match:['african elephant','asian elephant','elephant','loxodonta','elephas maximus']},Duck:{query:'mallard duck',match:['mallard','duck','anas platyrhynchos']},
+Sheep:{query:'domestic sheep',match:['domestic sheep','sheep','ovis aries']},Crow:{query:'crow bird',match:['crow','corvus']},
+Pigeon:{query:'rock pigeon',match:['rock pigeon','feral pigeon','pigeon','columba livia']},Cuckoo:{query:'common cuckoo',match:['common cuckoo','cuckoo','cuculus canorus']},
+Rooster:{query:'rooster chicken',match:['rooster','cock','chicken','gallus gallus']},Tiger:{query:'tiger',match:['tiger','panthera tigris']},
+Peacock:{query:'peacock indian peafowl',match:['peacock','indian peafowl','pavo cristatus']},Owl:{query:'owl bird',match:['owl','strigiformes']},
+Goat:{query:'domestic goat',match:['domestic goat','goat','capra aegagrus hircus']},Cheetah:{query:'cheetah',match:['cheetah','acinonyx jubatus']},
+Rabbit:{query:'rabbit',match:['rabbit','oryctolagus cuniculus']},Horse:{query:'domestic horse',match:['domestic horse','horse','equus caballus']},
+Monkey:{query:'macaque monkey',match:['monkey','macaque','primate']},Deer:{query:'deer',match:['deer','cervidae','stag']},
+Squirrel:{query:'squirrel',match:['squirrel','sciuridae']},Bear:{query:'bear',match:['bear','ursus']},
+Parrot:{query:'parrot',match:['parrot','psittaciformes','macaw']},Sparrow:{query:'house sparrow',match:['house sparrow','sparrow','passer domesticus']},
+Myna:{query:'common myna',match:['common myna','myna','acridotheres tristis']},Kingfisher:{query:'common kingfisher',match:['common kingfisher','kingfisher','alcedo atthis']},
+Eagle:{query:'eagle bird',match:['eagle','accipitridae']},Woodpecker:{query:'woodpecker bird',match:['woodpecker','picidae']},
+Frog:{query:'green frog amphibian',match:['green frog','common frog','frog','rana','amphibian']},Pig:{query:'domestic pig',match:['domestic pig','pig','sus scrofa']},
+Yak:{query:'domestic yak',match:['domestic yak','yak','bos grunniens']},Buffalo:{query:'water buffalo',match:['water buffalo','buffalo','bubalus bubalis']}
 };
 const commonsLicenseAllowed = value =>
   /^(CC BY(?:-SA)?(?:\s|$)|CC0|Public domain)/i.test(value || '') &&
@@ -81,8 +66,9 @@ function cleanCommonsText(value) {
 }
 
 async function refreshCommonsPhotos(animal) {
-  const term = commonsSearchTerms[animal.name];
-  if (!term) return false;
+  const spec = commonsSearchTerms[animal.name];
+  if (!spec) return false;
+  const term = spec.query;
   const params = new URLSearchParams({
     action:'query', format:'json', origin:'*', generator:'search',
     gsrsearch:'filetype:bitmap ' + term, gsrnamespace:'6', gsrlimit:'40',
@@ -100,23 +86,30 @@ async function refreshCommonsPhotos(animal) {
       const title = cleanCommonsText(page.title.replace(/^File:/, ''));
       const description = cleanCommonsText(meta.ImageDescription?.value);
       const artist = cleanCommonsText(meta.Artist?.value) || 'Photographer not listed';
-      const evidence = (title + ' ' + description).toLowerCase();
-      const tokens = term.toLowerCase().split(/\s+/).filter(word => word.length > 3 && !['full','body','face','portrait','clear','animal','wildlife'].includes(word));
-      const relevance = tokens.reduce((score, token) => score + (evidence.includes(token) ? 2 : 0), 0);
+      // Only accept a species name explicitly present in the file title.
+      // Description keyword overlap was too permissive and caused wrong photos.
+      const titleEvidence = title.toLowerCase();
+      const matchedTerm = spec.match.find(alias => {
+        const words = alias.toLowerCase().split(/\\s+/).map(word => word.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&'));
+        return words.length === 1
+          ? new RegExp('(^|[^a-z])' + words[0] + '([^a-z]|$)', 'i').test(titleEvidence)
+          : titleEvidence.includes(alias.toLowerCase());
+      });
+      const relevance = matchedTerm ? matchedTerm.length : 0;
       const width = Number(info.width || 0), height = Number(info.height || 0);
       return {url:info.thumburl, page:info.descriptionurl, title, artist, license, width, height, relevance};
     }).filter(item =>
       item &&
       commonsLicenseAllowed(item.license) &&
       item.width >= 500 && item.height >= 350 &&
-      item.relevance >= 2
+      item.relevance >= 3
     );
     candidates.sort((a,b) =>
       b.relevance - a.relevance ||
       (b.width * b.height) - (a.width * a.height)
     );
     const chosen = candidates[0];
-    if (!chosen) throw new Error('No suitable openly licensed image found');
+    if (!chosen) throw new Error('No clearly named, openly licensed match found; emoji shown');
     animal.photo = chosen.url;
     animal.photoCredits = [chosen];
     const card = grid.children[animals.indexOf(animal)];
