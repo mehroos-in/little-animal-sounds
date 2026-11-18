@@ -88,12 +88,11 @@ async function refreshCommonsPhotos(animal) {
       const artist = cleanCommonsText(meta.Artist?.value) || 'Photographer not listed';
       // Only accept a species name explicitly present in the file title.
       // Description keyword overlap was too permissive and caused wrong photos.
-      const titleEvidence = title.toLowerCase();
+      const normalizeName = value => String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+      const titleEvidence = normalizeName(title);
       const matchedTerm = spec.match.find(alias => {
-        const words = alias.toLowerCase().split(/\\s+/).map(word => word.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&'));
-        return words.length === 1
-          ? new RegExp('(^|[^a-z])' + words[0] + '([^a-z]|$)', 'i').test(titleEvidence)
-          : titleEvidence.includes(alias.toLowerCase());
+        const normalizedAlias = normalizeName(alias);
+        return (' ' + titleEvidence + ' ').includes(' ' + normalizedAlias + ' ');
       });
       const relevance = matchedTerm ? matchedTerm.length : 0;
       const width = Number(info.width || 0), height = Number(info.height || 0);
