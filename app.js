@@ -247,7 +247,8 @@ for (const animal of animals) {
   image.src = media(animal.photo, 480);
   image.loading = 'lazy';
   image.alt = 'Photograph of ' + animal.name;
-  image.onload = () => { button.classList.add('photo-loaded'); };\n  image.onerror = () => { image.hidden = true; button.classList.remove('photo-loaded'); };
+  image.onload = () => { button.classList.add('photo-loaded'); };
+  image.onerror = () => { image.hidden = true; button.classList.remove('photo-loaded'); };
   photo.append(emoji, image);
   const info = document.createElement('span'); info.className = 'animal-info';
   const labelGroup = document.createElement('span');
