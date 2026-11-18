@@ -265,7 +265,7 @@ for (const animal of animals) {
   grid.append(button);
 }
 applyCategory('All');
-status.textContent = Object.values(pexelsPhotos).length + ' Pexels photos added. Remaining animals show their matching emoji while photos are being curated.';
+status.textContent = 'Tap a picture for the animal name, then tap the big picture for its sound!';
 function swapAnimal(step) {
   if (!selected) return;
   const visibleAnimals = animals.filter(a => activeCategory === 'All' || categoryFor(a) === activeCategory);
