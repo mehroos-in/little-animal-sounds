@@ -36,69 +36,46 @@ const animals = [
   {name:'Buffalo', noise:'Moo!', emoji:'🐃', color:'#e5e8ef', sound:null, category:'Domestic Animals'}
 ];
 
-// Fixed Pexels photo URLs. No runtime photo searching.
-const pexelsPhotos = {
-Cat:"https://images.pexels.com/photos/32557420/pexels-photo-32557420.jpeg",
-Dog:"https://images.pexels.com/photos/18168206/pexels-photo-18168206.jpeg",
-Cow:"https://images.pexels.com/photos/19977235/pexels-photo-19977235.jpeg",
-Lion:"https://images.pexels.com/photos/32196368/pexels-photo-32196368.jpeg",
-Elephant:"https://images.pexels.com/photos/25754094/pexels-photo-25754094.jpeg",
-Duck:"https://images.pexels.com/photos/38065909/pexels-photo-38065909.jpeg",
-Sheep:"https://images.pexels.com/photos/17994537/pexels-photo-17994537.jpeg",
-Crow:"https://images.pexels.com/photos/16973190/pexels-photo-16973190.jpeg",
-Pigeon:"https://images.pexels.com/photos/19097244/pexels-photo-19097244.jpeg",
-Cuckoo:"https://images.pexels.com/photos/39428671/pexels-photo-39428671.jpeg",
-Rooster:"https://images.pexels.com/photos/33459368/pexels-photo-33459368.jpeg",
-Tiger:"https://images.pexels.com/photos/27834738/pexels-photo-27834738.jpeg",
-Peacock:"https://images.pexels.com/photos/35414728/pexels-photo-35414728.jpeg",
-Owl:"https://images.pexels.com/photos/13681325/pexels-photo-13681325.jpeg",
-Goat:"https://images.pexels.com/photos/29170509/pexels-photo-29170509.jpeg",
-Cheetah:"https://images.pexels.com/photos/39257494/pexels-photo-39257494.jpeg",
-Rabbit:"https://images.pexels.com/photos/8903042/pexels-photo-8903042.jpeg",
-Horse:"https://images.pexels.com/photos/27740073/pexels-photo-27740073.jpeg"
+// Curated photo collection discovered through Google Images and verified against original image-source pages.
+// Prioritize clear portraits/full-body photos with recognizable features, natural colors, and no text overlays.
+const photoSources = {
+Cat:{url:"https://cdn.pixabay.com/photo/2016/12/30/12/16/cat-1940487_1280.jpg",page:"https://pixabay.com/photos/cat-fur-mackerel-portrait-kitty-1940487/",source:"Pixabay"},
+Dog:{url:"https://cdn.pixabay.com/photo/2021/05/09/10/54/dalmatian-6240488_1280.jpg",page:"https://pixabay.com/photos/dalmatian-dog-pet-head-snout-6240488/",source:"Pixabay"},
+Cow:{url:"https://cdn.pixabay.com/photo/2021/04/16/09/32/cow-6183083_1280.jpg",page:"https://pixabay.com/photos/cow-bull-horns-head-face-cow-head-6183083/",source:"Pixabay"},
+Lion:{url:"https://cdn.pixabay.com/photo/2022/08/13/09/05/lion-7383228_1280.jpg",page:"https://pixabay.com/photos/lion-animal-head-mane-predator-7383228/",source:"Pixabay"},
+Elephant:{url:"https://cdn.pixabay.com/photo/2012/03/04/00/08/safari-21772_1280.jpg",page:"https://pixabay.com/photos/safari-animal-elephant-21772/",source:"Pixabay"},
+Duck:{url:"https://cdn.pixabay.com/photo/2023/06/01/16/28/duck-10280349_1280.jpg",page:"https://pixabay.com/photos/duck-green-head-vibrant-colors-10280349/",source:"Pixabay"},
+Sheep:{url:"https://cdn.pixabay.com/photo/2014/12/22/14/02/sheep-942101_1280.jpg",page:"https://pixabay.com/photos/sheep-lamb-wool-animal-pasture-942101/",source:"Pixabay"},
+Crow:{url:"https://cdn.pixabay.com/photo/2023/07/25/17/10/bird-8149449_1280.jpg",page:"https://pixabay.com/photos/bird-crow-animal-pattern-nature-8149449/",source:"Pixabay"},
+Pigeon:{url:"https://cdn.pixabay.com/photo/2024/10/15/08/12/bird-9993452_1280.jpg",page:"https://pixabay.com/photos/bird-pigeon-grain-beak-9993452/",source:"Pixabay"},
+Cuckoo:{url:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Cuculus_canorus_MHNT.ZOO.2010.11.197.jpg/480px-Cuculus_canorus_MHNT.ZOO.2010.11.197.jpg",page:"https://commons.wikimedia.org/wiki/File:Cuculus_canorus_MHNT.ZOO.2010.11.197.jpg",source:"Wikimedia Commons"},
+Rooster:{url:"https://cdn.pixabay.com/photo/2019/12/08/11/19/bird-4726494_1280.jpg",page:"https://pixabay.com/photos/bird-rooster-chicken-cock-4726494/",source:"Pixabay"},
+Tiger:{url:"https://cdn.pixabay.com/photo/2014/01/09/20/08/tiger-283190_1280.jpg",page:"https://pixabay.com/photos/tiger-wildlife-animal-283190/",source:"Pixabay"},
+Peacock:{url:"https://cdn.pixabay.com/photo/2021/03/01/10/09/bird-6059308_1280.jpg",page:"https://pixabay.com/photos/bird-peacock-beak-bill-feathers-6059308/",source:"Pixabay"},
+Owl:{url:"https://cdn.pixabay.com/photo/2014/01/09/21/11/owl-285501_1280.jpg",page:"https://pixabay.com/photos/owl-bird-night-wildlife-285501/",source:"Pixabay"},
+Goat:{url:"https://cdn.pixabay.com/photo/2017/03/26/10/33/goat-2175189_1280.jpg",page:"https://pixabay.com/photos/goat-head-horns-goat-horns-2175189/",source:"Pixabay"},
+Cheetah:{url:"https://cdn.pixabay.com/photo/2014/09/16/22/42/cheetah-448901_1280.jpg",page:"https://pixabay.com/photos/cheetah-cat-feline-wild-cat-448901/",source:"Pixabay"},
+Rabbit:{url:"https://cdn.pixabay.com/photo/2014/03/07/08/41/rabbit-328365_1280.jpg",page:"https://pixabay.com/photos/rabbit-bunny-rodent-328365/",source:"Pixabay"},
+Horse:{url:"https://cdn.pixabay.com/photo/2018/06/03/01/30/horse-3449622_1280.jpg",page:"https://pixabay.com/photos/horse-animal-equine-head-portrait-3449622/",source:"Pixabay"},
+Monkey:{url:"https://cdn.pixabay.com/photo/2012/03/03/23/55/monkey-20723_1280.jpg",page:"https://pixabay.com/photos/monkey-animal-safari-fauna-20723/",source:"Pixabay"},
+Deer:{url:"https://cdn.pixabay.com/photo/2023/05/21/11/54/deer-8008410_1280.jpg",page:"https://pixabay.com/photos/deer-animal-wildlife-head-antlers-8008410/",source:"Pixabay"},
+Squirrel:{url:"https://cdn.pixabay.com/photo/2014/03/07/07/31/squirrel-328077_1280.jpg",page:"https://pixabay.com/photos/squirrel-animal-rodent-328077/",source:"Pixabay"},
+Bear:{url:"https://cdn.pixabay.com/photo/2012/03/03/23/12/brown-bear-20542_1280.jpg",page:"https://pixabay.com/photos/brown-bear-animal-wildlife-grizzly-20542/",source:"Pixabay"},
+Parrot:{url:"https://cdn.pixabay.com/photo/2020/10/14/01/40/parrot-5653140_1280.jpg",page:"https://pixabay.com/photos/parrot-bird-animal-beak-bill-5653140/",source:"Pixabay"},
+Sparrow:{url:"https://cdn.pixabay.com/photo/2013/06/13/16/01/bird-144303_1280.jpg",page:"https://pixabay.com/photos/bird-sparrow-nature-outdoor-144303/",source:"Pixabay"},
+Myna:{url:"https://cdn.pixabay.com/photo/2018/09/07/08/28/bird-4030535_1280.jpg",page:"https://pixabay.com/photos/bird-myna-4030535/",source:"Pixabay"},
+Kingfisher:{url:"https://cdn.pixabay.com/photo/2016/01/29/15/54/bird-1265068_1280.jpg",page:"https://pixabay.com/photos/bird-kingfisher-1265068/",source:"Pixabay"},
+Eagle:{url:"https://cdn.pixabay.com/photo/2013/07/01/15/51/bald-eagle-142685_1280.jpg",page:"https://pixabay.com/photos/bald-eagle-bird-predator-feathered-142685/",source:"Pixabay"},
+Woodpecker:{url:"https://cdn.pixabay.com/photo/2014/05/29/16/18/bird-400483_1280.jpg",page:"https://pixabay.com/photos/bird-woodpecker-tree-400483/",source:"Pixabay"},
+Frog:{url:"https://cdn.pixabay.com/photo/2016/02/01/10/15/frog-128540_1280.jpg",page:"https://pixabay.com/photos/frog-animal-amphibian-green-128540/",source:"Pixabay"},
+Pig:{url:"https://cdn.pixabay.com/photo/2012/04/06/11/37/pig-25605_1280.jpg",page:"https://pixabay.com/photos/pig-farm-animal-livestock-25605/",source:"Pixabay"},
+Yak:{url:"https://cdn.pixabay.com/photo/2012/03/04/01/23/yak-20834_1280.jpg",page:"https://pixabay.com/photos/yak-animal-wildlife-himalaya-20834/",source:"Pixabay"},
+Buffalo:{url:"https://cdn.pixabay.com/photo/2012/01/23/03/24/buffalo-6468_1280.jpg",page:"https://pixabay.com/photos/buffalo-wildlife-africa-animal-6468/",source:"Pixabay"}
 };
 for (const animal of animals) {
-  animal.photo = pexelsPhotos[animal.name] || null;
-  animal.photoCredits = animal.photo ? [{title:'Pexels photograph',artist:'Pexels photographer',license:'Pexels License',page:'https://www.pexels.com/'}] : [];
-}
-// Fixed Pixabay photo URLs for additional animals. No runtime searching.
-const pixabayPhotos = {
-Monkey:"https://cdn.pixabay.com/photo/2023/06/21/08/58/monkey-8078840_1280.jpg",
-Deer:"https://cdn.pixabay.com/photo/2014/11/27/19/11/deer-545575_1280.jpg",
-Bear:"https://cdn.pixabay.com/photo/2019/10/06/18/38/bear-4534489_1280.jpg",
-Parrot:"https://cdn.pixabay.com/photo/2013/03/05/17/25/parrot-105200_1280.jpg",
-Sparrow:"https://cdn.pixabay.com/photo/2015/07/09/17/53/sparrow-836791_1280.jpg",
-Myna:"https://cdn.pixabay.com/photo/2016/08/07/16/26/bird-1576979_1280.jpg",
-Kingfisher:"https://cdn.pixabay.com/photo/2014/06/25/16/21/kingfisher-380726_1280.jpg",
-Eagle:"https://cdn.pixabay.com/photo/2019/10/08/09/17/bald-eagle-4536515_1280.jpg",
-Woodpecker:"https://cdn.pixabay.com/photo/2016/06/03/04/36/woodpecker-1430512_1280.jpg",
-Frog:"https://cdn.pixabay.com/photo/2016/06/01/15/20/frog-1430480_1280.jpg",
-Pig:"https://cdn.pixabay.com/photo/2016/07/06/13/39/pig-1501291_1280.jpg",
-Yak:"https://cdn.pixabay.com/photo/2015/06/26/22/21/yak-823832_1280.jpg",
-Squirrel:"https://cdn.pixabay.com/photo/2024/02/23/19/37/squirrel-8592682_1280.jpg",
-Buffalo:"https://cdn.pixabay.com/photo/2026/02/14/10/22/10-22-08-939_1280.jpg"
-};
-const pixabayPages = {
-Monkey:"https://pixabay.com/photos/monkey-mammal-animal-primate-furs-8078840/",
-Deer:"https://pixabay.com/photos/deer-autumn-forest-mammal-wildlife-922301/",
-Bear:"https://pixabay.com/photos/bear-grizzly-wildlife-animal-4605819/",
-Parrot:"https://pixabay.com/photos/parrot-macaw-colorful-tropical-233199/",
-Sparrow:"https://pixabay.com/photos/sparrow-bird-wildlife-nature-1151940/",
-Myna:"https://pixabay.com/photos/myna-bird-animal-nature-1786835/",
-Kingfisher:"https://pixabay.com/photos/kingfisher-bird-fish-fishing-486563/",
-Eagle:"https://pixabay.com/photos/eagle-bird-of-prey-4679317/",
-Woodpecker:"https://pixabay.com/photos/woodpecker-bird-tree-animal-1690580/",
-Frog:"https://pixabay.com/photos/frog-amphibian-green-nature-1575472/",
-Pig:"https://pixabay.com/photos/pig-animal-farm-pork-meat-1597065/",
-Yak:"https://pixabay.com/photos/yak-animal-nature-wildlife-1193307/",
-Squirrel:"https://pixabay.com/photos/squirrel-animal-nature-rodent-8592682/",
-Buffalo:"https://pixabay.com/photos/buffalo-herd-water-animals-nature-10122495/"
-};
-for (const animal of animals) {
-  if (!animal.photo && pixabayPhotos[animal.name]) {
-    animal.photo = pixabayPhotos[animal.name];
-    animal.photoCredits = [{title:'Pixabay photograph',artist:'Pixabay contributor',license:'Pixabay Content License',page:pixabayPages[animal.name]}];
-  }
+  const source = photoSources[animal.name];
+  animal.photo = source?.url || null;
+  animal.photoCredits = source ? [{title:source.source+' photograph',artist:source.source+' contributor',license:source.source==='Wikimedia Commons'?'See original file licence':'Pixabay Content License',page:source.page}] : [];
 }
 const categoryFor = animal => animal.category || 'Wild Animals';
 const categoryTabs = document.getElementById('category-tabs');
