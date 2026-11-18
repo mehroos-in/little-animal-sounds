@@ -198,7 +198,7 @@ function openLarge(animal, button) {
   document.body.classList.add('modal-open');
   status.textContent = '🗣️ ' + animal.name + ' — tap enlarged image to hear its sound.';
   bigButton.setAttribute('aria-label', 'Play real ' + animal.name + ' sound');
-  bigImage.onerror = () => { bigImage.hidden = true; };
+  bigImage.onload = () => { bigEmoji.hidden = true; };\n  bigImage.onerror = () => { bigImage.hidden = true; bigEmoji.hidden = false; };
   sayName(animal.name);
   bigButton.focus({preventScroll:true});
 }
@@ -247,12 +247,12 @@ for (const animal of animals) {
   image.src = media(animal.photo, 480);
   image.loading = 'lazy';
   image.alt = 'Photograph of ' + animal.name;
-  image.onerror = () => { image.hidden = true; };
+  image.onload = () => { button.classList.add('photo-loaded'); };\n  image.onerror = () => { image.hidden = true; button.classList.remove('photo-loaded'); };
   photo.append(emoji, image);
   const info = document.createElement('span'); info.className = 'animal-info';
   const labelGroup = document.createElement('span');
   const name = document.createElement('strong'); name.className = 'animal-name'; name.textContent = animal.name;
-  const noise = document.createElement('small'); noise.className = 'animal-noise'; noise.textContent = animal.sound ? 'Loading photo · Tap to learn' : 'Loading photo · Sound coming soon';
+  const noise = document.createElement('small'); noise.className = 'animal-noise'; noise.textContent = animal.sound ? 'Tap to learn · Sound' : 'Tap to learn';
   labelGroup.append(name, noise);
   const play = document.createElement('span'); play.className = 'play'; play.textContent = '🗣️';
   info.append(labelGroup, play);
