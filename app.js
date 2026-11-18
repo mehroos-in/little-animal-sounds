@@ -58,7 +58,7 @@ Cheetah:{url:"https://cdn.pixabay.com/photo/2014/09/16/22/42/cheetah-448901_1280
 Rabbit:{url:"https://cdn.pixabay.com/photo/2014/03/07/08/41/rabbit-328365_1280.jpg",page:"https://pixabay.com/photos/rabbit-bunny-rodent-328365/",source:"Pixabay"},
 Horse:{url:"https://cdn.pixabay.com/photo/2018/06/03/01/30/horse-3449622_1280.jpg",page:"https://pixabay.com/photos/horse-animal-equine-head-portrait-3449622/",source:"Pixabay"},
 Monkey:{url:"https://cdn.pixabay.com/photo/2012/03/03/23/55/monkey-20723_1280.jpg",page:"https://pixabay.com/photos/monkey-animal-safari-fauna-20723/",source:"Pixabay"},
-Deer:{url:"https://cdn.pixabay.com/photo/2023/05/21/11/54/deer-8008410_1280.jpg",page:"https://pixabay.com/photos/deer-animal-wildlife-head-antlers-8008410/",source:"Pixabay"},
+Deer:{url:"https://cdn.pixabay.com/photo/2014/11/27/19/11/deer-545575_1280.jpg",page:"https://pixabay.com/photos/deer-autumn-forest-mammal-wildlife-922301/",source:"Pixabay"},
 Squirrel:{url:"https://cdn.pixabay.com/photo/2014/03/07/07/31/squirrel-328077_1280.jpg",page:"https://pixabay.com/photos/squirrel-animal-rodent-328077/",source:"Pixabay"},
 Bear:{url:"https://cdn.pixabay.com/photo/2012/03/03/23/12/brown-bear-20542_1280.jpg",page:"https://pixabay.com/photos/brown-bear-animal-wildlife-grizzly-20542/",source:"Pixabay"},
 Parrot:{url:"https://cdn.pixabay.com/photo/2020/10/14/01/40/parrot-5653140_1280.jpg",page:"https://pixabay.com/photos/parrot-bird-animal-beak-bill-5653140/",source:"Pixabay"},
