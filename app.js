@@ -61,6 +61,41 @@ for (const animal of animals) {
   animal.photo = pexelsPhotos[animal.name] || null;
   animal.photoCredits = animal.photo ? [{title:'Pexels photograph',artist:'Pexels photographer',license:'Pexels License',page:'https://www.pexels.com/'}] : [];
 }
+// Fixed Pixabay photo URLs for additional animals. No runtime searching.
+const pixabayPhotos = {
+Monkey:"https://cdn.pixabay.com/photo/2023/06/21/08/58/monkey-8078840_1280.jpg",
+Deer:"https://cdn.pixabay.com/photo/2014/11/27/19/11/deer-545575_1280.jpg",
+Bear:"https://cdn.pixabay.com/photo/2019/10/06/18/38/bear-4534489_1280.jpg",
+Parrot:"https://cdn.pixabay.com/photo/2013/03/05/17/25/parrot-105200_1280.jpg",
+Sparrow:"https://cdn.pixabay.com/photo/2015/07/09/17/53/sparrow-836791_1280.jpg",
+Myna:"https://cdn.pixabay.com/photo/2016/08/07/16/26/bird-1576979_1280.jpg",
+Kingfisher:"https://cdn.pixabay.com/photo/2014/06/25/16/21/kingfisher-380726_1280.jpg",
+Eagle:"https://cdn.pixabay.com/photo/2019/10/08/09/17/bald-eagle-4536515_1280.jpg",
+Woodpecker:"https://cdn.pixabay.com/photo/2016/06/03/04/36/woodpecker-1430512_1280.jpg",
+Frog:"https://cdn.pixabay.com/photo/2016/06/01/15/20/frog-1430480_1280.jpg",
+Pig:"https://cdn.pixabay.com/photo/2016/07/06/13/39/pig-1501291_1280.jpg",
+Yak:"https://cdn.pixabay.com/photo/2015/06/26/22/21/yak-823832_1280.jpg"
+};
+const pixabayPages = {
+Monkey:"https://pixabay.com/photos/monkey-mammal-animal-primate-furs-8078840/",
+Deer:"https://pixabay.com/photos/deer-autumn-forest-mammal-wildlife-922301/",
+Bear:"https://pixabay.com/photos/bear-grizzly-wildlife-animal-4605819/",
+Parrot:"https://pixabay.com/photos/parrot-macaw-colorful-tropical-233199/",
+Sparrow:"https://pixabay.com/photos/sparrow-bird-wildlife-nature-1151940/",
+Myna:"https://pixabay.com/photos/myna-bird-animal-nature-1786835/",
+Kingfisher:"https://pixabay.com/photos/kingfisher-bird-fish-fishing-486563/",
+Eagle:"https://pixabay.com/photos/eagle-bird-of-prey-4679317/",
+Woodpecker:"https://pixabay.com/photos/woodpecker-bird-tree-animal-1690580/",
+Frog:"https://pixabay.com/photos/frog-amphibian-green-nature-1575472/",
+Pig:"https://pixabay.com/photos/pig-animal-farm-pork-meat-1597065/",
+Yak:"https://pixabay.com/photos/yak-animal-nature-wildlife-1193307/"
+};
+for (const animal of animals) {
+  if (!animal.photo && pixabayPhotos[animal.name]) {
+    animal.photo = pixabayPhotos[animal.name];
+    animal.photoCredits = [{title:'Pixabay photograph',artist:'Pixabay contributor',license:'Pixabay Content License',page:pixabayPages[animal.name]}];
+  }
+}
 const categoryFor = animal => animal.category || 'Wild Animals';
 const categoryTabs = document.getElementById('category-tabs');
 let activeCategory = 'All';
