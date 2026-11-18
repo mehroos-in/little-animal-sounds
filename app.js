@@ -36,8 +36,31 @@ const animals = [
   {name:'Buffalo', noise:'Moo!', emoji:'🐃', color:'#e5e8ef', sound:null, category:'Domestic Animals'}
 ];
 
-// Curated photo library is being prepared. Until verified images are assigned,
-// show the matching animal emoji rather than a potentially incorrect search result.
+// Fixed Pexels photo URLs. No runtime photo searching.
+const pexelsPhotos = {
+Cat:"https://images.pexels.com/photos/32557420/pexels-photo-32557420.jpeg",
+Dog:"https://images.pexels.com/photos/18168206/pexels-photo-18168206.jpeg",
+Cow:"https://images.pexels.com/photos/19977235/pexels-photo-19977235.jpeg",
+Lion:"https://images.pexels.com/photos/32196368/pexels-photo-32196368.jpeg",
+Elephant:"https://images.pexels.com/photos/25754094/pexels-photo-25754094.jpeg",
+Duck:"https://images.pexels.com/photos/38065909/pexels-photo-38065909.jpeg",
+Sheep:"https://images.pexels.com/photos/17994537/pexels-photo-17994537.jpeg",
+Crow:"https://images.pexels.com/photos/16973190/pexels-photo-16973190.jpeg",
+Pigeon:"https://images.pexels.com/photos/19097244/pexels-photo-19097244.jpeg",
+Cuckoo:"https://images.pexels.com/photos/39428671/pexels-photo-39428671.jpeg",
+Rooster:"https://images.pexels.com/photos/33459368/pexels-photo-33459368.jpeg",
+Tiger:"https://images.pexels.com/photos/27834738/pexels-photo-27834738.jpeg",
+Peacock:"https://images.pexels.com/photos/35414728/pexels-photo-35414728.jpeg",
+Owl:"https://images.pexels.com/photos/13681325/pexels-photo-13681325.jpeg",
+Goat:"https://images.pexels.com/photos/29170509/pexels-photo-29170509.jpeg",
+Cheetah:"https://images.pexels.com/photos/39257494/pexels-photo-39257494.jpeg",
+Rabbit:"https://images.pexels.com/photos/8903042/pexels-photo-8903042.jpeg",
+Horse:"https://images.pexels.com/photos/27740073/pexels-photo-27740073.jpeg"
+};
+for (const animal of animals) {
+  animal.photo = pexelsPhotos[animal.name] || null;
+  animal.photoCredits = animal.photo ? [{title:'Pexels photograph',artist:'Pexels photographer',license:'Pexels License',page:'https://www.pexels.com/'}] : [];
+}
 const categoryFor = animal => animal.category || 'Wild Animals';
 const categoryTabs = document.getElementById('category-tabs');
 let activeCategory = 'All';
@@ -225,7 +248,7 @@ for (const animal of animals) {
   grid.append(button);
 }
 applyCategory('All');
-status.textContent = 'Animal pictures are being updated. Every animal has a matching emoji while verified photos are prepared.';
+status.textContent = Object.values(pexelsPhotos).length + ' Pexels photos added. Remaining animals show their matching emoji while photos are being curated.';
 function swapAnimal(step) {
   if (!selected) return;
   const visibleAnimals = animals.filter(a => activeCategory === 'All' || categoryFor(a) === activeCategory);
