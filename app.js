@@ -198,7 +198,8 @@ function openLarge(animal, button) {
   document.body.classList.add('modal-open');
   status.textContent = '🗣️ ' + animal.name + ' — tap enlarged image to hear its sound.';
   bigButton.setAttribute('aria-label', 'Play real ' + animal.name + ' sound');
-  bigImage.onload = () => { bigEmoji.hidden = true; };\n  bigImage.onerror = () => { bigImage.hidden = true; bigEmoji.hidden = false; };
+  bigImage.onload = () => { bigEmoji.hidden = true; };
+  bigImage.onerror = () => { bigImage.hidden = true; bigEmoji.hidden = false; };
   sayName(animal.name);
   bigButton.focus({preventScroll:true});
 }
