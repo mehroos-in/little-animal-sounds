@@ -36,99 +36,8 @@ const animals = [
   {name:'Buffalo', noise:'Moo!', emoji:'🐃', color:'#e5e8ef', sound:null, category:'Domestic Animals'}
 ];
 
-// Each animal gets one clear, globally sourced photograph from Wikimedia Commons.
-// Photos are fetched online; the app starts with a friendly emoji while loading.
-// Exact animal-name terms: uncertain matches are rejected and shown as emoji.
-const commonsSearchTerms = {
-Cat:{query:'domestic cat',match:['domestic cat','cat','felis catus']},Dog:{query:'domestic dog',match:['domestic dog','dog','canis lupus familiaris']},
-Cow:{query:'cow cattle',match:['cow','cattle','bos taurus']},Lion:{query:'african lion',match:['african lion','lion','panthera leo']},
-Elephant:{query:'elephant',match:['african elephant','asian elephant','elephant','loxodonta','elephas maximus']},Duck:{query:'mallard duck',match:['mallard','duck','anas platyrhynchos']},
-Sheep:{query:'domestic sheep',match:['domestic sheep','sheep','ovis aries']},Crow:{query:'crow bird',match:['crow','corvus']},
-Pigeon:{query:'rock pigeon',match:['rock pigeon','feral pigeon','pigeon','columba livia']},Cuckoo:{query:'common cuckoo',match:['common cuckoo','cuckoo','cuculus canorus']},
-Rooster:{query:'rooster chicken',match:['rooster','cock','chicken','gallus gallus']},Tiger:{query:'tiger',match:['tiger','panthera tigris']},
-Peacock:{query:'peacock indian peafowl',match:['peacock','indian peafowl','pavo cristatus']},Owl:{query:'owl bird',match:['owl','strigiformes']},
-Goat:{query:'domestic goat',match:['domestic goat','goat','capra aegagrus hircus']},Cheetah:{query:'cheetah',match:['cheetah','acinonyx jubatus']},
-Rabbit:{query:'rabbit',match:['rabbit','oryctolagus cuniculus']},Horse:{query:'domestic horse',match:['domestic horse','horse','equus caballus']},
-Monkey:{query:'macaque monkey',match:['monkey','macaque','primate']},Deer:{query:'deer',match:['deer','cervidae','stag']},
-Squirrel:{query:'squirrel',match:['squirrel','sciuridae']},Bear:{query:'bear',match:['bear','ursus']},
-Parrot:{query:'parrot',match:['parrot','psittaciformes','macaw']},Sparrow:{query:'house sparrow',match:['house sparrow','sparrow','passer domesticus']},
-Myna:{query:'common myna',match:['common myna','myna','acridotheres tristis']},Kingfisher:{query:'common kingfisher',match:['common kingfisher','kingfisher','alcedo atthis']},
-Eagle:{query:'eagle bird',match:['eagle','accipitridae']},Woodpecker:{query:'woodpecker bird',match:['woodpecker','picidae']},
-Frog:{query:'green frog amphibian',match:['green frog','common frog','frog','rana','amphibian']},Pig:{query:'domestic pig',match:['domestic pig','pig','sus scrofa']},
-Yak:{query:'domestic yak',match:['domestic yak','yak','bos grunniens']},Buffalo:{query:'water buffalo',match:['water buffalo','buffalo','bubalus bubalis']}
-};
-const commonsLicenseAllowed = value =>
-  /^(CC BY(?:-SA)?(?:\s|$)|CC0|Public domain)/i.test(value || '') &&
-  !/-NC\b/i.test(value || '');
-
-function cleanCommonsText(value) {
-  return String(value || '').replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
-}
-
-async function refreshCommonsPhotos(animal) {
-  const spec = commonsSearchTerms[animal.name];
-  if (!spec) return false;
-  const term = spec.query;
-  const params = new URLSearchParams({
-    action:'query', format:'json', origin:'*', generator:'search',
-    gsrsearch:'filetype:bitmap ' + term, gsrnamespace:'6', gsrlimit:'40',
-    gsrsort:'relevance', prop:'imageinfo', iiprop:'url|extmetadata|size',
-    iiurlwidth:'1000'
-  });
-  try {
-    const response = await fetch('https://commons.wikimedia.org/w/api.php?' + params.toString());
-    if (!response.ok) throw new Error('Photo service returned ' + response.status);
-    const data = await response.json();
-    const candidates = Object.values(data.query?.pages || {}).map(page => {
-      const info = page.imageinfo?.[0], meta = info?.extmetadata || {};
-      if (!info?.thumburl || !info?.descriptionurl) return null;
-      const license = cleanCommonsText(meta.LicenseShortName?.value);
-      const title = cleanCommonsText(page.title.replace(/^File:/, ''));
-      const description = cleanCommonsText(meta.ImageDescription?.value);
-      const artist = cleanCommonsText(meta.Artist?.value) || 'Photographer not listed';
-      // Only accept a species name explicitly present in the file title.
-      // Description keyword overlap was too permissive and caused wrong photos.
-      const normalizeName = value => String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
-      const titleEvidence = normalizeName(title);
-      const matchedTerm = spec.match.find(alias => {
-        const normalizedAlias = normalizeName(alias);
-        return (' ' + titleEvidence + ' ').includes(' ' + normalizedAlias + ' ');
-      });
-      const relevance = matchedTerm ? matchedTerm.length : 0;
-      const width = Number(info.width || 0), height = Number(info.height || 0);
-      return {url:info.thumburl, page:info.descriptionurl, title, artist, license, width, height, relevance};
-    }).filter(item =>
-      item &&
-      commonsLicenseAllowed(item.license) &&
-      item.width >= 500 && item.height >= 350 &&
-      item.relevance >= 3
-    );
-    candidates.sort((a,b) =>
-      b.relevance - a.relevance ||
-      (b.width * b.height) - (a.width * a.height)
-    );
-    const chosen = candidates[0];
-    if (!chosen) throw new Error('No clearly named, openly licensed match found; emoji shown');
-    animal.photo = chosen.url;
-    animal.photoCredits = [chosen];
-    const card = grid.children[animals.indexOf(animal)];
-    if (card) {
-      const img = card.querySelector('img');
-      img.src = chosen.url;
-      img.hidden = false;
-      img.alt = 'Clear photograph of a ' + animal.name;
-      img.onerror = () => { img.hidden = true; };
-      card.querySelector('.animal-noise').textContent = animal.sound ? 'Photo ready · Tap to learn' : 'Photo ready · Sound coming soon';
-    }
-    if (selected?.animal === animal) choosePicture();
-    return true;
-  } catch (error) {
-    const card = grid.children[animals.indexOf(animal)];
-    if (card) card.querySelector('.animal-noise').textContent = 'Photo unavailable · Emoji shown';
-    return false;
-  }
-}
-
+// Curated photo library is being prepared. Until verified images are assigned,
+// show the matching animal emoji rather than a potentially incorrect search result.
 const categoryFor = animal => animal.category || 'Wild Animals';
 const categoryTabs = document.getElementById('category-tabs');
 let activeCategory = 'All';
@@ -316,15 +225,7 @@ for (const animal of animals) {
   grid.append(button);
 }
 applyCategory('All');
-// Fetch globally sourced photos in small batches. Keep the emoji visible if a photo cannot be loaded.
-(async () => {
-  let loaded = 0;
-  for (let i = 0; i < animals.length; i += 4) {
-    const results = await Promise.all(animals.slice(i, i + 4).map(refreshCommonsPhotos));
-    loaded += results.filter(Boolean).length;
-  }
-  status.textContent = loaded + ' of ' + animals.length + ' animal photos loaded. Tap any animal to explore!';
-})();
+status.textContent = 'Animal pictures are being updated. Every animal has a matching emoji while verified photos are prepared.';
 function swapAnimal(step) {
   if (!selected) return;
   const visibleAnimals = animals.filter(a => activeCategory === 'All' || categoryFor(a) === activeCategory);
