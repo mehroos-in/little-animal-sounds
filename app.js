@@ -74,7 +74,9 @@ Eagle:"https://cdn.pixabay.com/photo/2019/10/08/09/17/bald-eagle-4536515_1280.jp
 Woodpecker:"https://cdn.pixabay.com/photo/2016/06/03/04/36/woodpecker-1430512_1280.jpg",
 Frog:"https://cdn.pixabay.com/photo/2016/06/01/15/20/frog-1430480_1280.jpg",
 Pig:"https://cdn.pixabay.com/photo/2016/07/06/13/39/pig-1501291_1280.jpg",
-Yak:"https://cdn.pixabay.com/photo/2015/06/26/22/21/yak-823832_1280.jpg"
+Yak:"https://cdn.pixabay.com/photo/2015/06/26/22/21/yak-823832_1280.jpg",
+Squirrel:"https://cdn.pixabay.com/photo/2024/02/23/19/37/squirrel-8592682_1280.jpg",
+Buffalo:"https://cdn.pixabay.com/photo/2026/02/14/10/22/10-22-08-939_1280.jpg"
 };
 const pixabayPages = {
 Monkey:"https://pixabay.com/photos/monkey-mammal-animal-primate-furs-8078840/",
@@ -88,7 +90,9 @@ Eagle:"https://pixabay.com/photos/eagle-bird-of-prey-4679317/",
 Woodpecker:"https://pixabay.com/photos/woodpecker-bird-tree-animal-1690580/",
 Frog:"https://pixabay.com/photos/frog-amphibian-green-nature-1575472/",
 Pig:"https://pixabay.com/photos/pig-animal-farm-pork-meat-1597065/",
-Yak:"https://pixabay.com/photos/yak-animal-nature-wildlife-1193307/"
+Yak:"https://pixabay.com/photos/yak-animal-nature-wildlife-1193307/",
+Squirrel:"https://pixabay.com/photos/squirrel-animal-nature-rodent-8592682/",
+Buffalo:"https://pixabay.com/photos/buffalo-herd-water-animals-nature-10122495/"
 };
 for (const animal of animals) {
   if (!animal.photo && pixabayPhotos[animal.name]) {
