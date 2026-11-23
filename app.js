@@ -57,20 +57,20 @@ Goat:{url:"https://images.pexels.com/photos/29170509/pexels-photo-29170509.jpeg?
 Cheetah:{url:"https://images.pexels.com/photos/39257494/pexels-photo-39257494.jpeg?cs=tinysrgb&dpr=1&w=500",page:"https://www.pexels.com/photo/elegant-cheetah-in-african-grassland-habitat-39257494/",source:"Pexels"},
 Rabbit:{url:"https://images.pexels.com/photos/35983095/pexels-photo-35983095/free-photo-of-cute-fluffy-rabbit-in-natural-habitat.jpeg?cs=tinysrgb&dpr=1&w=500",page:"https://www.pexels.com/photo/cute-fluffy-rabbit-in-natural-habitat-35983095/",source:"Pexels"},
 Horse:{url:"https://cdn.pixabay.com/photo/2018/06/03/01/30/horse-3449622_1280.jpg",page:"https://pixabay.com/photos/horse-animal-equine-head-portrait-3449622/",source:"Pixabay"},
-Monkey:{url:"https://cdn.pixabay.com/photo/2018/09/28/10/54/monkey-3703230_1280.jpg",page:"https://pixabay.com/photos/monkey-animal-mammal-primate-3703230/",source:"Pixabay"},
-Deer:{url:"https://cdn.pixabay.com/photo/2021/08/29/animal-deer-mammal-wildlife-6577730_1280.jpg",page:"https://pixabay.com/photos/animal-deer-mammal-wildlife-6577730/",source:"Pixabay"},
-Squirrel:{url:"https://cdn.pixabay.com/photo/2014/03/07/07/31/squirrel-328077_1280.jpg",page:"https://pixabay.com/photos/squirrel-animal-rodent-328077/",source:"Pixabay"},
-Bear:{url:"https://cdn.pixabay.com/photo/2012/03/03/23/12/brown-bear-20542_1280.jpg",page:"https://pixabay.com/photos/brown-bear-animal-wildlife-grizzly-20542/",source:"Pixabay"},
+Monkey:{url:"https://images.pexels.com/photos/2499760/pexels-photo-2499760.jpeg?auto=compress&cs=tinysrgb&w=900",page:"https://pixabay.com/photos/monkey-animal-mammal-primate-3703230/",source:"Pixabay"},
+Deer:{url:"https://static.zpe.gov.pl/portal/f/res-minimized/RiNx4Oj3wYr1n/1708521257/VPBx6bl9xuVglba8spMrjMcOw9AFLieP.jpg",page:"https://pixabay.com/photos/animal-deer-mammal-wildlife-6577730/",source:"Pixabay"},
+Squirrel:{url:"https://www.10wallpaper.com/wallpaper/1280x1024/1202/cute_squirrel-wild_animal_desktop_wallpaper_1280x1024.jpg",page:"https://pixabay.com/photos/squirrel-animal-rodent-328077/",source:"Pixabay"},
+Bear:{url:"https://images.unsplash.com/photo-1729830082669-5ca768b61466?auto=format&fit=crop&fm=jpg&q=80&w=900",page:"https://pixabay.com/photos/brown-bear-animal-wildlife-grizzly-20542/",source:"Pixabay"},
 Parrot:{url:"https://images.pexels.com/photos/18852735/pexels-photo-18852735.jpeg?h=40&w=40&fit=crop&dpr=1",page:"https://www.pexels.com/search/parrot/",source:"Pexels"},
-Sparrow:{url:"https://cdn.pixabay.com/photo/2013/06/13/16/01/bird-144303_1280.jpg",page:"https://pixabay.com/photos/bird-sparrow-nature-outdoor-144303/",source:"Pixabay"},
-Myna:{url:"https://cdn.pixabay.com/photo/2018/09/07/08/28/bird-4030535_1280.jpg",page:"https://pixabay.com/photos/bird-myna-4030535/",source:"Pixabay"},
+Sparrow:{url:"https://images.pexels.com/photos/2570081/pexels-photo-2570081.jpeg?auto=compress&cs=tinysrgb&w=900",page:"https://pixabay.com/photos/bird-sparrow-nature-outdoor-144303/",source:"Pixabay"},
+Myna:{url:"https://images.pexels.com/photos/40408377/pexels-photo-40408377.jpeg?auto=compress&cs=tinysrgb&w=900",page:"https://pixabay.com/photos/bird-myna-4030535/",source:"Pixabay"},
 Kingfisher:{url:"https://images.pexels.com/photos/14810091/pexels-photo-14810091.jpeg?cs=tinysrgb&dpr=1&w=500",page:"https://www.pexels.com/photo/close-up-shot-of-a-kingfisher-14810091/",source:"Pexels"},
 Eagle:{url:"https://images.pexels.com/photos/31519183/pexels-photo-31519183.jpeg?cs=tinysrgb&dpr=1&w=500",page:"https://www.pexels.com/search/eagle/",source:"Pexels"},
-Woodpecker:{url:"https://cdn.pixabay.com/photo/2014/05/29/16/18/bird-400483_1280.jpg",page:"https://pixabay.com/photos/bird-woodpecker-tree-400483/",source:"Pixabay"},
-Frog:{url:"https://cdn.pixabay.com/photo/2016/02/01/10/15/frog-128540_1280.jpg",page:"https://pixabay.com/photos/frog-animal-amphibian-green-128540/",source:"Pixabay"},
-Pig:{url:"https://cdn.pixabay.com/photo/2012/04/06/11/37/pig-25605_1280.jpg",page:"https://pixabay.com/photos/pig-farm-animal-livestock-25605/",source:"Pixabay"},
-Yak:{url:"https://cdn.pixabay.com/photo/2012/03/04/01/23/yak-20834_1280.jpg",page:"https://pixabay.com/photos/yak-animal-wildlife-himalaya-20834/",source:"Pixabay"},
-Buffalo:{url:"https://cdn.pixabay.com/photo/2012/01/23/03/24/buffalo-6468_1280.jpg",page:"https://pixabay.com/photos/buffalo-wildlife-africa-animal-6468/",source:"Pixabay"}
+Woodpecker:{url:"https://static.myconnect.ae/-/media/yasconnect/project/swad/stories/all-about-birds/woodpecker.jpg?h=540&iar=0&w=540",page:"https://pixabay.com/photos/bird-woodpecker-tree-400483/",source:"Pixabay"},
+Frog:{url:"https://grenouilleanguille-artus.fr/images/article-grenouille.webp",page:"https://pixabay.com/photos/frog-animal-amphibian-green-128540/",source:"Pixabay"},
+Pig:{url:"https://agrobite.pl/files/2023-12/25700_large.jpg",page:"https://pixabay.com/photos/pig-farm-animal-livestock-25605/",source:"Pixabay"},
+Yak:{url:"https://wallpapers.com/images/hd/yak-2000-x-1325-picture-0cvtqi6251vxo6in.jpg",page:"https://pixabay.com/photos/yak-animal-wildlife-himalaya-20834/",source:"Pixabay"},
+Buffalo:{url:"https://www.worldatlas.com/upload/a4/d7/d8/shutterstock-752013505-s3cdn.jpg",page:"https://pixabay.com/photos/buffalo-wildlife-africa-animal-6468/",source:"Pixabay"}
 };
 for (const animal of animals) {
   const source = photoSources[animal.name];
