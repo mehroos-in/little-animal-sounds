@@ -246,7 +246,7 @@ for (const animal of animals) {
   const image = document.createElement('img');
   image.hidden = !animal.photo;
   image.src = media(animal.photo, 480);
-  image.loading = 'lazy';
+  image.loading = 'eager';
   image.alt = 'Photograph of ' + animal.name;
   image.onload = () => { button.classList.add('photo-loaded'); };
   image.onerror = () => { image.hidden = true; button.classList.remove('photo-loaded'); };
