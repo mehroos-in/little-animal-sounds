@@ -31,7 +31,7 @@ const animals = [
   {name:'Eagle', noise:'Screech!', emoji:'🦅', color:'#e8e8e2', sound:'https://commons.wikimedia.org/wiki/Special:Redirect/file/Crested_Serpent_Eagle_from_Dhoni.ogg', category:'Birds'},
   {name:'Woodpecker', noise:'Tap-tap!', emoji:'🐦', color:'#f4e5d8', sound:'https://commons.wikimedia.org/wiki/Special:Redirect/file/Woodpecker_tapping.ogg', category:'Birds'},
   {name:'Frog', noise:'Ribbit!', emoji:'🐸', color:'#dff1dc', sound:'https://commons.wikimedia.org/wiki/Special:Redirect/file/Frogs_croak_calling_chorus_at_night.ogg', category:'Wild Animals'},
-  {name:'Pig', noise:'Oink!', emoji:'🐷', color:'#f8e1e5', sound:'https://commons.wikimedia.org/wiki/Special:Redirect/file/Mudchute_pig_3.ogg', category:'Domestic Animals'},
+  {name:'Pig', noise:'Oink!', emoji:'🐷', color:'#f8e1e5', sound:'https://commons.wikimedia.org/wiki/Special:Redirect/file/Domestic_pig_grunting.webm', category:'Domestic Animals'},
   {name:'Yak', noise:'Grunt!', emoji:'🐂', color:'#e9e2d9', sound:'assets/clean-audio/cow.ogg', category:'Domestic Animals'},
   {name:'Buffalo', noise:'Moo!', emoji:'🐃', color:'#e5e8ef', sound:'assets/clean-audio/cow.ogg', category:'Domestic Animals'}
 ];
